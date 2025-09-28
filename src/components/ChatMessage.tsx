@@ -60,7 +60,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   const isOmnius = message.sender === 'omnius';
 
   return (
-    <div 
+    <div
       ref={messageRef}
       className={`flex ${isOmnius ? 'justify-start' : 'justify-end'} mb-6`}
     >
@@ -81,10 +81,10 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
           </div>
         </div>
 
-        {/* Message Content - No bubble for OMNIUS */}
+        {/* Message Content */}
         <div className={`relative ${isOmnius ? 'mr-4' : 'ml-4'}`}>
           {isOmnius ? (
-            /* OMNIUS messages without bubble */
+            /* OMNIUS messages without bubble - darker background */
             <div className="space-y-2">
               {/* OMNIUS Mood Indicator */}
               {message.mood && (
@@ -97,12 +97,19 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
               )}
 
               {/* Message Text */}
-              <div className="text-sm sm:text-base font-light leading-relaxed text-white">
+              <div 
+                className="text-sm sm:text-base font-light leading-relaxed text-white/95 p-4 rounded-2xl"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(15,23,42,0.3) 50%, rgba(0,0,0,0.4) 100%)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255, 255, 255, 0.05)'
+                }}
+              >
                 {message.content}
               </div>
 
               {/* Timestamp */}
-              <div className="text-xs text-purple-300/60 font-light">
+              <div className="text-xs text-purple-300/60 font-light ml-4">
                 {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </div>
             </div>
