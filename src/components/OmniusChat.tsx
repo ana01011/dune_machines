@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
-import { Send, Mic, Paperclip, Settings, Crown, ArrowLeft, ChevronDown, Trash2, Edit2, Plus, MessageSquare } from 'lucide-react';
+import { Send, Mic, Paperclip, Settings, Crown, ArrowLeft, ChevronDown, Trash2, CreditCard as Edit2, Plus, MessageSquare } from 'lucide-react';
 import { ChatMessage } from './ChatMessage';
 import { AdvancedInput } from './AdvancedInput';
 
@@ -20,6 +20,7 @@ interface ChatHistory {
   timestamp: Date;
   messages: Message[];
 }
+
 interface OmniusChatProps {
   onBack: () => void;
 }
@@ -71,6 +72,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack }) => {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
+
   useEffect(() => {
     // Entrance animations
     if (headerRef.current && chatRef.current && inputRef.current) {
@@ -137,6 +139,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack }) => {
     setEditingChatId(chatId);
     setEditingTitle(currentTitle);
   };
+
   const handleSendMessage = (content: string, type: 'text' | 'code' | 'voice' = 'text') => {
     const newMessage: Message = {
       id: Date.now().toString(),
@@ -448,143 +451,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack }) => {
           </div>
         </div>
       </div>
-
-      {/* Custom Animations */}
-      <style jsx>{`
-        @keyframes planetRotateSmooth {
-          0% { transform: translateX(-50%) rotate(0deg); }
-          100% { transform: translateX(-50%) rotate(360deg); }
-        }
-        
-        @keyframes planetRotateReverseSmooth {
-          0% { transform: rotate(360deg); }
-          100% { transform: rotate(0deg); }
-        }
-        
-        .animate-planet-rotate-smooth {
-          animation: planetRotateSmooth 120s linear infinite;
-        }
-        
-        .animate-planet-rotate-reverse-smooth {
-          animation: planetRotateReverseSmooth 180s linear infinite;
-        }
-        
-        @keyframes twinkle {
-          0%, 100% { 
-            opacity: 0.3; 
-            transform: scale(0.5);
-            filter: brightness(0.8);
-          }
-          25% { 
-            opacity: 1; 
-            transform: scale(1.2);
-            filter: brightness(1.5);
-          }
-          50% { 
-            opacity: 0.6; 
-            transform: scale(0.8);
-            filter: brightness(1.2);
-          }
-          75% { 
-            opacity: 0.9; 
-            transform: scale(1);
-            filter: brightness(1.3);
-          }
-        }
-        
-        @keyframes twinkleBlue {
-          0%, 100% { 
-            opacity: 0.2; 
-            transform: scale(0.3);
-            filter: brightness(0.7) hue-rotate(0deg);
-          }
-          33% { 
-            opacity: 0.8; 
-            transform: scale(1);
-            filter: brightness(1.4) hue-rotate(10deg);
-          }
-          66% { 
-            opacity: 0.5; 
-            transform: scale(0.6);
-            filter: brightness(1.1) hue-rotate(-5deg);
-          }
-        }
-        
-        .twinkle-star {
-          animation: twinkle 3s ease-in-out infinite;
-          animation-delay: var(--delay, 0s);
-        }
-        
-        .twinkle-star-blue {
-          animation: twinkleBlue 4s ease-in-out infinite;
-          animation-delay: var(--delay, 0s);
-        }
-        
-        /* Custom scrollbar */
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 8px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 4px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: linear-gradient(135deg, rgba(139, 92, 246, 0.6), rgba(99, 102, 241, 0.6));
-          border-radius: 4px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(135deg, rgba(139, 92, 246, 0.8), rgba(99, 102, 241, 0.8));
-        }
-      `}</style>
-    </div>
-  );
-};
-            </div>
-
-            <button className="p-2 rounded-lg text-white/60 hover:text-white/90 hover:bg-white/10 transition-all duration-300">
-              <Settings className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-
-        {/* Chat Messages Area */}
-        <div 
-          ref={chatRef}
-          className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 custom-scrollbar"
-        >
-          {messages.map((message) => (
-            <ChatMessage key={message.id} message={message} />
-          ))}
-          
-          {/* Typing Indicator */}
-          {isTyping && (
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-600/30 to-indigo-600/30 flex items-center justify-center border border-purple-400/20">
-                <Crown className="w-4 h-4 text-purple-400" />
-              </div>
-              <div className="bg-white/5 backdrop-blur-sm rounded-2xl px-4 py-3 border border-white/10">
-                <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0s'}}></div>
-                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Advanced Input Area */}
-        <div ref={inputRef}>
-          <AdvancedInput onSendMessage={handleSendMessage} />
-        </div>
-      </div>
-
-      {/* AI Consciousness Sidebar */}
-      <AIConsciousness aiStatus={aiStatus} />
 
       {/* Custom Animations */}
       <style jsx>{`
