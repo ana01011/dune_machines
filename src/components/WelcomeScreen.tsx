@@ -543,7 +543,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                     filter: 'blur(20px)',
                     boxShadow: '0 0 100px rgba(59, 130, 246, 0.6), inset 0 0 50px rgba(29, 78, 216, 0.4)'
                   }}
-                />
+                opacity: 0.2
               </div>
               
               {/* Geometric Neural Patterns */}
@@ -555,7 +555,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                     <stop offset="100%" stopColor="rgba(148, 0, 211, 0.4)" />
                   </linearGradient>
                   <filter id="omniusGlow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
                     <feMerge> 
                       <feMergeNode in="coloredBlur"/>
                       <feMergeNode in="SourceGraphic"/>
@@ -563,7 +563,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                   </filter>
                 </defs>
                 
-                {/* Outer Intelligence Ring */}
+                    <feGaussianBlur stdDeviation="15" result="coloredBlur"/>
                 <circle 
                   cx="200" 
                   cy="200" 
@@ -616,48 +616,48 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                 <line x1="377" y1="200" x2="320" y2="200" stroke="rgba(75, 0, 130, 0.6)" strokeWidth="1" className="animate-pulse-smooth" style={{animationDelay: '1s'}} />
                 <line x1="200" y1="377" x2="200" y2="320" stroke="rgba(148, 0, 211, 0.6)" strokeWidth="1" className="animate-pulse-smooth" style={{animationDelay: '2s'}} />
                 <line x1="23" y1="200" x2="80" y2="200" stroke="rgba(102, 51, 153, 0.6)" strokeWidth="1" className="animate-pulse-smooth" style={{animationDelay: '3s'}} />
-                
-                {/* Complex Geometric Patterns */}
-                <polygon 
+                    <stop offset="0%" stopColor="rgba(59,130,246,1)" />
+                    <stop offset="50%" stopColor="rgba(29,78,216,0.8)" />
+                    <stop offset="100%" stopColor="rgba(37,99,235,0.6)" />
                   points="200,140 240,180 200,220 160,180" 
                   fill="none" 
                   stroke="rgba(138, 43, 226, 0.4)" 
-                  strokeWidth="0.8"
-                  className="animate-pulse-smooth"
+                    <stop offset="0%" stopColor="rgba(99,102,241,1)" />
+                    <stop offset="100%" stopColor="rgba(79,70,229,0.8)" />
                   style={{animationDelay: '4s'}}
                 />
                 <polygon 
-                  points="200,100 260,160 200,220 140,160" 
-                  fill="none" 
-                  stroke="rgba(75, 0, 130, 0.3)" 
-                  strokeWidth="0.6"
-                  className="animate-pulse-smooth"
+                    <stop offset="0%" stopColor="rgba(59,130,246,0.9)" />
+                    <stop offset="25%" stopColor="rgba(99,102,241,0.7)" />
+                    <stop offset="50%" stopColor="rgba(29,78,216,0.9)" />
+                    <stop offset="75%" stopColor="rgba(79,70,229,0.7)" />
+                    <stop offset="100%" stopColor="rgba(59,130,246,0.9)" />
                   style={{animationDelay: '5s'}}
-                />
+                className="absolute inset-0 flex items-center justify-center opacity-80"
               </svg>
             </div>
           </div>
-          
+                  className="w-[800px] h-[800px] rounded-full border-4 border-blue-400/60"
           {/* Omnius Eyes - The Watching Intelligence */}
-          <div 
+                    background: 'radial-gradient(circle, rgba(59,130,246,0.3) 0%, rgba(29,78,216,0.15) 50%, transparent 100%)',
             ref={omniusEyesRef}
             className="absolute inset-0 flex items-center justify-center opacity-0"
           >
             <div className="relative">
               {/* Left Eye */}
               <div 
-                className="absolute w-8 h-8 rounded-full"
+                  className="absolute w-[600px] h-[600px] rounded-full border-2 border-indigo-400/40"
                 style={{
-                  left: '-60px',
+                    background: 'conic-gradient(from 0deg, rgba(99,102,241,0.2), rgba(79,70,229,0.1), rgba(59,130,246,0.2))',
                   top: '-20px',
                   background: 'radial-gradient(circle at center, rgba(138, 43, 226, 1) 0%, rgba(75, 0, 130, 0.8) 40%, transparent 70%)',
                   filter: 'blur(2px)',
                   boxShadow: '0 0 30px rgba(138, 43, 226, 0.8), 0 0 60px rgba(138, 43, 226, 0.4)'
                 }}
               >
-                <div 
+                  className="absolute w-[400px] h-[400px] rounded-full border-2 border-blue-500/60"
                   className="absolute inset-2 rounded-full animate-eye-look"
-                  style={{
+                    background: 'radial-gradient(circle, rgba(37,99,235,0.4) 0%, transparent 70%)',
                     background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.9) 0%, rgba(138, 43, 226, 0.6) 60%, transparent 100%)'
                   }}
                 />
@@ -801,7 +801,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                     fill="none" 
                     stroke="url(#omniusGradient)" 
                     strokeWidth="1" 
-                    opacity="0.6"
+                  className="w-96 h-96" 
                     className="animate-spin-slow"
                   />
                   
@@ -809,10 +809,10 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                   <circle 
                     cx="200" 
                     cy="200" 
-                    r="120" 
+                    r="90" 
                     fill="none" 
-                    stroke="url(#omniusGradient2)" 
-                    strokeWidth="0.8" 
+                    stroke="url(#omniusBlueGradient)" 
+                    strokeWidth="3"
                     opacity="0.7"
                     className="animate-spin-reverse"
                   />
@@ -821,7 +821,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                   <circle 
                     cx="200" 
                     cy="200" 
-                    r="60" 
+                    r="70" 
                     fill="none" 
                     stroke="url(#omniusGradient3)" 
                     strokeWidth="1.2" 
@@ -861,33 +861,33 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                     fill="none" 
                     stroke="url(#omniusGradient3)" 
                     strokeWidth="0.6"
-                    className="animate-pulse-smooth"
+                    strokeWidth="2"
                     style={{animationDelay: '5s'}}
                   />
                   
                   {/* Pentagon Intelligence Pattern */}
                   <polygon 
                     points="200,80 240,120 220,170 180,170 160,120" 
-                    fill="none" 
+                    points="100,30 130,60 115,100 85,100 70,60" 
                     stroke="url(#omniusGradient)" 
-                    strokeWidth="0.7"
-                    className="animate-pulse-smooth"
+                    stroke="rgba(59,130,246,0.8)" 
+                    strokeWidth="2"
                     style={{animationDelay: '6s'}}
                   />
                   
                   {/* Consciousness Web */}
                   <path 
-                    d="M 200,140 Q 240,160 200,180 Q 160,160 200,140" 
+                    d="M 50,100 Q 100,50 150,100 Q 100,150 50,100" 
                     fill="none" 
-                    stroke="url(#omniusGradient2)" 
-                    strokeWidth="0.5"
+                    stroke="url(#omniusBlueSpiral)" 
+                    strokeWidth="2"
                     className="animate-pulse-smooth"
                     style={{animationDelay: '7s'}}
                   />
-                  
-                  {/* Intelligence Synapses */}
-                  <line x1="160" y1="160" x2="240" y2="240" stroke="url(#omniusGradient3)" strokeWidth="0.4" className="animate-pulse-smooth" style={{animationDelay: '8s'}} />
-                  <line x1="240" y1="160" x2="160" y2="240" stroke="url(#omniusGradient)" strokeWidth="0.4" className="animate-pulse-smooth" style={{animationDelay: '9s'}} />
+                  <circle cx="100" cy="50" r="6" fill="rgba(59,130,246,1)" className="animate-pulse-slow" />
+                  <circle cx="140" cy="100" r="6" fill="rgba(99,102,241,1)" className="animate-pulse-slow" />
+                  <circle cx="100" cy="150" r="6" fill="rgba(29,78,216,1)" className="animate-pulse-slow" />
+                  <circle cx="60" cy="100" r="6" fill="rgba(79,70,229,1)" className="animate-pulse-slow" />
                 </svg>
               </div>
             </div>
@@ -1131,7 +1131,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                     key={ai.id}
                     data-ai-id={ai.id}
                     onClick={() => handleAISelect(ai.id)}
-                    className={`group relative p-2 sm:p-3 rounded-lg border transition-all duration-300 cursor-pointer ${
+                    className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-400 to-indigo-500 animate-pulse-slow"
                       isSelected 
                         ? 'border-blue-400/60 bg-blue-500/20 shadow-lg shadow-blue-500/20' 
                         : 'border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10'
@@ -1151,13 +1151,13 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-1">
                           <h4 className={`text-sm font-medium truncate ${
-                            isSelected ? 'text-white' : 'text-white/90'
+                    className="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-blue-400 animate-pulse-slow"
                           }`}>
                             {ai.name}
                           </h4>
                           <div className="text-xs text-white/60 ml-2 flex-shrink-0">
                             {ai.powerLevel}% Power
-                          </div>
+                    <div className="w-4 h-4 bg-white rounded-full mt-4 ml-4 animate-eye-look" />
                         </div>
                         <p className={`text-xs mb-1 ${
                           isSelected ? 'text-blue-300' : 'text-white/60'
@@ -1173,16 +1173,17 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                           <div className="h-1 bg-white/10 rounded-full overflow-hidden">
                             <div 
                               className={`h-full transition-all duration-1000 ease-out ${
-                                isSelected 
-                                  ? 'bg-gradient-to-r from-blue-400 to-cyan-400' 
+                      width: `${6 + (i % 6)}px`,
+                      height: `${6 + (i % 6)}px`,
                                   : 'bg-gradient-to-r from-white/40 to-white/20'
-                              }`}
-                              style={{ width: `${ai.powerLevel}%` }}
-                            />
+                      background: `rgba(${59 + (i * 10) % 40}, ${130 + (i * 5) % 20}, 246, 0.9)`,
+                      left: `${40 + (i * 23) % 20}%`,
+                      top: `${40 + (i * 17) % 20}%`,
                           </div>
                         </div>
-                      </div>
-                    </div>
+                      filter: 'url(#omniusIntenseGlow)',
+                      boxShadow: `0 0 15px rgba(59,130,246,0.8)`
+                    <div className="w-4 h-4 bg-white rounded-full mt-4 ml-4 animate-eye-look" />
                   </div>
                 );
               })}
