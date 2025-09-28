@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import { Brain, Crown, Sparkles, Target, Globe, Eye, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface WelcomeScreenProps {
-  onComplete: () => void;
+  onComplete: (aiId?: string) => void;
 }
 
 export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
@@ -261,12 +261,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
   const handleContinue = () => {
     if (selectedAI) {
       // Navigate to the selected AI's chat interface
-      if (selectedAI === 'omnius') {
-        onComplete('omnius');
-      } else {
-        // For other AIs, we can add their interfaces later
-        onComplete(selectedAI);
-      }
+      onComplete(selectedAI);
     }
   };
 
@@ -450,7 +445,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
               
               {/* Connection Lines */}
               <line x1="40" y1="17" x2="40" y2="25" stroke="#3b82f6" strokeWidth="1" opacity="0.6" className="animate-pulse-smooth" style={{animationDelay: '0s'}} />
-              <line x1="63" y1="40" x2="55" y2="40" stroke="#3b82f6" strokeWidth="1" opacity="0.6" className="animate-pulse-smooth" style={{animationDelay: '0.5s'}} />
+              <line x1="63" y1="40" x2="40" y2="40" stroke="#3b82f6" strokeWidth="1" opacity="0.6" className="animate-pulse-smooth" style={{animationDelay: '0.5s'}} />
               <line x1="40" y1="63" x2="40" y2="55" stroke="#3b82f6" strokeWidth="1" opacity="0.6" className="animate-pulse-smooth" style={{animationDelay: '1s'}} />
               <line x1="17" y1="40" x2="25" y2="40" stroke="#3b82f6" strokeWidth="1" opacity="0.6" className="animate-pulse-smooth" style={{animationDelay: '1.5s'}} />
               
@@ -488,3 +483,217 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
         </h1>
 
         {/* Subtitle */}
+        <p 
+          ref={subtitleRef}
+          className="text-xs sm:text-sm md:text-base lg:text-lg font-light mb-8 md:mb-12 text-white/90 tracking-[0.1em] md:tracking-[0.15em] px-4 text-center"
+          style={{
+            fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+            fontWeight: '300',
+            textShadow: '0 0 30px rgba(255, 255, 255, 0.6)'
+          }}
+        >
+          DIGITAL CONSCIOUSNESS AWAITS
+        </p>
+
+        {/* Continue Button */}
+        <button
+          ref={buttonRef}
+          onClick={handleButtonClick}
+          className={`group relative px-6 sm:px-8 py-2.5 sm:py-3 font-light transition-all duration-500 border rounded-lg backdrop-blur-sm mx-4 hover:shadow-2xl ${
+            selectedAI 
+              ? 'border-blue-400/60 bg-blue-500/20 hover:border-blue-300 hover:bg-blue-500/30 hover:shadow-blue-500/30 animate-glow-loop' 
+              : 'border-white/30 hover:border-white/60 hover:bg-white/10 hover:shadow-white/20'
+          }`}
+          style={{
+            fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+            fontWeight: '300',
+            fontSize: 'clamp(0.85rem, 2vw, 0.95rem)',
+            letterSpacing: '0.08em',
+            color: '#ffffff',
+            textShadow: '0 0 20px rgba(255, 255, 255, 0.8)'
+          }}
+        >
+          <span className="relative z-10 flex items-center justify-center space-x-2">
+            <span>{getButtonText()}</span>
+            {!showAISelection ? (
+              <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform duration-300" />
+            ) : selectedAI ? null : (
+              <ChevronUp className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform duration-300" />
+            )}
+          </span>
+        </button>
+
+        {/* AI Selection Dropdown */}
+        {showAISelection && (
+          <div 
+            ref={dropdownRef}
+            className="mt-8 w-full max-w-4xl px-4"
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {aiModels.map((ai) => {
+                const IconComponent = ai.icon;
+                const isSelected = selectedAI === ai.id;
+                
+                return (
+                  <div
+                    key={ai.id}
+                    data-ai-id={ai.id}
+                    onClick={() => handleAISelect(ai.id)}
+                    className={`group relative p-4 rounded-xl backdrop-blur-sm border cursor-pointer transition-all duration-500 hover:scale-105 ${
+                      isSelected
+                        ? 'border-blue-400/60 bg-blue-500/20 shadow-lg shadow-blue-500/20'
+                        : 'border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10'
+                    }`}
+                  >
+                    {/* Power Level Indicator */}
+                    <div className="absolute top-2 right-2 flex items-center space-x-1">
+                      <div className="text-xs text-white/60">{ai.powerLevel}%</div>
+                      <div className="w-12 h-1 bg-white/20 rounded-full overflow-hidden">
+                        <div 
+                          className={`h-full transition-all duration-1000 ${
+                            ai.color === 'purple' ? 'bg-purple-400' :
+                            ai.color === 'cyan' ? 'bg-cyan-400' :
+                            ai.color === 'emerald' ? 'bg-emerald-400' :
+                            ai.color === 'amber' ? 'bg-amber-400' :
+                            ai.color === 'blue' ? 'bg-blue-400' :
+                            'bg-violet-400'
+                          }`}
+                          style={{ width: `${ai.powerLevel}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* AI Icon */}
+                    <div className="flex justify-center mb-3">
+                      <div className={`p-3 rounded-full ${
+                        ai.color === 'purple' ? 'bg-purple-500/20 text-purple-300' :
+                        ai.color === 'cyan' ? 'bg-cyan-500/20 text-cyan-300' :
+                        ai.color === 'emerald' ? 'bg-emerald-500/20 text-emerald-300' :
+                        ai.color === 'amber' ? 'bg-amber-500/20 text-amber-300' :
+                        ai.color === 'blue' ? 'bg-blue-500/20 text-blue-300' :
+                        'bg-violet-500/20 text-violet-300'
+                      }`}>
+                        <IconComponent className="w-6 h-6" />
+                      </div>
+                    </div>
+
+                    {/* AI Info */}
+                    <div className="text-center">
+                      <h3 className="text-lg font-light text-white mb-1 tracking-wider">
+                        {ai.name}
+                      </h3>
+                      <p className="text-xs text-white/70 mb-2 font-light tracking-wide">
+                        {ai.subtitle}
+                      </p>
+                      <p className="text-xs text-white/50 leading-relaxed">
+                        {ai.description}
+                      </p>
+                    </div>
+
+                    {/* Selection Indicator */}
+                    {isSelected && (
+                      <div className="absolute inset-0 rounded-xl border-2 border-blue-400/60 pointer-events-none">
+                        <div className="absolute top-2 left-2 w-3 h-3 bg-blue-400 rounded-full animate-pulse" />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Custom Styles */}
+      <style jsx>{`
+        @keyframes planetRotate {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        
+        @keyframes planetRotateReverse {
+          from { transform: rotate(360deg); }
+          to { transform: rotate(0deg); }
+        }
+        
+        .animate-planet-rotate-smooth {
+          animation: planetRotate 120s linear infinite;
+        }
+        
+        .animate-planet-rotate-reverse-smooth {
+          animation: planetRotateReverse 80s linear infinite;
+        }
+        
+        .animate-spin-slow {
+          animation: spin 20s linear infinite;
+        }
+        
+        .animate-spin-reverse {
+          animation: spin 15s linear infinite reverse;
+        }
+        
+        .animate-pulse-smooth {
+          animation: pulse 4s ease-in-out infinite;
+        }
+        
+        .animate-pulse-slow {
+          animation: pulse 6s ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+          0%, 100% { 
+            opacity: 0.2; 
+            transform: scale(0.5);
+            filter: brightness(0.8);
+          }
+          50% { 
+            opacity: 1; 
+            transform: scale(1.2);
+            filter: brightness(1.5);
+          }
+        }
+        
+        @keyframes twinkleBlue {
+          0%, 100% { 
+            opacity: 0.2; 
+            transform: scale(0.3);
+            filter: brightness(0.7) hue-rotate(0deg);
+          }
+          33% { 
+            opacity: 0.8; 
+            transform: scale(1);
+            filter: brightness(1.4) hue-rotate(10deg);
+          }
+          66% { 
+            opacity: 0.5; 
+            transform: scale(0.6);
+            filter: brightness(1.1) hue-rotate(-5deg);
+          }
+        }
+        
+        @keyframes glowLoop {
+          0%, 100% { 
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.2), 0 0 60px rgba(59, 130, 246, 0.1);
+          }
+          50% { 
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.8), 0 0 60px rgba(59, 130, 246, 0.4), 0 0 90px rgba(59, 130, 246, 0.2);
+          }
+        }
+        
+        .animate-glow-loop {
+          animation: glowLoop 2s ease-in-out infinite;
+        }
+        
+        .twinkle-star {
+          animation: twinkle 3s ease-in-out infinite;
+          animation-delay: var(--delay, 0s);
+        }
+        
+        .twinkle-star-blue {
+          animation: twinkleBlue 2s ease-in-out infinite;
+          animation-delay: var(--delay, 0s);
+        }
+      `}</style>
+    </div>
+  );
+};
