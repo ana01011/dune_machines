@@ -528,13 +528,13 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
         {showAISelection && (
           <div 
             ref={dropdownRef}
-            className="mt-4 sm:mt-6 w-full max-w-sm sm:max-w-md mx-auto bg-black/40 backdrop-blur-xl rounded-xl border border-white/20 p-3 sm:p-4 shadow-2xl"
+            className="mt-4 w-full max-w-xs sm:max-w-sm mx-auto bg-black/40 backdrop-blur-xl rounded-xl border border-white/20 p-3 shadow-2xl"
             style={{
               background: 'linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(15,23,42,0.9) 50%, rgba(0,0,0,0.8) 100%)'
             }}
           >
-            <div className="text-center mb-3 sm:mb-4">
-              <h3 className="text-sm sm:text-base font-light text-white mb-1 tracking-wider">
+            <div className="text-center mb-3">
+              <h3 className="text-sm font-light text-white mb-1 tracking-wider">
                 CHOOSE YOUR THINKING MACHINE
               </h3>
               <p className="text-xs text-white/60 font-light">
@@ -542,7 +542,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
               </p>
             </div>
 
-            <div className="grid gap-2 max-h-48 sm:max-h-56 overflow-y-auto custom-scrollbar">
+            <div className="grid gap-2 max-h-48 overflow-y-auto custom-scrollbar">
               {aiModels.map((ai) => {
                 const Icon = ai.icon;
                 const isSelected = selectedAI === ai.id;
@@ -558,20 +558,20 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                         : 'border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10'
                     }`}
                   >
-                    <div className="flex items-center space-x-2 sm:space-x-3">
-                      <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                    <div className="flex items-center space-x-3">
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
                         isSelected 
                           ? 'bg-blue-500/30 border border-blue-400/40' 
                           : 'bg-white/10 border border-white/20'
                       }`}>
-                        <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${
+                        <Icon className={`w-4 h-4 ${
                           isSelected ? 'text-blue-300' : 'text-white/70'
                         }`} />
                       </div>
                       
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-0.5">
-                          <h4 className={`text-xs sm:text-sm font-medium truncate ${
+                          <h4 className={`text-sm font-medium truncate ${
                             isSelected ? 'text-white' : 'text-white/90'
                           }`}>
                             {ai.name}
@@ -585,12 +585,12 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                         } truncate`}>
                           {ai.subtitle}
                         </p>
-                        <p className="text-xs text-white/50 font-light leading-tight line-clamp-1 sm:line-clamp-2">
+                        <p className="text-xs text-white/50 font-light leading-tight line-clamp-2">
                           {ai.description}
                         </p>
                         
                         {/* Power Level Bar */}
-                        <div className="mt-1.5 sm:mt-2">
+                        <div className="mt-1.5">
                           <div className="h-1 bg-white/10 rounded-full overflow-hidden">
                             <div 
                               className={`h-full transition-all duration-1000 ease-out ${
