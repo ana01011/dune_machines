@@ -487,4 +487,4 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
           {renderAnimatedTitle()}
         </h1>
 
-        {/* Subtitle
+        {/* Subtitle */}
