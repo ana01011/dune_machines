@@ -6,6 +6,7 @@ import { AIModelSelection } from './components/AIModelSelection';
 import { WorkflowSelection } from './components/WorkflowSelection';
 import { OrganizationChart } from './components/OrganizationChart';
 import { MedicalChart } from './components/MedicalChart';
+import { OmniusChat } from './components/OmniusChat';
 import { Documentation } from './components/Documentation';
 import { HelpSection } from './components/HelpSection';
 import { PricingSection } from './components/PricingSection';
@@ -14,6 +15,7 @@ import { FAQSection } from './components/FAQSection';
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
   const [showWorkflowSelection, setShowWorkflowSelection] = useState(false);
+  const [selectedAI, setSelectedAI] = useState<string | null>(null);
   const [currentSection, setCurrentSection] = useState('workflow');
   const [selectedWorkflow, setSelectedWorkflow] = useState<string | null>(null);
   const [navigationHistory, setNavigationHistory] = useState<string[]>([]);
@@ -21,11 +23,16 @@ function App() {
   // Scroll to top when changing sections
   React.useEffect(() => {
     window.scrollTo(0, 0);
-  }, [currentSection, selectedWorkflow, showWorkflowSelection]);
+  }, [currentSection, selectedWorkflow, showWorkflowSelection, selectedAI]);
 
   // Handle back navigation
   const handleBack = () => {
-    if (selectedWorkflow) {
+    if (selectedAI) {
+      // If in AI chat, go back to welcome
+      setSelectedAI(null);
+      setShowWelcome(true);
+      setCurrentSection('workflow');
+    } else if (selectedWorkflow) {
       // If in a specific workflow, go back to workflow selection
       setSelectedWorkflow(null);
       setShowWorkflowSelection(true);
@@ -38,7 +45,9 @@ function App() {
     } else if (currentSection !== 'workflow') {
       // If in other sections, go back to workflow
       setCurrentSection('workflow');
-      if (selectedWorkflow) {
+      if (selectedAI) {
+        // Stay in AI chat
+      } else if (selectedWorkflow) {
         // Stay in selected workflow
       } else {
         setShowWorkflowSelection(true);
@@ -50,7 +59,9 @@ function App() {
   // Handle section changes
   const handleSectionChange = (section: string) => {
     if (section === 'workflow') {
-      if (selectedWorkflow) {
+      if (selectedAI) {
+        setCurrentSection('workflow');
+      } else if (selectedWorkflow) {
         setCurrentSection('workflow');
       } else {
         setShowWorkflowSelection(true);
@@ -66,7 +77,10 @@ function App() {
   React.useEffect(() => {
     const handlePopState = () => {
       // Handle back navigation smoothly
-      if (selectedWorkflow) {
+      if (selectedAI) {
+        setSelectedAI(null);
+        setShowWelcome(true);
+      } else if (selectedWorkflow) {
         setSelectedWorkflow(null);
         setShowWorkflowSelection(true);
       } else if (showWorkflowSelection) {
@@ -82,7 +96,7 @@ function App() {
 
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, [selectedWorkflow, showWorkflowSelection]);
+  }, [selectedWorkflow, showWorkflowSelection, selectedAI]);
 
   // Handle hash navigation for workflows
   React.useEffect(() => {
@@ -99,10 +113,23 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
+  // Show AI Chat Interface
+  if (selectedAI) {
+    if (selectedAI === 'omnius') {
+      return <OmniusChat onBack={handleBack} />;
+    }
+    // Add other AI interfaces here later
+    return <div>AI Interface for {selectedAI} coming soon...</div>;
+  }
   if (showWelcome) {
-    return <WelcomeScreen onComplete={() => {
-      setShowWelcome(false);
-      setShowWorkflowSelection(true);
+    return <WelcomeScreen onComplete={(aiId?: string) => {
+      if (aiId) {
+        setSelectedAI(aiId);
+        setShowWelcome(false);
+      } else {
+        setShowWelcome(false);
+        setShowWorkflowSelection(true);
+      }
     }} />;
   }
 

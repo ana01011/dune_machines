@@ -226,8 +226,8 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
         repeat: 1
       });
     } else if (selectedAI) {
-      // Continue to next screen
-      onComplete();
+      // Continue to selected AI's interface
+      handleContinue();
     }
   };
 
@@ -256,6 +256,18 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
         repeat: 1
       });
     }, 300);
+  };
+
+  const handleContinue = () => {
+    if (selectedAI) {
+      // Navigate to the selected AI's chat interface
+      if (selectedAI === 'omnius') {
+        onComplete('omnius');
+      } else {
+        // For other AIs, we can add their interfaces later
+        onComplete(selectedAI);
+      }
+    }
   };
 
   const getSelectedAI = () => {
@@ -475,276 +487,4 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
           {renderAnimatedTitle()}
         </h1>
 
-        {/* Subtitle */}
-        <p 
-          ref={subtitleRef}
-          className="text-xs sm:text-sm md:text-base lg:text-lg font-light mb-8 md:mb-12 text-white/90 tracking-[0.1em] md:tracking-[0.15em] px-4 text-center"
-          style={{
-            fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
-            fontWeight: '300',
-            textShadow: '0 0 30px rgba(255, 255, 255, 0.6)'
-          }}
-        >
-          DIGITAL CONSCIOUSNESS AWAITS
-        </p>
-
-        {/* Continue Button */}
-        <button
-          ref={buttonRef}
-          onClick={handleButtonClick}
-          className={`group relative px-6 sm:px-8 py-2.5 sm:py-3 font-light transition-all duration-500 border rounded-lg backdrop-blur-sm mx-4 hover:shadow-2xl ${
-            selectedAI 
-              ? 'border-blue-400/60 bg-blue-500/20 hover:border-blue-300 hover:bg-blue-500/30 hover:shadow-blue-500/30 animate-glow-loop' 
-              : 'border-white/30 hover:border-white/60 hover:bg-white/10 hover:shadow-white/20'
-          }`}
-          style={{
-            fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
-            fontWeight: '300',
-            fontSize: 'clamp(0.85rem, 2vw, 0.95rem)',
-            letterSpacing: '0.08em',
-            color: '#ffffff',
-            textShadow: '0 0 20px rgba(255, 255, 255, 0.8)'
-          }}
-        >
-          <span className="relative z-10 flex items-center">
-            {getButtonText()}
-            {!selectedAI && showAISelection && (
-              <ChevronUp className="w-4 h-4 ml-2" />
-            )}
-            {!showAISelection && (
-              <ChevronDown className="w-4 h-4 ml-2" />
-            )}
-          </span>
-          
-          {/* Enhanced hover glow effect */}
-          <div className={`absolute inset-0 rounded-lg bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
-            selectedAI 
-              ? 'from-blue-400/0 via-blue-400/30 to-blue-400/0' 
-              : 'from-white/0 via-white/20 to-white/0'
-          }`}></div>
-        </button>
-
-        {/* AI Selection Dropdown */}
-        {showAISelection && (
-          <div 
-            ref={dropdownRef}
-            className="mt-4 w-full max-w-xs mx-auto bg-black/40 backdrop-blur-xl rounded-xl border border-white/20 p-3 shadow-2xl"
-            style={{
-              background: 'linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(15,23,42,0.9) 50%, rgba(0,0,0,0.8) 100%)'
-            }}
-          >
-            <div className="text-center mb-3">
-              <h3 className="text-sm font-light text-white mb-1 tracking-wider">
-                CHOOSE YOUR THINKING MACHINE
-              </h3>
-              <p className="text-xs text-white/60 font-light">
-                Each represents a unique form of digital intelligence
-              </p>
-            </div>
-
-            <div className="grid gap-2 max-h-40 overflow-y-auto custom-scrollbar">
-              {aiModels.map((ai) => {
-                const Icon = ai.icon;
-                const isSelected = selectedAI === ai.id;
-                
-                return (
-                  <div
-                    key={ai.id}
-                    data-ai-id={ai.id}
-                    onClick={() => handleAISelect(ai.id)}
-                    className={`p-2 rounded-lg cursor-pointer transition-all duration-300 border ${
-                      isSelected 
-                        ? 'border-blue-400/60 bg-blue-500/20 shadow-lg shadow-blue-500/20' 
-                        : 'border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10'
-                    }`}
-                  >
-                    <div className="flex items-center space-x-2">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                        isSelected 
-                          ? 'bg-blue-500/30 border border-blue-400/40' 
-                          : 'bg-white/10 border border-white/20'
-                      }`}>
-                        <Icon className={`w-4 h-4 ${
-                          isSelected ? 'text-blue-300' : 'text-white/70'
-                        }`} />
-                      </div>
-                      
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between mb-1">
-                          <h4 className={`text-sm font-medium truncate ${
-                            isSelected ? 'text-blue-300' : 'text-white'
-                          }`}>
-                            {ai.name}
-                          </h4>
-                          <div className="text-xs text-white/60 ml-2 flex-shrink-0">
-                            {ai.powerLevel}% Power
-                          </div>
-                        </div>
-                        <p className={`text-xs mb-1 ${
-                          isSelected ? 'text-blue-300' : 'text-white/60'
-                        } truncate`}>
-                          {ai.subtitle}
-                        </p>
-                        <p className="text-xs text-white/50 font-light leading-tight line-clamp-1">
-                          {ai.description}
-                        </p>
-                        
-                        {/* Power Level Bar */}
-                        <div className="mt-1">
-                          <div className="h-1 bg-white/10 rounded-full overflow-hidden">
-                            <div 
-                              className={`h-full transition-all duration-1000 ease-out ${
-                                isSelected 
-                                  ? 'bg-gradient-to-r from-blue-400 to-blue-600' 
-                                  : 'bg-gradient-to-r from-white/40 to-white/20'
-                              }`}
-                              style={{ width: `${ai.powerLevel}%` }}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </div>
-
-
-      {/* Custom Animations */}
-      <style jsx>{`
-        @keyframes planetRotateSmooth {
-          0% { transform: translateX(-50%) rotate(0deg); }
-          100% { transform: translateX(-50%) rotate(360deg); }
-        }
-        
-        @keyframes planetRotateReverseSmooth {
-          0% { transform: rotate(360deg); }
-          100% { transform: rotate(0deg); }
-        }
-        
-        .animate-planet-rotate-smooth {
-          animation: planetRotateSmooth 120s linear infinite;
-        }
-        
-        .animate-planet-rotate-reverse-smooth {
-          animation: planetRotateReverseSmooth 180s linear infinite;
-        }
-        
-        @keyframes twinkle {
-          0%, 100% { 
-            opacity: 0.3; 
-            transform: scale(0.5);
-            filter: brightness(0.8);
-          }
-          25% { 
-            opacity: 1; 
-            transform: scale(1.2);
-            filter: brightness(1.5);
-          }
-          50% { 
-            opacity: 0.6; 
-            transform: scale(0.8);
-            filter: brightness(1.2);
-          }
-          75% { 
-            opacity: 0.9; 
-            transform: scale(1);
-            filter: brightness(1.3);
-          }
-        }
-        
-        @keyframes twinkleBlue {
-          0%, 100% { 
-            opacity: 0.2; 
-            transform: scale(0.3);
-            filter: brightness(0.7) hue-rotate(0deg);
-          }
-          33% { 
-            opacity: 0.8; 
-            transform: scale(1);
-            filter: brightness(1.4) hue-rotate(10deg);
-          }
-          66% { 
-            opacity: 0.5; 
-            transform: scale(0.6);
-            filter: brightness(1.1) hue-rotate(-5deg);
-          }
-        }
-        
-        @keyframes glowLoop {
-          0%, 100% { 
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.2), 0 0 60px rgba(59, 130, 246, 0.1);
-          }
-          50% { 
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.8), 0 0 60px rgba(59, 130, 246, 0.4), 0 0 90px rgba(59, 130, 246, 0.2);
-          }
-        }
-        
-        .animate-glow-loop {
-          animation: glowLoop 2s ease-in-out infinite;
-        }
-        
-        .twinkle-star {
-          animation: twinkle 3s ease-in-out infinite;
-          animation-delay: var(--delay, 0s);
-        }
-        
-        .twinkle-star-blue {
-          animation: twinkleBlue 4s ease-in-out infinite;
-          animation-delay: var(--delay, 0s);
-        }
-        
-        /* Custom themed scrollbar */
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 3px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: linear-gradient(135deg, rgba(59, 130, 246, 0.6), rgba(99, 102, 241, 0.6));
-          border-radius: 3px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(99, 102, 241, 0.8));
-        }
-        
-        /* Firefox scrollbar */
-        .custom-scrollbar {
-          scrollbar-width: thin;
-          scrollbar-color: rgba(59, 130, 246, 0.6) rgba(255, 255, 255, 0.05);
-        }
-        
-        /* Ensure consistent sizing across all devices */
-        @media (max-width: 768px) {
-          .twinkle-star {
-            width: 1px !important;
-            height: 1px !important;
-            max-width: 1px;
-            max-height: 1px;
-          }
-          
-          .twinkle-star-blue {
-            width: 0.5px !important;
-            height: 0.5px !important;
-            max-width: 0.5px;
-            max-height: 0.5px;
-          }
-          
-          /* Ensure floating logo is visible on mobile */
-          .title-container {
-            margin-bottom: 1rem;
-          }
-        }
-      `}</style>
-    </div>
-  );
-};
+        {/* Subtitle
