@@ -158,7 +158,7 @@ export const WorkflowHeader: React.FC<WorkflowHeaderProps> = ({ onBack, selected
             </button>
             <div ref={logoRef} className="flex items-center">
               <h1 className="text-sm sm:text-lg font-light tracking-[0.15em] sm:tracking-[0.2em] text-white/85">
-                THINKING MACHINES
+                DUNE MACHINES
               </h1>
             </div>
           </div>
