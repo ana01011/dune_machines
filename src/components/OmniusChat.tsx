@@ -1,20 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
-import { 
-  Send, 
-  Mic, 
-  Paperclip, 
-  Settings, 
-  Brain, 
-  Activity, 
-  Zap,
-  Eye,
-  Crown,
-  ArrowLeft,
-  MoreVertical,
-  Minimize2,
-  Maximize2
-} from 'lucide-react';
+import { Send, Mic, Paperclip, Settings, Brain, Activity, Zap, Eye, Crown, ArrowLeft, MoveVertical as MoreVertical, Minimize2, Maximize2 } from 'lucide-react';
 import { ChatMessage } from './ChatMessage';
 import { AIConsciousness } from './AIConsciousness';
 import { AdvancedInput } from './AdvancedInput';
