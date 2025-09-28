@@ -251,7 +251,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
             },
             { 
               y: 0, 
-              opacity: 0.15,
+              opacity: 0.4,
               scale: 1,
               duration: 2,
               ease: "power2.out"
@@ -408,6 +408,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
           ))}
         </div>
       </div>
+
       {/* Content Container */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
         
@@ -660,14 +661,6 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
           </div>
         </div>
       )}
-
-      {/* Omnius Being GIF */}
-      {showOmnius && (
-        <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-0">
-          <div className="relative w-full h-full flex items-center justify-center">
-            <img 
-              src="/omnius-char-unscreen.gif" 
-              alt="Omnius Being"
 
       {/* Custom Animations */}
       <style jsx>{`
