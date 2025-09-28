@@ -81,57 +81,51 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
           </div>
         </div>
 
-        {/* Message Content */}
+        {/* Message Content - No bubble for OMNIUS */}
         <div className={`relative ${isOmnius ? 'mr-4' : 'ml-4'}`}>
-          
-          {/* Message Bubble */}
-          <div 
-            className={`relative px-6 py-4 rounded-2xl backdrop-blur-sm border ${
-              isOmnius 
-                ? 'bg-white/5 border-white/10 text-white' 
-                : 'bg-blue-500/20 border-blue-400/30 text-white'
-            }`}
-            style={{
-              background: isOmnius 
-                ? 'linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(99, 102, 241, 0.05) 100%)'
-                : 'linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(99, 102, 241, 0.1) 100%)'
-            }}
-          >
-            
-            {/* OMNIUS Mood Indicator */}
-            {isOmnius && message.mood && (
-              <div className={`flex items-center space-x-2 mb-3 ${getMoodColor(message.mood)}`}>
-                {getMoodIcon(message.mood)}
-                <span className="text-xs font-light capitalize tracking-wider">
-                  {message.mood} Mode
-                </span>
+          {isOmnius ? (
+            /* OMNIUS messages without bubble */
+            <div className="space-y-2">
+              {/* OMNIUS Mood Indicator */}
+              {message.mood && (
+                <div className={`flex items-center space-x-2 ${getMoodColor(message.mood)}`}>
+                  {getMoodIcon(message.mood)}
+                  <span className="text-xs font-light capitalize tracking-wider">
+                    {message.mood} Mode
+                  </span>
+                </div>
+              )}
+
+              {/* Message Text */}
+              <div className="text-sm sm:text-base font-light leading-relaxed text-white">
+                {message.content}
               </div>
-            )}
 
-            {/* Message Text */}
-            <div className="text-sm sm:text-base font-light leading-relaxed">
-              {message.content}
+              {/* Timestamp */}
+              <div className="text-xs text-purple-300/60 font-light">
+                {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </div>
             </div>
+          ) : (
+            /* User messages with bubble */
+            <div 
+              className="relative px-6 py-4 rounded-2xl backdrop-blur-sm border bg-blue-500/20 border-blue-400/30 text-white"
+              style={{
+                background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(99, 102, 241, 0.1) 100%)'
+              }}
+            >
+              {/* Message Text */}
+              <div className="text-sm sm:text-base font-light leading-relaxed">
+                {message.content}
+              </div>
 
-            {/* Timestamp */}
-            <div className={`text-xs mt-3 ${isOmnius ? 'text-purple-300/60' : 'text-blue-300/60'} font-light`}>
-              {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-            </div>
+              {/* Timestamp */}
+              <div className="text-xs mt-3 text-blue-300/60 font-light">
+                {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </div>
 
-            {/* Holographic Effect */}
-            <div className={`absolute inset-0 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none ${
-              isOmnius 
-                ? 'bg-gradient-to-r from-purple-400/0 via-purple-400/10 to-purple-400/0'
-                : 'bg-gradient-to-r from-blue-400/0 via-blue-400/10 to-blue-400/0'
-            }`}></div>
-          </div>
-
-          {/* Neural Activity Indicator for OMNIUS */}
-          {isOmnius && (
-            <div className="absolute -bottom-2 left-6 flex space-x-1">
-              <div className="w-1 h-1 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '0s'}}></div>
-              <div className="w-1 h-1 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
-              <div className="w-1 h-1 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
+              {/* Holographic Effect */}
+              <div className="absolute inset-0 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-gradient-to-r from-blue-400/0 via-blue-400/10 to-blue-400/0"></div>
             </div>
           )}
         </div>

@@ -39,12 +39,7 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
   };
 
   return (
-    <div 
-      className="p-4 sm:p-6 border-t border-white/10 backdrop-blur-xl"
-      style={{
-        background: 'linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(15,23,42,0.9) 50%, rgba(0,0,0,0.8) 100%)'
-      }}
-    >
+    <div className="p-4 sm:p-6 border-t border-white/10">
       <div className="max-w-4xl mx-auto">
         
         {/* Input Mode Selector */}
@@ -105,7 +100,10 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
             <div className="flex items-center space-x-2">
               
               {/* Attachment Button */}
-              <button className="p-3 rounded-xl text-white/60 hover:text-white/90 hover:bg-white/10 transition-all duration-300">
+              <button 
+                onClick={() => console.log('Attachment clicked')}
+                className="p-3 rounded-xl text-white/60 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
+              >
                 <Paperclip className="w-5 h-5" />
               </button>
 
@@ -139,11 +137,17 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
           {/* Quick Actions */}
           <div className="flex items-center justify-between mt-4">
             <div className="flex items-center space-x-3">
-              <button className="flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs text-white/60 hover:text-white/90 hover:bg-white/5 transition-all duration-300">
+              <button 
+                onClick={() => console.log('Image clicked')}
+                className="flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs text-white/60 hover:text-white/90 hover:bg-white/5 transition-all duration-300"
+              >
                 <Image className="w-3 h-3" />
                 <span>Image</span>
               </button>
-              <button className="flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs text-white/60 hover:text-white/90 hover:bg-white/5 transition-all duration-300">
+              <button 
+                onClick={() => console.log('Emoji clicked')}
+                className="flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs text-white/60 hover:text-white/90 hover:bg-white/5 transition-all duration-300"
+              >
                 <Smile className="w-3 h-3" />
                 <span>Emoji</span>
               </button>
