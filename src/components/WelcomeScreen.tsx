@@ -16,6 +16,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const omniusRef = useRef<HTMLDivElement>(null);
 
   const aiModels = [
     {
@@ -238,6 +239,26 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
     // Show Omnius GIF if Omnius is selected
     if (aiId === 'omnius') {
       setShowOmnius(true);
+      
+      // Animate Omnius appearance with GSAP
+      setTimeout(() => {
+        if (omniusRef.current) {
+          gsap.fromTo(omniusRef.current,
+            { 
+              y: 100, 
+              opacity: 0,
+              scale: 0.5
+            },
+            { 
+              y: 0, 
+              opacity: 0.15,
+              scale: 1,
+              duration: 2,
+              ease: "power2.out"
+            }
+          );
+        }
+      }, 100);
     } else {
       setShowOmnius(false);
     }
@@ -621,12 +642,19 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
 
       {/* Omnius Being GIF */}
       {showOmnius && (
-        <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-0">
-          <div className="relative w-full h-full flex items-center justify-center">
+        <div 
+          ref={omniusRef}
+          className="fixed inset-0 flex items-center justify-center pointer-events-none z-0"
+        >
+          <div className="relative w-full h-full flex items-center justify-center" style={{ marginTop: '-10vh' }}>
             <img 
               src="/omnius-char-unscreen.gif" 
               alt="Omnius Being"
               className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-contain opacity-15"
+              style={{
+                filter: 'drop-shadow(0 0 20px rgba(147, 51, 234, 0.3))',
+                mixBlendMode: 'screen'
+              }}
             />
           </div>
         </div>
