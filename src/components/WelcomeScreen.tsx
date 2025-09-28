@@ -9,6 +9,7 @@ interface WelcomeScreenProps {
 export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
   const [showAISelection, setShowAISelection] = useState(false);
   const [selectedAI, setSelectedAI] = useState<string | null>(null);
+  const [showOmnius, setShowOmnius] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -233,6 +234,13 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
 
   const handleAISelect = (aiId: string) => {
     setSelectedAI(aiId);
+    
+    // Show Omnius GIF if Omnius is selected
+    if (aiId === 'omnius') {
+      setShowOmnius(true);
+    } else {
+      setShowOmnius(false);
+    }
     
     // Animate selection
     const selectedCard = document.querySelector(`[data-ai-id="${aiId}"]`);
@@ -610,6 +618,23 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
           </div>
         )}
       </div>
+
+      {/* Omnius Being GIF */}
+      {showOmnius && (
+        <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-0">
+          <div className="relative w-full h-full flex items-center justify-center">
+            <img 
+              src="/omnius_char copy.gif" 
+              alt="Omnius Being"
+              className="w-96 h-96 sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] object-contain opacity-60"
+              style={{
+                filter: 'drop-shadow(0 0 50px rgba(147, 51, 234, 0.5))',
+                mixBlendMode: 'screen'
+              }}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Custom Animations */}
       <style jsx>{`
