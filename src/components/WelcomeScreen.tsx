@@ -463,7 +463,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
         {/* Animated Title - Single Line with Responsive Sizing */}
         <h1 
           ref={titleRef}
-          className="font-light mb-6 sm:mb-8 tracking-[0.2em] sm:tracking-[0.25em] md:tracking-[0.3em] lg:tracking-[0.4em] px-2 text-white"
+          className="font-light mb-3 sm:mb-4 tracking-[0.2em] sm:tracking-[0.25em] md:tracking-[0.3em] lg:tracking-[0.4em] px-2 text-white"
           style={{
             color: '#e2e8f0',
             fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
@@ -478,7 +478,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
         {/* Subtitle */}
         <p 
           ref={subtitleRef}
-          className="text-xs sm:text-sm md:text-base lg:text-lg font-light mb-12 md:mb-16 text-white/90 tracking-[0.1em] md:tracking-[0.15em] px-4 text-center"
+          className="text-xs sm:text-sm md:text-base lg:text-lg font-light mb-8 md:mb-12 text-white/90 tracking-[0.1em] md:tracking-[0.15em] px-4 text-center"
           style={{
             fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
             fontWeight: '300',
@@ -494,7 +494,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
           onClick={handleButtonClick}
           className={`group relative px-6 sm:px-8 py-2.5 sm:py-3 font-light transition-all duration-500 border rounded-lg backdrop-blur-sm mx-4 hover:shadow-2xl ${
             selectedAI 
-              ? 'border-blue-400/60 bg-blue-500/20 hover:border-blue-300 hover:bg-blue-500/30 hover:shadow-blue-500/30' 
+              ? 'border-blue-400/60 bg-blue-500/20 hover:border-blue-300 hover:bg-blue-500/30 hover:shadow-blue-500/30 animate-glow-loop' 
               : 'border-white/30 hover:border-white/60 hover:bg-white/10 hover:shadow-white/20'
           }`}
           style={{
@@ -672,6 +672,19 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
             transform: scale(0.6);
             filter: brightness(1.1) hue-rotate(-5deg);
           }
+        }
+        
+        @keyframes glowLoop {
+          0%, 100% { 
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.2), 0 0 60px rgba(59, 130, 246, 0.1);
+          }
+          50% { 
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.8), 0 0 60px rgba(59, 130, 246, 0.4), 0 0 90px rgba(59, 130, 246, 0.2);
+          }
+        }
+        
+        .animate-glow-loop {
+          animation: glowLoop 2s ease-in-out infinite;
         }
         
         .twinkle-star {
