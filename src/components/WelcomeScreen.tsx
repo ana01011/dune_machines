@@ -600,10 +600,10 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                 />
                 
                 {/* Neural Connection Nodes */}
-                <circle cx="200" cy="20" r="4" fill="rgba(59, 130, 246, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '0s'}} filter="url(#omniusIntenseGlow)" />
-                <circle cx="380" cy="200" r="4" fill="rgba(29, 78, 216, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '1s'}} filter="url(#omniusIntenseGlow)" />
-                <circle cx="200" cy="380" r="4" fill="rgba(37, 99, 235, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '2s'}} filter="url(#omniusIntenseGlow)" />
-                <circle cx="20" cy="200" r="4" fill="rgba(30, 64, 175, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '3s'}} filter="url(#omniusIntenseGlow)" />
+                <circle cx="200" cy="20" r="4" fill="rgba(59, 130, 246, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '0s'}} filter="url(#omniusGlow)" />
+                <circle cx="380" cy="200" r="4" fill="rgba(29, 78, 216, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '1s'}} filter="url(#omniusGlow)" />
+                <circle cx="200" cy="380" r="4" fill="rgba(37, 99, 235, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '2s'}} filter="url(#omniusGlow)" />
+                <circle cx="20" cy="200" r="4" fill="rgba(30, 64, 175, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '3s'}} filter="url(#omniusGlow)" />
                 
                 {/* Diagonal Nodes */}
                 <circle cx="314" cy="86" r="3" fill="rgba(99, 102, 241, 0.8)" className="animate-pulse-smooth" style={{animationDelay: '0.5s'}} filter="url(#omniusGlow)" />
@@ -617,7 +617,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                 <line x1="200" y1="377" x2="200" y2="320" stroke="rgba(148, 0, 211, 0.6)" strokeWidth="1" className="animate-pulse-smooth" style={{animationDelay: '2s'}} />
                 <line x1="23" y1="200" x2="80" y2="200" stroke="rgba(102, 51, 153, 0.6)" strokeWidth="1" className="animate-pulse-smooth" style={{animationDelay: '3s'}} />
                 
-                {/* Central Diamond Pattern */}
+                {/* Complex Geometric Intelligence Patterns */}
                 <polygon 
                   points="200,140 240,180 200,220 160,180" 
                   fill="none" 
@@ -629,7 +629,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                 <polygon 
                   points="200,100 260,160 200,220 140,160" 
                   fill="none" 
-                  stroke="rgba(148, 0, 211, 0.3)" 
+                  stroke="rgba(75, 0, 130, 0.3)" 
                   strokeWidth="0.6"
                   className="animate-pulse-smooth"
                   style={{animationDelay: '5s'}}
@@ -811,7 +811,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                     cy="200" 
                     r="90" 
                     fill="none" 
-                    stroke="url(#omniusBlueGradient)" 
+                    stroke="url(#omniusGradient2)" 
                     strokeWidth="3"
                     opacity="0.7"
                     className="animate-spin-reverse"
@@ -879,7 +879,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                   <path 
                     d="M 50,100 Q 100,50 150,100 Q 100,150 50,100" 
                     fill="none" 
-                    stroke="url(#omniusBlueSpiral)" 
+                    stroke="rgba(59,130,246,0.8)" 
                     strokeWidth="2"
                     className="animate-pulse-smooth"
                     style={{animationDelay: '7s'}}
