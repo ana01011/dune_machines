@@ -102,7 +102,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
           duration: 1.5,
           ease: "power1.inOut",
           delay: index * 0.12,
-          repeat: 1, // No return to base state
+          repeat: 0, // No return to base state
           onComplete: index === letters.length - 1 ? () => {
             setTimeout(shineLoop, 8000); // Repeat every 8 seconds
           } : undefined
