@@ -263,9 +263,9 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
   };
 
   const getButtonText = () => {
-    if (!showAISelection) return 'SELECT AI CONSCIOUSNESS';
+    if (!showAISelection) return 'SELECT THINKING MACHINE';
     if (selectedAI) return 'CONTINUE';
-    return 'CHOOSE YOUR AI';
+    return 'CHOOSE YOUR THINKING MACHINE';
   };
 
   const renderAnimatedTitle = () => {
@@ -528,21 +528,21 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
         {showAISelection && (
           <div 
             ref={dropdownRef}
-            className="mt-6 sm:mt-8 w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto bg-black/40 backdrop-blur-xl rounded-2xl border border-white/20 p-4 sm:p-6 shadow-2xl"
+            className="mt-4 sm:mt-6 w-full max-w-sm sm:max-w-md mx-auto bg-black/40 backdrop-blur-xl rounded-xl border border-white/20 p-3 sm:p-4 shadow-2xl"
             style={{
               background: 'linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(15,23,42,0.9) 50%, rgba(0,0,0,0.8) 100%)'
             }}
           >
-            <div className="text-center mb-4 sm:mb-6">
-              <h3 className="text-base sm:text-lg font-light text-white mb-2 tracking-wider">
-                CHOOSE YOUR AI CONSCIOUSNESS
+            <div className="text-center mb-3 sm:mb-4">
+              <h3 className="text-sm sm:text-base font-light text-white mb-1 tracking-wider">
+                CHOOSE YOUR THINKING MACHINE
               </h3>
-              <p className="text-xs sm:text-sm text-white/60 font-light">
-                Each AI represents a unique form of digital intelligence
+              <p className="text-xs text-white/60 font-light">
+                Each represents a unique form of digital intelligence
               </p>
             </div>
 
-            <div className="grid gap-2 sm:gap-3 max-h-64 sm:max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+            <div className="grid gap-2 max-h-48 sm:max-h-56 overflow-y-auto custom-scrollbar">
               {aiModels.map((ai) => {
                 const Icon = ai.icon;
                 const isSelected = selectedAI === ai.id;
@@ -552,45 +552,45 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                     key={ai.id}
                     data-ai-id={ai.id}
                     onClick={() => handleAISelect(ai.id)}
-                    className={`group relative p-3 sm:p-4 rounded-xl border transition-all duration-300 cursor-pointer ${
+                    className={`group relative p-2 sm:p-3 rounded-lg border transition-all duration-300 cursor-pointer ${
                       isSelected 
                         ? 'border-blue-400/60 bg-blue-500/20 shadow-lg shadow-blue-500/20' 
                         : 'border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10'
                     }`}
                   >
-                    <div className="flex items-center space-x-3 sm:space-x-4">
-                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
                         isSelected 
                           ? 'bg-blue-500/30 border border-blue-400/40' 
                           : 'bg-white/10 border border-white/20'
                       }`}>
-                        <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                        <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${
                           isSelected ? 'text-blue-300' : 'text-white/70'
                         }`} />
                       </div>
                       
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between mb-1">
-                          <h4 className={`text-sm sm:text-base font-medium truncate ${
+                        <div className="flex items-center justify-between mb-0.5">
+                          <h4 className={`text-xs sm:text-sm font-medium truncate ${
                             isSelected ? 'text-white' : 'text-white/90'
                           }`}>
                             {ai.name}
                           </h4>
-                          <div className="text-xs text-white/60 ml-2 flex-shrink-0">
+                          <div className="text-xs text-white/60 ml-1 flex-shrink-0">
                             {ai.powerLevel}% Power
                           </div>
                         </div>
-                        <p className={`text-xs sm:text-sm mb-2 ${
+                        <p className={`text-xs mb-1 ${
                           isSelected ? 'text-blue-300' : 'text-white/60'
                         } truncate`}>
                           {ai.subtitle}
                         </p>
-                        <p className="text-xs text-white/50 font-light leading-relaxed line-clamp-2">
+                        <p className="text-xs text-white/50 font-light leading-tight line-clamp-1 sm:line-clamp-2">
                           {ai.description}
                         </p>
                         
                         {/* Power Level Bar */}
-                        <div className="mt-3">
+                        <div className="mt-1.5 sm:mt-2">
                           <div className="h-1 bg-white/10 rounded-full overflow-hidden">
                             <div 
                               className={`h-full transition-all duration-1000 ease-out ${
@@ -683,6 +683,32 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
           animation-delay: var(--delay, 0s);
         }
         
+        /* Custom themed scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 3px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: linear-gradient(135deg, rgba(59, 130, 246, 0.6), rgba(99, 102, 241, 0.6));
+          border-radius: 3px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(99, 102, 241, 0.8));
+        }
+        
+        /* Firefox scrollbar */
+        .custom-scrollbar {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(59, 130, 246, 0.6) rgba(255, 255, 255, 0.05);
+        }
+        
         /* Ensure consistent sizing across all devices */
         @media (max-width: 768px) {
           .twinkle-star {
@@ -697,6 +723,11 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
             height: 0.5px !important;
             max-width: 0.5px;
             max-height: 0.5px;
+          }
+          
+          /* Ensure floating logo is visible on mobile */
+          .title-container {
+            margin-bottom: 1rem;
           }
         }
       `}</style>
