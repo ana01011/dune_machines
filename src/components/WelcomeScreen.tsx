@@ -9,14 +9,12 @@ interface WelcomeScreenProps {
 export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
   const [showAISelection, setShowAISelection] = useState(false);
   const [selectedAI, setSelectedAI] = useState<string | null>(null);
-  const [showOmnius, setShowOmnius] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const omniusRef = useRef<HTMLDivElement>(null);
 
   const aiModels = [
     {
@@ -235,35 +233,6 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
 
   const handleAISelect = (aiId: string) => {
     setSelectedAI(aiId);
-    
-    // Show Omnius GIF if Omnius is selected
-    if (aiId === 'omnius') {
-      setShowOmnius(true);
-      
-      // Animate Omnius appearance with GSAP
-      setTimeout(() => {
-        if (omniusRef.current) {
-          gsap.fromTo(omniusRef.current,
-            { 
-              y: 150, 
-              opacity: 0,
-              scale: 0.3,
-              rotationY: 180
-            },
-            { 
-              y: 0, 
-              opacity: 0.4,
-              scale: 1,
-              rotationY: 0,
-              duration: 2.5,
-              ease: "elastic.out(1, 0.6)"
-            }
-          );
-        }
-      }, 100);
-    } else {
-      setShowOmnius(false);
-    }
     
     // Animate selection
     const selectedCard = document.querySelector(`[data-ai-id="${aiId}"]`);
@@ -643,29 +612,6 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
         )}
       </div>
 
-      {/* Omnius Being GIF */}
-      {showOmnius && (
-        <div 
-          ref={omniusRef}
-          className="absolute pointer-events-none z-0"
-          style={{
-            left: '50%',
-            transform: 'translateX(-50%)',
-            bottom: '60px', // Position just above the continue button
-          }}
-        >
-          <img 
-            src="/omnius-char-unscreen.gif" 
-            alt="Omnius Being"
-            className="w-4 h-4 sm:w-6 sm:h-6 object-contain"
-            style={{
-              opacity: 0.4,
-              filter: 'drop-shadow(0 0 20px rgba(147, 51, 234, 0.4)) drop-shadow(0 0 40px rgba(147, 51, 234, 0.2))',
-              mixBlendMode: 'screen'
-            }}
-          />
-        </div>
-      )}
 
       {/* Custom Animations */}
       <style jsx>{`
