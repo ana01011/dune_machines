@@ -9,12 +9,17 @@ interface WelcomeScreenProps {
 export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
   const [showAISelection, setShowAISelection] = useState(false);
   const [selectedAI, setSelectedAI] = useState<string | null>(null);
+  const [showOmnius, setShowOmnius] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const omniusRef = useRef<HTMLDivElement>(null);
+  const omniusAuraRef = useRef<HTMLDivElement>(null);
+  const omniusEyesRef = useRef<HTMLDivElement>(null);
+  const omniusParticlesRef = useRef<HTMLDivElement>(null);
 
   const aiModels = [
     {
