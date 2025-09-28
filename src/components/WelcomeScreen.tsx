@@ -862,7 +862,6 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                     stroke="url(#omniusGradient3)" 
                     strokeWidth="0.6"
                     className="animate-pulse-smooth"
-                    strokeWidth="2"
                     style={{animationDelay: '5s'}}
                   />
                   
