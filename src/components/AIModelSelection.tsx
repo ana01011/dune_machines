@@ -1,26 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { 
-  Brain, 
-  Zap, 
-  Shield, 
-  Crown, 
-  Cpu, 
-  Eye, 
-  Sparkles, 
-  ArrowRight,
-  Star,
-  Lock,
-  Unlock,
-  ChevronRight,
-  Globe,
-  Database,
-  Network,
-  Layers,
-  Target,
-  Atom
-} from 'lucide-react';
+import { Brain, Zap, Shield, Crown, Cpu, Eye, Sparkles, ArrowRight, Star, Lock, Clock as Unlock, ChevronRight, Globe, Database, Network, Layers, Target, Atom } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
