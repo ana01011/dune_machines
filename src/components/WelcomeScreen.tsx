@@ -197,13 +197,13 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
               key={`particle-${i}`}
               className="absolute bg-white rounded-full animate-pulse twinkle-star"
               style={{
-                width: '0.5px',
-                height: '0.5px',
+                width: '0.1px',
+                height: '0.1px',
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 4}s`,
+                animationDelay: `${Math.random() * 5}s`,
                 animationDuration: `${2 + Math.random() * 3}s`,
-                opacity: 0.3 + Math.random() * 0.7,
+                opacity: 0.2 + Math.random() * 0.7,
                 boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
                 transform: `scale(${0.5 + Math.random() * 0.5})`
               }}
