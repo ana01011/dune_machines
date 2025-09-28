@@ -608,7 +608,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                               style={{ width: `${ai.powerLevel}%` }}
                             />
                           </div>
-                        </div>
+                className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-contain opacity-15"
                       </div>
                     </div>
                   </div>
