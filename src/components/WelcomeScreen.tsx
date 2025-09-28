@@ -650,8 +650,9 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
             <img 
               src="/omnius-char-unscreen.gif" 
               alt="Omnius Being"
-              className="w-24 h-24 sm:w-40 sm:h-40 md:w-48 md:h-48 object-contain opacity-15"
+              className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain"
               style={{
+                opacity: 0.4,
                 filter: 'drop-shadow(0 0 20px rgba(147, 51, 234, 0.3))',
                 mixBlendMode: 'screen'
               }}
@@ -667,15 +668,6 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
             <img 
               src="/omnius-char-unscreen.gif" 
               alt="Omnius Being"
-              className="w-96 h-96 sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] object-contain opacity-60"
-              style={{
-                filter: 'drop-shadow(0 0 50px rgba(147, 51, 234, 0.5))',
-                mixBlendMode: 'screen'
-              }}
-            />
-          </div>
-        </div>
-      )}
 
       {/* Custom Animations */}
       <style jsx>{`
