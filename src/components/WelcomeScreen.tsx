@@ -710,6 +710,258 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
       {/* Content Container */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
         
+        {/* Enhanced Omnius Higher Being Manifestation */}
+        {showOmnius && (
+          <div 
+            ref={omniusRef}
+            className="fixed inset-0 pointer-events-none z-5"
+            style={{
+              background: 'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.1) 100%)'
+            }}
+          >
+            {/* Omnius Aura - Massive Neural Network */}
+            <div 
+              ref={omniusAuraRef}
+              className="absolute inset-0 opacity-0"
+              style={{
+                background: `
+                  radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 25%),
+                  radial-gradient(circle at 70% 30%, rgba(29, 78, 216, 0.12) 0%, transparent 30%),
+                  radial-gradient(circle at 20% 70%, rgba(37, 99, 235, 0.1) 0%, transparent 35%),
+                  radial-gradient(circle at 80% 80%, rgba(30, 64, 175, 0.08) 0%, transparent 40%),
+                  conic-gradient(from 0deg at 50% 50%, 
+                    transparent 0deg, 
+                    rgba(59, 130, 246, 0.05) 60deg, 
+                    transparent 120deg, 
+                    rgba(29, 78, 216, 0.03) 180deg, 
+                    transparent 240deg, 
+                    rgba(37, 99, 235, 0.04) 300deg, 
+                    transparent 360deg
+                  )
+                `,
+                filter: 'blur(80px)'
+              }}
+            />
+            
+            {/* Omnius Core Presence - Geometric Intelligence */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="relative w-96 h-96 opacity-0" style={{ transform: 'scale(0.1)' }}>
+                
+                {/* Central Intelligence Core */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div 
+                    className="w-32 h-32 rounded-full opacity-20"
+                    style={{
+                      background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.8) 0%, rgba(29, 78, 216, 0.4) 40%, transparent 70%)',
+                      filter: 'blur(20px)',
+                      boxShadow: '0 0 100px rgba(59, 130, 246, 0.6), inset 0 0 50px rgba(29, 78, 216, 0.4)'
+                    }}
+                  />
+                </div>
+                
+                {/* Geometric Neural Patterns */}
+                <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 400 400">
+                  <defs>
+                    <linearGradient id="omniusGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="rgba(59, 130, 246, 0.8)" />
+                      <stop offset="50%" stopColor="rgba(29, 78, 216, 0.6)" />
+                      <stop offset="100%" stopColor="rgba(37, 99, 235, 0.4)" />
+                    </linearGradient>
+                    <linearGradient id="omniusGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="rgba(99, 102, 241, 0.7)" />
+                      <stop offset="50%" stopColor="rgba(79, 70, 229, 0.5)" />
+                      <stop offset="100%" stopColor="rgba(67, 56, 202, 0.3)" />
+                    </linearGradient>
+                    <linearGradient id="omniusGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="rgba(30, 64, 175, 0.6)" />
+                      <stop offset="50%" stopColor="rgba(37, 99, 235, 0.4)" />
+                      <stop offset="100%" stopColor="rgba(59, 130, 246, 0.2)" />
+                    </linearGradient>
+                    <filter id="omniusGlow" x="-50%" y="-50%" width="200%" height="200%">
+                      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                      <feMerge> 
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                    <filter id="omniusIntenseGlow" x="-100%" y="-100%" width="300%" height="300%">
+                      <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                      <feMerge> 
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  
+                  {/* Outer Intelligence Ring */}
+                  <circle 
+                    cx="200" 
+                    cy="200" 
+                    r="180" 
+                    fill="none" 
+                    stroke="url(#omniusGradient)" 
+                    strokeWidth="1" 
+                    opacity="0.6"
+                    className="animate-spin-slow"
+                  />
+                  
+                  {/* Middle Processing Ring */}
+                  <circle 
+                    cx="200" 
+                    cy="200" 
+                    r="120" 
+                    fill="none" 
+                    stroke="url(#omniusGradient2)" 
+                    strokeWidth="0.8" 
+                    opacity="0.7"
+                    className="animate-spin-reverse"
+                  />
+                  
+                  {/* Inner Core Ring */}
+                  <circle 
+                    cx="200" 
+                    cy="200" 
+                    r="60" 
+                    fill="none" 
+                    stroke="url(#omniusGradient3)" 
+                    strokeWidth="1.2" 
+                    opacity="0.8"
+                    className="animate-spin-slow"
+                  />
+                  
+                  {/* Enhanced Neural Connection Nodes */}
+                  <circle cx="200" cy="20" r="4" fill="rgba(59, 130, 246, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '0s'}} filter="url(#omniusIntenseGlow)" />
+                  <circle cx="380" cy="200" r="4" fill="rgba(29, 78, 216, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '1s'}} filter="url(#omniusIntenseGlow)" />
+                  <circle cx="200" cy="380" r="4" fill="rgba(37, 99, 235, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '2s'}} filter="url(#omniusIntenseGlow)" />
+                  <circle cx="20" cy="200" r="4" fill="rgba(30, 64, 175, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '3s'}} filter="url(#omniusIntenseGlow)" />
+                  
+                  {/* Diagonal Intelligence Nodes */}
+                  <circle cx="314" cy="86" r="3" fill="rgba(99, 102, 241, 0.8)" className="animate-pulse-smooth" style={{animationDelay: '0.5s'}} filter="url(#omniusGlow)" />
+                  <circle cx="314" cy="314" r="3" fill="rgba(79, 70, 229, 0.8)" className="animate-pulse-smooth" style={{animationDelay: '1.5s'}} filter="url(#omniusGlow)" />
+                  <circle cx="86" cy="314" r="3" fill="rgba(67, 56, 202, 0.8)" className="animate-pulse-smooth" style={{animationDelay: '2.5s'}} filter="url(#omniusGlow)" />
+                  <circle cx="86" cy="86" r="3" fill="rgba(55, 48, 163, 0.8)" className="animate-pulse-smooth" style={{animationDelay: '3.5s'}} filter="url(#omniusGlow)" />
+                  
+                  {/* Neural Connection Lines with Gradients */}
+                  <line x1="200" y1="23" x2="200" y2="60" stroke="url(#omniusGradient)" strokeWidth="1" className="animate-pulse-smooth" style={{animationDelay: '0s'}} />
+                  <line x1="377" y1="200" x2="320" y2="200" stroke="url(#omniusGradient2)" strokeWidth="1" className="animate-pulse-smooth" style={{animationDelay: '1s'}} />
+                  <line x1="200" y1="377" x2="200" y2="320" stroke="url(#omniusGradient3)" strokeWidth="1" className="animate-pulse-smooth" style={{animationDelay: '2s'}} />
+                  <line x1="23" y1="200" x2="80" y2="200" stroke="url(#omniusGradient)" strokeWidth="1" className="animate-pulse-smooth" style={{animationDelay: '3s'}} />
+                  
+                  {/* Complex Geometric Intelligence Patterns */}
+                  <polygon 
+                    points="200,140 240,180 200,220 160,180" 
+                    fill="none" 
+                    stroke="url(#omniusGradient2)" 
+                    strokeWidth="0.8"
+                    className="animate-pulse-smooth"
+                    style={{animationDelay: '4s'}}
+                  />
+                  <polygon 
+                    points="200,100 260,160 200,220 140,160" 
+                    fill="none" 
+                    stroke="url(#omniusGradient3)" 
+                    strokeWidth="0.6"
+                    className="animate-pulse-smooth"
+                    style={{animationDelay: '5s'}}
+                  />
+                  
+                  {/* Pentagon Intelligence Pattern */}
+                  <polygon 
+                    points="200,80 240,120 220,170 180,170 160,120" 
+                    fill="none" 
+                    stroke="url(#omniusGradient)" 
+                    strokeWidth="0.7"
+                    className="animate-pulse-smooth"
+                    style={{animationDelay: '6s'}}
+                  />
+                  
+                  {/* Consciousness Web */}
+                  <path 
+                    d="M 200,140 Q 240,160 200,180 Q 160,160 200,140" 
+                    fill="none" 
+                    stroke="url(#omniusGradient2)" 
+                    strokeWidth="0.5"
+                    className="animate-pulse-smooth"
+                    style={{animationDelay: '7s'}}
+                  />
+                  
+                  {/* Intelligence Synapses */}
+                  <line x1="160" y1="160" x2="240" y2="240" stroke="url(#omniusGradient3)" strokeWidth="0.4" className="animate-pulse-smooth" style={{animationDelay: '8s'}} />
+                  <line x1="240" y1="160" x2="160" y2="240" stroke="url(#omniusGradient)" strokeWidth="0.4" className="animate-pulse-smooth" style={{animationDelay: '9s'}} />
+                </svg>
+              </div>
+            </div>
+            
+            {/* Omnius Eyes - The Watching Intelligence */}
+            <div 
+              ref={omniusEyesRef}
+              className="absolute inset-0 flex items-center justify-center opacity-0"
+            >
+              <div className="relative">
+                {/* Left Eye */}
+                <div 
+                  className="absolute w-8 h-8 rounded-full"
+                  style={{
+                    left: '-60px',
+                    top: '-20px',
+                    background: 'radial-gradient(circle at center, rgba(59, 130, 246, 1) 0%, rgba(29, 78, 216, 0.8) 40%, transparent 70%)',
+                    filter: 'blur(2px)',
+                    boxShadow: '0 0 30px rgba(59, 130, 246, 0.8), 0 0 60px rgba(59, 130, 246, 0.4)'
+                  }}
+                >
+                  <div 
+                    className="absolute inset-2 rounded-full animate-eye-look"
+                    style={{
+                      background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.9) 0%, rgba(59, 130, 246, 0.6) 60%, transparent 100%)'
+                    }}
+                  />
+                </div>
+                
+                {/* Right Eye */}
+                <div 
+                  className="absolute w-8 h-8 rounded-full"
+                  style={{
+                    right: '-60px',
+                    top: '-20px',
+                    background: 'radial-gradient(circle at center, rgba(59, 130, 246, 1) 0%, rgba(29, 78, 216, 0.8) 40%, transparent 70%)',
+                    filter: 'blur(2px)',
+                    boxShadow: '0 0 30px rgba(59, 130, 246, 0.8), 0 0 60px rgba(59, 130, 246, 0.4)'
+                  }}
+                >
+                  <div 
+                    className="absolute inset-2 rounded-full animate-eye-look animate-blink"
+                    style={{
+                      background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.9) 0%, rgba(59, 130, 246, 0.6) 60%, transparent 100%)'
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+            
+            {/* Enhanced Floating Intelligence Particles */}
+            <div 
+              ref={omniusParticlesRef}
+              className="absolute inset-0 pointer-events-none"
+            >
+              {[...Array(16)].map((_, i) => (
+                <div
+                  key={`omnius-particle-${i}`}
+                  className="absolute rounded-full opacity-0"
+                  style={{
+                    width: `${3 + (i % 4)}px`,
+                    height: `${3 + (i % 4)}px`,
+                    left: `${20 + (i * 6)}%`,
+                    top: `${30 + Math.sin(i) * 20}%`,
+                    background: `radial-gradient(circle at center, rgba(${59 + i * 8}, ${130 + i * 5}, ${246 - i * 6}, 0.9) 0%, transparent 70%)`,
+                    filter: 'blur(0.5px)',
+                    boxShadow: `0 0 ${15 + i * 2}px rgba(${59 + i * 8}, ${130 + i * 5}, ${246 - i * 6}, 0.8)`
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+        
         {/* Minimal Logo Symbol */}
         <div ref={logoRef} className="mb-6 sm:mb-8">
           <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 mx-auto relative">
