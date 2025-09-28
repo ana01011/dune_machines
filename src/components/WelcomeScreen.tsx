@@ -512,17 +512,17 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
             className="absolute inset-0 opacity-0"
             style={{
               background: `
-                radial-gradient(circle at 30% 20%, rgba(138, 43, 226, 0.15) 0%, transparent 25%),
-                radial-gradient(circle at 70% 30%, rgba(75, 0, 130, 0.12) 0%, transparent 30%),
-                radial-gradient(circle at 20% 70%, rgba(148, 0, 211, 0.1) 0%, transparent 35%),
-                radial-gradient(circle at 80% 80%, rgba(102, 51, 153, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 70% 30%, rgba(29, 78, 216, 0.12) 0%, transparent 30%),
+                radial-gradient(circle at 20% 70%, rgba(37, 99, 235, 0.1) 0%, transparent 35%),
+                radial-gradient(circle at 80% 80%, rgba(30, 64, 175, 0.08) 0%, transparent 40%),
                 conic-gradient(from 0deg at 50% 50%, 
                   transparent 0deg, 
-                  rgba(138, 43, 226, 0.05) 60deg, 
+                  rgba(59, 130, 246, 0.05) 60deg, 
                   transparent 120deg, 
-                  rgba(75, 0, 130, 0.03) 180deg, 
+                  rgba(29, 78, 216, 0.03) 180deg, 
                   transparent 240deg, 
-                  rgba(148, 0, 211, 0.04) 300deg, 
+                  rgba(37, 99, 235, 0.04) 300deg, 
                   transparent 360deg
                 )
               `,
@@ -539,9 +539,9 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                 <div 
                   className="w-32 h-32 rounded-full opacity-20"
                   style={{
-                    background: 'radial-gradient(circle at center, rgba(138, 43, 226, 0.8) 0%, rgba(75, 0, 130, 0.4) 40%, transparent 70%)',
+                    background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.8) 0%, rgba(29, 78, 216, 0.4) 40%, transparent 70%)',
                     filter: 'blur(20px)',
-                    boxShadow: '0 0 100px rgba(138, 43, 226, 0.6), inset 0 0 50px rgba(75, 0, 130, 0.4)'
+                    boxShadow: '0 0 100px rgba(59, 130, 246, 0.6), inset 0 0 50px rgba(29, 78, 216, 0.4)'
                   }}
                 />
               </div>
@@ -600,16 +600,16 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                 />
                 
                 {/* Neural Connection Nodes */}
-                <circle cx="200" cy="20" r="3" fill="rgba(138, 43, 226, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '0s'}} filter="url(#omniusGlow)" />
-                <circle cx="380" cy="200" r="3" fill="rgba(75, 0, 130, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '1s'}} filter="url(#omniusGlow)" />
-                <circle cx="200" cy="380" r="3" fill="rgba(148, 0, 211, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '2s'}} filter="url(#omniusGlow)" />
-                <circle cx="20" cy="200" r="3" fill="rgba(102, 51, 153, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '3s'}} filter="url(#omniusGlow)" />
+                <circle cx="200" cy="20" r="4" fill="rgba(59, 130, 246, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '0s'}} filter="url(#omniusIntenseGlow)" />
+                <circle cx="380" cy="200" r="4" fill="rgba(29, 78, 216, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '1s'}} filter="url(#omniusIntenseGlow)" />
+                <circle cx="200" cy="380" r="4" fill="rgba(37, 99, 235, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '2s'}} filter="url(#omniusIntenseGlow)" />
+                <circle cx="20" cy="200" r="4" fill="rgba(30, 64, 175, 0.9)" className="animate-pulse-smooth" style={{animationDelay: '3s'}} filter="url(#omniusIntenseGlow)" />
                 
                 {/* Diagonal Nodes */}
-                <circle cx="314" cy="86" r="2.5" fill="rgba(138, 43, 226, 0.8)" className="animate-pulse-smooth" style={{animationDelay: '0.5s'}} filter="url(#omniusGlow)" />
-                <circle cx="314" cy="314" r="2.5" fill="rgba(75, 0, 130, 0.8)" className="animate-pulse-smooth" style={{animationDelay: '1.5s'}} filter="url(#omniusGlow)" />
-                <circle cx="86" cy="314" r="2.5" fill="rgba(148, 0, 211, 0.8)" className="animate-pulse-smooth" style={{animationDelay: '2.5s'}} filter="url(#omniusGlow)" />
-                <circle cx="86" cy="86" r="2.5" fill="rgba(102, 51, 153, 0.8)" className="animate-pulse-smooth" style={{animationDelay: '3.5s'}} filter="url(#omniusGlow)" />
+                <circle cx="314" cy="86" r="3" fill="rgba(99, 102, 241, 0.8)" className="animate-pulse-smooth" style={{animationDelay: '0.5s'}} filter="url(#omniusGlow)" />
+                <circle cx="314" cy="314" r="3" fill="rgba(79, 70, 229, 0.8)" className="animate-pulse-smooth" style={{animationDelay: '1.5s'}} filter="url(#omniusGlow)" />
+                <circle cx="86" cy="314" r="3" fill="rgba(67, 56, 202, 0.8)" className="animate-pulse-smooth" style={{animationDelay: '2.5s'}} filter="url(#omniusGlow)" />
+                <circle cx="86" cy="86" r="3" fill="rgba(55, 48, 163, 0.8)" className="animate-pulse-smooth" style={{animationDelay: '3.5s'}} filter="url(#omniusGlow)" />
                 
                 {/* Neural Connection Lines */}
                 <line x1="200" y1="23" x2="200" y2="60" stroke="rgba(138, 43, 226, 0.6)" strokeWidth="1" className="animate-pulse-smooth" style={{animationDelay: '0s'}} />
@@ -689,16 +689,18 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
             ref={omniusParticlesRef}
             className="absolute inset-0 pointer-events-none"
           >
-            {[...Array(12)].map((_, i) => (
+            {[...Array(16)].map((_, i) => (
               <div
                 key={`omnius-particle-${i}`}
-                className="absolute w-2 h-2 rounded-full opacity-0"
+                className="absolute rounded-full opacity-0"
                 style={{
+                  width: `${3 + (i % 3)}px`,
+                  height: `${3 + (i % 3)}px`,
                   left: `${20 + (i * 6)}%`,
                   top: `${30 + Math.sin(i) * 20}%`,
-                  background: `radial-gradient(circle at center, rgba(${138 + i * 2}, ${43 + i * 3}, ${226 - i * 4}, 0.8) 0%, transparent 70%)`,
-                  filter: 'blur(1px)',
-                  boxShadow: `0 0 20px rgba(${138 + i * 2}, ${43 + i * 3}, ${226 - i * 4}, 0.6)`
+                  background: `radial-gradient(circle at center, rgba(${59 + i * 8}, ${130 + i * 5}, ${246 - i * 6}, 0.9) 0%, transparent 70%)`,
+                  filter: 'blur(0.5px)',
+                  boxShadow: `0 0 ${15 + i * 2}px rgba(${59 + i * 8}, ${130 + i * 5}, ${246 - i * 6}, 0.8)`
                 }}
               />
             ))}
