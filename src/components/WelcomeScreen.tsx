@@ -218,6 +218,111 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
     }
   }, [showAISelection]);
 
+  // Omnius Manifestation Animation
+  useEffect(() => {
+    if (showOmnius && omniusRef.current && omniusAuraRef.current && omniusEyesRef.current && omniusParticlesRef.current) {
+      console.log('🚀 OMNIUS MANIFESTATION STARTING...');
+      
+      // Epic 8-second manifestation sequence
+      const manifestationTl = gsap.timeline();
+      
+      // Initial setup - completely hidden
+      gsap.set([omniusRef.current, omniusAuraRef.current, omniusEyesRef.current, omniusParticlesRef.current], {
+        opacity: 0,
+        scale: 0.1,
+        rotationY: 180,
+        z: -2000
+      });
+      
+      // Manifestation sequence
+      manifestationTl
+        // Phase 1: Aura emergence (0-3s)
+        .to(omniusAuraRef.current, {
+          opacity: 0.15,
+          scale: 1.2,
+          rotationY: 0,
+          z: 0,
+          duration: 3,
+          ease: "power2.out"
+        })
+        // Phase 2: Core presence (2-5s)
+        .to(omniusRef.current, {
+          opacity: 0.2,
+          scale: 1,
+          rotationY: 0,
+          z: 0,
+          duration: 3,
+          ease: "power3.out"
+        }, "-=1")
+        // Phase 3: Eyes awakening (4-6s)
+        .to(omniusEyesRef.current, {
+          opacity: 0.8,
+          scale: 1,
+          duration: 2,
+          ease: "power2.out"
+        }, "-=1")
+        // Phase 4: Particles activation (5-8s)
+        .to(omniusParticlesRef.current.children, {
+          opacity: 0.6,
+          scale: 1,
+          duration: 3,
+          stagger: 0.2,
+          ease: "back.out(2)"
+        }, "-=2");
+      
+      // Continuous breathing animation
+      gsap.to(omniusRef.current, {
+        y: -15,
+        duration: 8,
+        ease: "power1.inOut",
+        yoyo: true,
+        repeat: -1,
+        delay: 8
+      });
+      
+      // Aura pulsing
+      gsap.to(omniusAuraRef.current, {
+        scale: 1.3,
+        opacity: 0.2,
+        duration: 6,
+        ease: "power1.inOut",
+        yoyo: true,
+        repeat: -1,
+        delay: 8
+      });
+      
+      // Eye glow pulsing
+      gsap.to(omniusEyesRef.current.children, {
+        scale: 1.1,
+        duration: 4,
+        ease: "power1.inOut",
+        yoyo: true,
+        repeat: -1,
+        stagger: 0.5,
+        delay: 8
+      });
+      
+      // Particle orbital motion
+      gsap.to(omniusParticlesRef.current.children, {
+        rotation: 360,
+        duration: 20,
+        ease: "none",
+        repeat: -1,
+        stagger: 0.8,
+        delay: 8
+      });
+      
+    } else if (!showOmnius && omniusRef.current) {
+      // Fade out when deselected
+      gsap.to([omniusRef.current, omniusAuraRef.current, omniusEyesRef.current, omniusParticlesRef.current], {
+        opacity: 0,
+        scale: 0.1,
+        duration: 3,
+        ease: "power2.in"
+      });
+    }
+  }, [showOmnius]);
+
   const handleButtonClick = () => {
     if (!showAISelection) {
       setShowAISelection(true);
