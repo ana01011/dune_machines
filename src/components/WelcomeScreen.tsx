@@ -650,7 +650,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
             <img 
               src="/omnius-char-unscreen.gif" 
               alt="Omnius Being"
-              className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-contain opacity-15"
+              className="w-24 h-24 sm:w-40 sm:h-40 md:w-48 md:h-48 object-contain opacity-15"
               style={{
                 filter: 'drop-shadow(0 0 20px rgba(147, 51, 234, 0.3))',
                 mixBlendMode: 'screen'
