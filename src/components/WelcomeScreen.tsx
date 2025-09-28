@@ -542,8 +542,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                     background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.8) 0%, rgba(29, 78, 216, 0.4) 40%, transparent 70%)',
                     filter: 'blur(20px)',
                     boxShadow: '0 0 100px rgba(59, 130, 246, 0.6), inset 0 0 50px rgba(29, 78, 216, 0.4)'
-                  }}
-                opacity: 0.2
+                   }}
               </div>
               
               {/* Geometric Neural Patterns */}
