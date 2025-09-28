@@ -202,7 +202,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
                 animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${4 + Math.random() * 3}s`,
+                animationDuration: `${8 + Math.random() * 3}s`,
                 opacity: 0.2 + Math.random() * 0.7,
                 boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
                 transform: `scale(${0.5 + Math.random() * 0.5})`
