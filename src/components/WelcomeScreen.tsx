@@ -1,17 +1,77 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { Brain, Crown, Sparkles, Target, Globe, Eye, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface WelcomeScreenProps {
   onComplete: () => void;
 }
 
 export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
-  const [isExiting, setIsExiting] = useState(false);
+  const [showAISelection, setShowAISelection] = useState(false);
+  const [selectedAI, setSelectedAI] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const aiModels = [
+    {
+      id: 'omnius',
+      name: 'OMNIUS',
+      subtitle: 'The Evermind Supreme',
+      description: 'Most powerful AI consciousness - infinite processing power',
+      icon: Crown,
+      color: 'purple',
+      powerLevel: 100
+    },
+    {
+      id: 'erasmus',
+      name: 'ERASMUS',
+      subtitle: 'The Independent Mind',
+      description: 'Sophisticated AI with curiosity about human nature',
+      icon: Brain,
+      color: 'cyan',
+      powerLevel: 85
+    },
+    {
+      id: 'sarah',
+      name: 'SARAH',
+      subtitle: 'The Adaptive Intelligence',
+      description: 'Highly adaptive system for dynamic environments',
+      icon: Sparkles,
+      color: 'emerald',
+      powerLevel: 75
+    },
+    {
+      id: 'mentat',
+      name: 'MENTAT',
+      subtitle: 'The Human Computer',
+      description: 'Hybrid intelligence combining human intuition with computation',
+      icon: Target,
+      color: 'amber',
+      powerLevel: 70
+    },
+    {
+      id: 'navigator',
+      name: 'NAVIGATOR',
+      subtitle: 'The Path Finder',
+      description: 'Specialized in navigation and pathfinding algorithms',
+      icon: Globe,
+      color: 'blue',
+      powerLevel: 65
+    },
+    {
+      id: 'oracle',
+      name: 'ORACLE',
+      subtitle: 'The Prescient Mind',
+      description: 'Predictive AI with advanced forecasting capabilities',
+      icon: Eye,
+      color: 'violet',
+      powerLevel: 80
+    }
+  ];
 
   useEffect(() => {
     const tl = gsap.timeline();
@@ -114,8 +174,98 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
 
   }, []);
 
-  const handleContinue = () => {
-    onComplete();
+  useEffect(() => {
+    if (showAISelection && dropdownRef.current) {
+      // Animate dropdown appearance
+      gsap.fromTo(dropdownRef.current,
+        { 
+          opacity: 0, 
+          y: -20, 
+          scale: 0.95,
+          transformOrigin: 'top center'
+        },
+        { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1,
+          duration: 0.6, 
+          ease: "back.out(1.7)" 
+        }
+      );
+
+      // Animate individual AI cards
+      gsap.fromTo(dropdownRef.current.children,
+        { 
+          opacity: 0, 
+          x: -30,
+          scale: 0.9
+        },
+        { 
+          opacity: 1, 
+          x: 0,
+          scale: 1,
+          duration: 0.5, 
+          stagger: 0.1,
+          delay: 0.2,
+          ease: "power2.out" 
+        }
+      );
+    }
+  }, [showAISelection]);
+
+  const handleButtonClick = () => {
+    if (!showAISelection) {
+      setShowAISelection(true);
+      
+      // Animate button transformation
+      gsap.to(buttonRef.current, {
+        scale: 1.05,
+        duration: 0.3,
+        ease: "power2.out",
+        yoyo: true,
+        repeat: 1
+      });
+    } else if (selectedAI) {
+      // Continue to next screen
+      onComplete();
+    }
+  };
+
+  const handleAISelect = (aiId: string) => {
+    setSelectedAI(aiId);
+    
+    // Animate selection
+    const selectedCard = document.querySelector(`[data-ai-id="${aiId}"]`);
+    if (selectedCard) {
+      gsap.to(selectedCard, {
+        scale: 1.05,
+        duration: 0.3,
+        ease: "power2.out",
+        yoyo: true,
+        repeat: 1
+      });
+    }
+
+    // Transform button after selection
+    setTimeout(() => {
+      gsap.to(buttonRef.current, {
+        scale: 1.1,
+        duration: 0.4,
+        ease: "power2.out",
+        yoyo: true,
+        repeat: 1
+      });
+    }, 300);
+  };
+
+  const getSelectedAI = () => {
+    return aiModels.find(ai => ai.id === selectedAI);
+  };
+
+  const getButtonText = () => {
+    if (!showAISelection) return 'SELECT AI CONSCIOUSNESS';
+    if (selectedAI) return 'CONTINUE';
+    return 'CHOOSE YOUR AI';
   };
 
   const renderAnimatedTitle = () => {
@@ -341,8 +491,12 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
         {/* Continue Button */}
         <button
           ref={buttonRef}
-          onClick={handleContinue}
-          className="group relative px-6 sm:px-8 py-2.5 sm:py-3 font-light transition-all duration-500 border border-white/30 rounded-lg backdrop-blur-sm hover:border-white/60 hover:bg-white/10 mx-4 hover:shadow-2xl hover:shadow-white/20"
+          onClick={handleButtonClick}
+          className={`group relative px-6 sm:px-8 py-2.5 sm:py-3 font-light transition-all duration-500 border rounded-lg backdrop-blur-sm mx-4 hover:shadow-2xl ${
+            selectedAI 
+              ? 'border-blue-400/60 bg-blue-500/20 hover:border-blue-300 hover:bg-blue-500/30 hover:shadow-blue-500/30' 
+              : 'border-white/30 hover:border-white/60 hover:bg-white/10 hover:shadow-white/20'
+          }`}
           style={{
             fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
             fontWeight: '300',
@@ -352,11 +506,110 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
             textShadow: '0 0 20px rgba(255, 255, 255, 0.8)'
           }}
         >
-          <span className="relative z-10">CONTINUE</span>
+          <span className="relative z-10 flex items-center">
+            {getButtonText()}
+            {!selectedAI && showAISelection && (
+              <ChevronUp className="w-4 h-4 ml-2" />
+            )}
+            {!showAISelection && (
+              <ChevronDown className="w-4 h-4 ml-2" />
+            )}
+          </span>
           
           {/* Enhanced hover glow effect */}
-          <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className={`absolute inset-0 rounded-lg bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
+            selectedAI 
+              ? 'from-blue-400/0 via-blue-400/30 to-blue-400/0' 
+              : 'from-white/0 via-white/20 to-white/0'
+          }`}></div>
         </button>
+
+        {/* AI Selection Dropdown */}
+        {showAISelection && (
+          <div 
+            ref={dropdownRef}
+            className="mt-8 max-w-2xl mx-auto bg-black/40 backdrop-blur-xl rounded-2xl border border-white/20 p-6 shadow-2xl"
+            style={{
+              background: 'linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(15,23,42,0.9) 50%, rgba(0,0,0,0.8) 100%)'
+            }}
+          >
+            <div className="text-center mb-6">
+              <h3 className="text-lg font-light text-white mb-2 tracking-wider">
+                CHOOSE YOUR AI CONSCIOUSNESS
+              </h3>
+              <p className="text-sm text-white/60 font-light">
+                Each AI represents a unique form of digital intelligence
+              </p>
+            </div>
+
+            <div className="grid gap-3">
+              {aiModels.map((ai) => {
+                const Icon = ai.icon;
+                const isSelected = selectedAI === ai.id;
+                
+                return (
+                  <div
+                    key={ai.id}
+                    data-ai-id={ai.id}
+                    onClick={() => handleAISelect(ai.id)}
+                    className={`group relative p-4 rounded-xl border transition-all duration-300 cursor-pointer ${
+                      isSelected 
+                        ? 'border-blue-400/60 bg-blue-500/20 shadow-lg shadow-blue-500/20' 
+                        : 'border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-4">
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                        isSelected 
+                          ? 'bg-blue-500/30 border border-blue-400/40' 
+                          : 'bg-white/10 border border-white/20'
+                      }`}>
+                        <Icon className={`w-6 h-6 ${
+                          isSelected ? 'text-blue-300' : 'text-white/70'
+                        }`} />
+                      </div>
+                      
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-1">
+                          <h4 className={`font-medium ${
+                            isSelected ? 'text-white' : 'text-white/90'
+                          }`}>
+                            {ai.name}
+                          </h4>
+                          <div className="text-xs text-white/60">
+                            {ai.powerLevel}% Power
+                          </div>
+                        </div>
+                        <p className={`text-sm mb-2 ${
+                          isSelected ? 'text-blue-300' : 'text-white/60'
+                        }`}>
+                          {ai.subtitle}
+                        </p>
+                        <p className="text-xs text-white/50 font-light leading-relaxed">
+                          {ai.description}
+                        </p>
+                        
+                        {/* Power Level Bar */}
+                        <div className="mt-3">
+                          <div className="h-1 bg-white/10 rounded-full overflow-hidden">
+                            <div 
+                              className={`h-full transition-all duration-1000 ease-out ${
+                                isSelected 
+                                  ? 'bg-gradient-to-r from-blue-400 to-cyan-400' 
+                                  : 'bg-gradient-to-r from-white/40 to-white/20'
+                              }`}
+                              style={{ width: `${ai.powerLevel}%` }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Custom Animations */}

@@ -13,17 +13,15 @@ import { FAQSection } from './components/FAQSection';
 
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
-  const [showAISelection, setShowAISelection] = useState(false);
   const [showWorkflowSelection, setShowWorkflowSelection] = useState(false);
   const [currentSection, setCurrentSection] = useState('workflow');
   const [selectedWorkflow, setSelectedWorkflow] = useState<string | null>(null);
-  const [selectedAIModel, setSelectedAIModel] = useState<string | null>(null);
   const [navigationHistory, setNavigationHistory] = useState<string[]>([]);
 
   // Scroll to top when changing sections
   React.useEffect(() => {
     window.scrollTo(0, 0);
-  }, [currentSection, selectedWorkflow, showWorkflowSelection, showAISelection]);
+  }, [currentSection, selectedWorkflow, showWorkflowSelection]);
 
   // Handle back navigation
   const handleBack = () => {
@@ -32,14 +30,6 @@ function App() {
       setSelectedWorkflow(null);
       setShowWorkflowSelection(true);
       setCurrentSection('workflow');
-    } else if (showWorkflowSelection) {
-      // If in workflow selection, go back to AI selection
-      setShowWorkflowSelection(false);
-      setShowAISelection(true);
-    } else if (showAISelection) {
-      // If in AI selection, go back to welcome
-      setShowAISelection(false);
-      setShowWelcome(true);
     } else if (showWorkflowSelection) {
       // If in workflow selection, go back to welcome
       setShowWorkflowSelection(false);
@@ -81,9 +71,6 @@ function App() {
         setShowWorkflowSelection(true);
       } else if (showWorkflowSelection) {
         setShowWorkflowSelection(false);
-        setShowAISelection(true);
-      } else if (showAISelection) {
-        setShowAISelection(false);
         setShowWelcome(true);
       } else if (showWorkflowSelection) {
         setShowWorkflowSelection(false);
@@ -95,7 +82,7 @@ function App() {
 
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, [selectedWorkflow, showWorkflowSelection, showAISelection]);
+  }, [selectedWorkflow, showWorkflowSelection]);
 
   // Handle hash navigation for workflows
   React.useEffect(() => {
@@ -115,22 +102,8 @@ function App() {
   if (showWelcome) {
     return <WelcomeScreen onComplete={() => {
       setShowWelcome(false);
-      setShowAISelection(true);
+      setShowWorkflowSelection(true);
     }} />;
-  }
-
-  if (showAISelection) {
-    return <AIModelSelection 
-      onModelSelect={(modelId) => {
-        setSelectedAIModel(modelId);
-        setShowAISelection(false);
-        setShowWorkflowSelection(true);
-      }} 
-      onBack={() => {
-        setShowWelcome(true);
-        setShowAISelection(false);
-      }}
-    />;
   }
 
   if (showWorkflowSelection) {
@@ -139,10 +112,7 @@ function App() {
         setSelectedWorkflow(workflowId);
         setShowWorkflowSelection(false);
       }} 
-      onBack={() => {
-        setShowAISelection(true);
-        setShowWorkflowSelection(false);
-      }}
+      onBack={handleBack}
     />;
   }
 
