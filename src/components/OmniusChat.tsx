@@ -506,86 +506,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                       zIndex: 99999
                     }}
                   >
-                    className="absolute bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '100%',
-                      right: '0',
-                      width: '128px',
-                      zIndex: 9999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
-                      zIndex: 99999
-                    }}
-                  >
                     <button
                       onClick={() => {
                         setTheme('light');
@@ -649,51 +569,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                       zIndex: 99999
                     }}
                   >
-                    className="absolute bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '100%',
-                      right: '0',
-                      width: '256px',
-                      zIndex: 9999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '20px',
-                      width: '256px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '20px',
-                      width: '256px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '20px',
-                      width: '256px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '20px',
-                      width: '256px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '20px',
-                      width: '256px',
                     {aiModels.map((model) => (
                       <button
                         key={model.id}
@@ -716,41 +591,8 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                   </div>
                 )}
               </div>
-          {[...Array(50)].map((_, i) => (
-            <div
-              key={`particle-${i}`}
-              className="absolute bg-white rounded-full animate-pulse twinkle-star"
-              style={{
-                width: '0.1px',
-                height: '0.1px',
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${8 + Math.random() * 3}s`,
-                opacity: 0.2 + Math.random() * 0.7,
-                boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
-                transform: `scale(${0.5 + Math.random() * 0.5})`
-              }}
-            />
-          ))}
-          {/* Additional tiny glitter layer */}
-          {[...Array(30)].map((_, i) => (
-            <div
-              key={`glitter-${i}`}
-              className="absolute bg-blue-200 rounded-full animate-pulse twinkle-star-blue"
-              style={{
-                width: '0.5px',
-                height: '0.5px',
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 6}s`,
-                animationDuration: `${1 + Math.random() * 2}s`,
-                opacity: 0.2 + Math.random() * 0.5,
-                boxShadow: '0 0 1px rgba(191, 219, 254, 0.6)',
-                transform: `scale(${0.3 + Math.random() * 0.4})`
-              }}
-            />
-          ))}
+            </div>
+          </div>
 
           {/* Chat Messages Area */}
           <div 
