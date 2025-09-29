@@ -266,70 +266,68 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
       className="fixed inset-0 z-50 overflow-hidden"
       style={{ background: themeStyles.background }}
     >
-      {/* Welcome Screen Background for Light Theme */}
+      {/* Animated Background - Light Theme Only */}
       {theme === 'light' && (
         <div className="absolute inset-0 overflow-hidden">
-          {/* Blurred Exoplanet/Blackhole at top */}
-          <div className="absolute -top-64 left-1/2 transform -translate-x-1/2">
-            <div 
-              className="w-96 h-96 sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] rounded-full opacity-20 animate-planet-rotate-smooth"
-              style={{
-                background: 'radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.8) 0%, rgba(29, 78, 216, 0.6) 25%, rgba(30, 64, 175, 0.4) 50%, rgba(15, 23, 42, 0.2) 75%, transparent 100%)',
-                filter: 'blur(40px)',
-                boxShadow: '0 0 200px rgba(59, 130, 246, 0.3), inset 0 0 100px rgba(29, 78, 216, 0.2)'
-              }}
-            />
-            {/* Planet atmosphere glow */}
-            <div 
-              className="absolute inset-0 w-96 h-96 sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] rounded-full opacity-10 animate-planet-rotate-reverse-smooth"
-              style={{
-                background: 'radial-gradient(circle at 70% 70%, rgba(6, 182, 212, 0.6) 0%, rgba(59, 130, 246, 0.4) 40%, transparent 70%)',
-                filter: 'blur(60px)'
-              }}
-            />
-          </div>
-
-          {/* Ultra-small glittering stars */}
+        {/* Blurred Exoplanet/Blackhole at top */}
+        <div className="absolute -top-64 left-1/2 transform -translate-x-1/2">
           <div 
-            className="absolute inset-0"
-          >
-            {[...Array(50)].map((_, i) => (
-              <div
-                key={`particle-${i}`}
-                className="absolute bg-white rounded-full animate-pulse twinkle-star"
-                style={{
-                  width: '0.1px',
-                  height: '0.1px',
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 5}s`,
-                  animationDuration: `${8 + Math.random() * 3}s`,
-                  opacity: 0.2 + Math.random() * 0.7,
-                  boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
-                  transform: `scale(${0.5 + Math.random() * 0.5})`
-                }}
-              />
-            ))}
-            {/* Additional tiny glitter layer */}
-            {[...Array(30)].map((_, i) => (
-              <div
-                key={`glitter-${i}`}
-                className="absolute bg-blue-200 rounded-full animate-pulse twinkle-star-blue"
-                style={{
-                  width: '0.5px',
-                  height: '0.5px',
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 6}s`,
-                  animationDuration: `${1 + Math.random() * 2}s`,
-                  opacity: 0.2 + Math.random() * 0.5,
-                  boxShadow: '0 0 1px rgba(191, 219, 254, 0.6)',
-                  transform: `scale(${0.3 + Math.random() * 0.4})`
-                }}
-              />
-            ))}
-          </div>
+            className="w-96 h-96 sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] rounded-full opacity-20 animate-planet-rotate-smooth"
+            style={{
+              background: 'radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.8) 0%, rgba(29, 78, 216, 0.6) 25%, rgba(30, 64, 175, 0.4) 50%, rgba(15, 23, 42, 0.2) 75%, transparent 100%)',
+              filter: 'blur(40px)',
+              boxShadow: '0 0 200px rgba(59, 130, 246, 0.3), inset 0 0 100px rgba(29, 78, 216, 0.2)'
+            }}
+          />
+          {/* Planet atmosphere glow */}
+          <div 
+            className="absolute inset-0 w-96 h-96 sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] rounded-full opacity-10 animate-planet-rotate-reverse-smooth"
+            style={{
+              background: 'radial-gradient(circle at 70% 70%, rgba(6, 182, 212, 0.6) 0%, rgba(59, 130, 246, 0.4) 40%, transparent 70%)',
+              filter: 'blur(60px)'
+            }}
+          />
         </div>
+
+        {/* Ultra-small glittering stars */}
+        <div className="absolute inset-0">
+          {[...Array(50)].map((_, i) => (
+            <div
+              key={`particle-${i}`}
+              className="absolute bg-white rounded-full animate-pulse twinkle-star"
+              style={{
+                width: '0.1px',
+                height: '0.1px',
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${8 + Math.random() * 3}s`,
+                opacity: 0.2 + Math.random() * 0.7,
+                boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
+                transform: `scale(${0.5 + Math.random() * 0.5})`
+              }}
+            />
+          ))}
+          {/* Additional tiny glitter layer */}
+          {[...Array(30)].map((_, i) => (
+            <div
+              key={`glitter-${i}`}
+              className="absolute bg-blue-200 rounded-full animate-pulse twinkle-star-blue"
+              style={{
+                width: '0.5px',
+                height: '0.5px',
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 6}s`,
+                animationDuration: `${1 + Math.random() * 2}s`,
+                opacity: 0.2 + Math.random() * 0.5,
+                boxShadow: '0 0 1px rgba(191, 219, 254, 0.6)',
+                transform: `scale(${0.3 + Math.random() * 0.4})`
+              }}
+            />
+          ))}
+        </div>
+      </div>
       )}
 
       {/* Main Chat Interface with Sidebar */}
@@ -591,6 +589,13 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                   </div>
                 )}
               </div>
+
+              <button 
+                onClick={() => console.log('Settings clicked')}
+                className="p-2 rounded-lg text-white/60 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
+              >
+                <Settings className="w-5 h-5" />
+              </button>
             </div>
           </div>
 
@@ -659,6 +664,81 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
           </div>
         </div>
       </div>
+
+      {/* Theme Dropdown Portal */}
+      {showThemeDropdown && (
+        <div 
+          className="fixed bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
+          style={{
+            top: '70px',
+            right: '120px',
+            width: '128px',
+            zIndex: 999999
+          }}
+        >
+          <button
+            onClick={() => {
+              setTheme('light');
+              setShowThemeDropdown(false);
+            }}
+            className={`w-full text-left px-4 py-3 text-sm font-medium transition-all duration-300 flex items-center space-x-2 ${
+              theme === 'light' 
+                ? 'bg-blue-600/30 text-blue-300 border-l-2 border-blue-400' 
+                : 'text-white/80 hover:bg-white/10 hover:text-white'
+            }`}
+          >
+            <Sun className="w-4 h-4" />
+            <span>Light</span>
+          </button>
+          <button
+            onClick={() => {
+              setTheme('dark');
+              setShowThemeDropdown(false);
+            }}
+            className={`w-full text-left px-4 py-3 text-sm font-medium transition-all duration-300 flex items-center space-x-2 ${
+              theme === 'dark' 
+                ? 'bg-blue-600/30 text-blue-300 border-l-2 border-blue-400' 
+                : 'text-white/80 hover:bg-white/10 hover:text-white'
+            }`}
+          >
+            <Moon className="w-4 h-4" />
+            <span>Dark</span>
+          </button>
+        </div>
+      )}
+
+      {/* Version Dropdown Portal */}
+      {showVersionDropdown && (
+        <div 
+          className="fixed bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
+          style={{
+            top: '70px',
+            right: '20px',
+            width: '256px',
+            zIndex: 999999
+          }}
+        >
+          {aiModels.map((model) => (
+            <button
+              key={model.id}
+              onClick={() => {
+                setSelectedVersion(model.name);
+                setShowVersionDropdown(false);
+              }}
+              className={`w-full text-left px-4 py-3 transition-all duration-300 ${
+                selectedVersion === model.name 
+                  ? 'bg-blue-600/30 text-blue-300 border-l-2 border-blue-400' 
+                  : 'text-white/80 hover:bg-white/10 hover:text-white'
+              }`}
+            >
+              <div>
+                <div className="text-sm font-medium">{model.name}</div>
+                <div className="text-xs text-white/60">{model.subtitle}</div>
+              </div>
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Custom Animations */}
       <style jsx>{`
