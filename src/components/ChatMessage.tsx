@@ -84,33 +84,18 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
         {/* Message Content */}
         <div className={`relative ${isOmnius ? 'mr-4' : 'ml-4'}`}>
           {isOmnius ? (
-            /* OMNIUS messages without bubble - darker background */
+            /* OMNIUS messages without bubble - clean like GPT */
             <div className="space-y-2">
-              {/* OMNIUS Mood Indicator */}
-              {message.mood && (
-                <div className={`flex items-center space-x-2 ${getMoodColor(message.mood)}`}>
-                  {getMoodIcon(message.mood)}
-                  <span className="text-xs font-light capitalize tracking-wider">
-                    {message.mood} Mode
-                  </span>
-                </div>
-              )}
-
               {/* Message Text */}
-              <div 
-                className="text-sm sm:text-base font-light leading-relaxed text-white/95 p-4 rounded-2xl"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(15,23,42,0.3) 50%, rgba(0,0,0,0.4) 100%)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.05)'
-                }}
-              >
+              <div className="text-sm sm:text-base font-light leading-relaxed text-white/95">
                 {message.content}
               </div>
 
-              {/* Timestamp */}
-              <div className="text-xs text-purple-300/60 font-light ml-4">
-                {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              {/* Timestamp and Copy */}
+              <div className="flex items-center space-x-3 text-xs text-white/40 font-light">
+                <span>
+                  {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </span>
               </div>
             </div>
           ) : (
