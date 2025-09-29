@@ -116,7 +116,14 @@ function App() {
   // Show AI Chat Interface
   if (selectedAI) {
     if (selectedAI === 'omnius') {
-      return <OmniusChat onBack={handleBack} />;
+      return <OmniusChat 
+        onBack={handleBack} 
+        onNavigateToWorkflows={() => {
+          setSelectedAI(null);
+          setShowWorkflowSelection(true);
+          setShowWelcome(false);
+        }} 
+      />;
     }
     // Add other AI interfaces here later
     return <div>AI Interface for {selectedAI} coming soon...</div>;

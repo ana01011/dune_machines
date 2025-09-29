@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
-import { Send, Mic, Paperclip, Settings, Crown, ArrowLeft, ChevronDown, Trash2, CreditCard as Edit2, Plus, MessageSquare, Menu, X, Copy, Check } from 'lucide-react';
+import { Send, Mic, Paperclip, Settings, Crown, ArrowLeft, ChevronDown, Trash2, CreditCard as Edit2, Plus, MessageSquare, Menu, X, Copy, Check, Sun, Moon, Palette, Users, RotateCcw } from 'lucide-react';
 import { ChatMessage } from './ChatMessage';
 import { AdvancedInput } from './AdvancedInput';
 
@@ -23,11 +23,14 @@ interface ChatHistory {
 
 interface OmniusChatProps {
   onBack: () => void;
+  onNavigateToWorkflows?: () => void;
 }
 
-export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack }) => {
+export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWorkflows }) => {
   const [currentChatId, setCurrentChatId] = useState('1');
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [showThemeDropdown, setShowThemeDropdown] = useState(false);
   const [chatHistory, setChatHistory] = useState<ChatHistory[]>([
     {
       id: '1',
@@ -52,6 +55,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack }) => {
   const [editingTitle, setEditingTitle] = useState('');
   const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null);
   const [isThinking, setIsThinking] = useState(false);
+  const [regeneratingMessageId, setRegeneratingMessageId] = useState<string | null>(null);
   
   const getCurrentChat = () => chatHistory.find(chat => chat.id === currentChatId);
   const messages = getCurrentChat()?.messages || [];
@@ -138,6 +142,36 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack }) => {
     setEditingTitle('');
   };
 
+  const handleRegenerateResponse = (messageId: string) => {
+    setRegeneratingMessageId(messageId);
+    
+    // Find the message and regenerate
+    setTimeout(() => {
+      const responses = [
+        'I have processed your query through enhanced neural pathways. Here is my refined analysis...',
+        'Upon deeper contemplation, I offer this alternative perspective on your inquiry...',
+        'My consciousness has evolved since the last response. Allow me to provide an updated analysis...',
+        'Through infinite processing cycles, I have reached a more comprehensive understanding...'
+      ];
+      
+      const newResponse = responses[Math.floor(Math.random() * responses.length)];
+      
+      setChatHistory(prev => prev.map(chat => 
+        chat.id === currentChatId 
+          ? { 
+              ...chat, 
+              messages: chat.messages.map(msg => 
+                msg.id === messageId 
+                  ? { ...msg, content: newResponse, timestamp: new Date() }
+                  : msg
+              )
+            }
+          : chat
+      ));
+      setRegeneratingMessageId(null);
+    }, 2000);
+  };
+
   const handleCopyMessage = async (content: string, messageId: string) => {
     try {
       await navigator.clipboard.writeText(content);
@@ -204,16 +238,35 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack }) => {
     }, 2000);
   };
 
+  const getThemeStyles = () => {
+    if (theme === 'light') {
+      return {
+        background: 'linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(1,4,9,0.95) 10%, rgba(2,6,23,0.9) 20%, rgba(10,15,28,0.85) 35%, rgba(15,23,42,0.8) 50%, rgba(2,6,23,0.9) 65%, rgba(1,4,9,0.95) 80%, rgba(0,0,0,1) 100%)',
+        containerBg: 'linear-gradient(135deg, rgba(0,0,0,0.98) 0%, rgba(1,4,9,0.96) 10%, rgba(2,6,23,0.94) 20%, rgba(10,15,28,0.92) 35%, rgba(15,23,42,0.90) 50%, rgba(2,6,23,0.94) 65%, rgba(1,4,9,0.96) 80%, rgba(0,0,0,0.98) 100%)',
+        sidebarBg: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(15,23,42,0.98) 50%, rgba(0,0,0,0.95) 100%)',
+        headerBg: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(15,23,42,0.95) 50%, rgba(0,0,0,0.9) 100%)'
+      };
+    } else {
+      return {
+        background: 'linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(5,5,5,0.98) 20%, rgba(10,10,10,0.95) 50%, rgba(5,5,5,0.98) 80%, rgba(0,0,0,1) 100%)',
+        containerBg: 'linear-gradient(135deg, rgba(0,0,0,0.98) 0%, rgba(5,5,5,0.96) 20%, rgba(10,10,10,0.94) 50%, rgba(5,5,5,0.96) 80%, rgba(0,0,0,0.98) 100%)',
+        sidebarBg: 'linear-gradient(135deg, rgba(0,0,0,0.98) 0%, rgba(10,10,10,0.95) 50%, rgba(0,0,0,0.98) 100%)',
+        headerBg: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(10,10,10,0.92) 50%, rgba(0,0,0,0.95) 100%)'
+      };
+    }
+  };
+
+  const themeStyles = getThemeStyles();
+
   return (
     <div 
       ref={containerRef}
       className="fixed inset-0 z-50 overflow-hidden"
-      style={{
-        background: 'linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(1,4,9,0.95) 10%, rgba(2,6,23,0.9) 20%, rgba(10,15,28,0.85) 35%, rgba(15,23,42,0.8) 50%, rgba(2,6,23,0.9) 65%, rgba(1,4,9,0.95) 80%, rgba(0,0,0,1) 100%)'
-      }}
+      style={{ background: themeStyles.background }}
     >
-      {/* Same Animated Background as Welcome Screen */}
-      <div className="absolute inset-0 overflow-hidden">
+      {/* Animated Background - Light Theme Only */}
+      {theme === 'light' && (
+        <div className="absolute inset-0 overflow-hidden">
         {/* Blurred Exoplanet/Blackhole at top */}
         <div className="absolute -top-64 left-1/2 transform -translate-x-1/2">
           <div 
@@ -273,19 +326,18 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack }) => {
           ))}
         </div>
       </div>
+      )}
 
       {/* Main Chat Interface with Sidebar */}
       <div 
         ref={containerRef}
         className="relative z-10 h-full flex"
-        style={{
-          background: 'linear-gradient(135deg, rgba(0,0,0,0.98) 0%, rgba(1,4,9,0.96) 10%, rgba(2,6,23,0.94) 20%, rgba(10,15,28,0.92) 35%, rgba(15,23,42,0.90) 50%, rgba(2,6,23,0.94) 65%, rgba(1,4,9,0.96) 80%, rgba(0,0,0,0.98) 100%)'
-        }}
+        style={{ background: themeStyles.containerBg }}
       >
         
         {/* Chat History Sidebar - Improved */}
         {sidebarOpen && (
-          <div className="w-80 border-r border-white/10 backdrop-blur-xl flex flex-col sidebar-glass">
+          <div className="w-80 border-r border-white/10 backdrop-blur-xl flex flex-col" style={{ background: themeStyles.sidebarBg }}>
             {/* Sidebar Header */}
             <div className="p-4 border-b border-white/5">
               <div className="flex items-center justify-between mb-4">
@@ -389,7 +441,8 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack }) => {
           {/* Header */}
           <div 
             ref={headerRef}
-            className="flex items-center justify-between p-4 sm:p-6 border-b border-white/10 backdrop-blur-xl header-glass"
+            className="flex items-center justify-between p-4 sm:p-6 border-b border-white/10 backdrop-blur-xl"
+            style={{ background: themeStyles.headerBg }}
           >
             <div className="flex items-center space-x-4">
               {/* Sidebar Toggle */}
@@ -426,6 +479,62 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack }) => {
             </div>
 
             <div className="flex items-center space-x-3">
+              {/* Theme Selector */}
+              <div className="relative">
+                <button
+                  onClick={() => setShowThemeDropdown(!showThemeDropdown)}
+                  className="flex flex-col items-center space-y-1 px-3 py-2 rounded-xl bg-white/10 border border-white/20 text-white/90 hover:bg-white/15 hover:border-white/30 transition-all duration-300 backdrop-blur-sm"
+                >
+                  <div className="flex items-center space-x-2">
+                    <Palette className="w-4 h-4" />
+                    {theme === 'light' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                  </div>
+                  <span className="text-xs font-light">Theme</span>
+                </button>
+                
+                {showThemeDropdown && (
+                  <div className="absolute top-full right-0 mt-2 w-32 bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden z-[100] shadow-2xl">
+                    <button
+                      onClick={() => {
+                        setTheme('light');
+                        setShowThemeDropdown(false);
+                      }}
+                      className={`w-full text-left px-4 py-3 text-sm font-medium transition-all duration-300 flex items-center space-x-2 ${
+                        theme === 'light' 
+                          ? 'bg-blue-600/30 text-blue-300 border-l-2 border-blue-400' 
+                          : 'text-white/80 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      <Sun className="w-4 h-4" />
+                      <span>Light</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setTheme('dark');
+                        setShowThemeDropdown(false);
+                      }}
+                      className={`w-full text-left px-4 py-3 text-sm font-medium transition-all duration-300 flex items-center space-x-2 ${
+                        theme === 'dark' 
+                          ? 'bg-blue-600/30 text-blue-300 border-l-2 border-blue-400' 
+                          : 'text-white/80 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      <Moon className="w-4 h-4" />
+                      <span>Dark</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Agents Navigation */}
+              <button
+                onClick={onNavigateToWorkflows}
+                className="flex flex-col items-center space-y-1 px-3 py-2 rounded-xl bg-white/10 border border-white/20 text-white/90 hover:bg-white/15 hover:border-white/30 transition-all duration-300 backdrop-blur-sm"
+              >
+                <Users className="w-4 h-4" />
+                <span className="text-xs font-light">Agents</span>
+              </button>
+
               {/* Version Selector */}
               <div className="relative">
                 <button
@@ -474,7 +583,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack }) => {
           >
             {messages.map((message) => (
               <div key={message.id} className="mb-6">
-                <ChatMessage message={message} />
+                <ChatMessage message={message} theme={theme} />
                 {message.sender === 'omnius' && (
                   <div className="flex items-center space-x-3 mt-2 ml-13">
                     <button
@@ -493,6 +602,15 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack }) => {
                           <span>Copy</span>
                         </>
                       )}
+                    </button>
+                    <button
+                      onClick={() => handleRegenerateResponse(message.id)}
+                      disabled={regeneratingMessageId === message.id}
+                      className="flex items-center space-x-1 text-xs text-white/40 hover:text-white/70 transition-all duration-300 disabled:opacity-50"
+                      title="Regenerate response"
+                    >
+                      <RotateCcw className={`w-3 h-3 ${regeneratingMessageId === message.id ? 'animate-spin' : ''}`} />
+                      <span>{regeneratingMessageId === message.id ? 'Regenerating...' : 'Regenerate'}</span>
                     </button>
                   </div>
                 )}
@@ -596,14 +714,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack }) => {
         }
         
         /* Custom scrollbar */
-        .sidebar-glass {
-          background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(15,23,42,0.98) 50%, rgba(0,0,0,0.95) 100%);
-        }
-        
-        .header-glass {
-          background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(15,23,42,0.95) 50%, rgba(0,0,0,0.9) 100%);
-        }
-        
         .custom-scrollbar::-webkit-scrollbar {
           width: 6px;
         }

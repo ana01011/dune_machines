@@ -13,9 +13,10 @@ interface Message {
 
 interface ChatMessageProps {
   message: Message;
+  theme?: 'light' | 'dark';
 }
 
-export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
+export const ChatMessage: React.FC<ChatMessageProps> = ({ message, theme = 'light' }) => {
   const messageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
