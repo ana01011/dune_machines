@@ -506,70 +506,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                       zIndex: 99999
                     }}
                   >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
-                      zIndex: 99999
-                    }}
-                  >
                     <button
                       onClick={() => {
                         setTheme('light');
@@ -633,35 +569,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                       zIndex: 99999
                     }}
                   >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '20px',
-                      width: '256px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '20px',
-                      width: '256px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '20px',
-                      width: '256px',
-                      zIndex: 99999
-                    }}
-                  >
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '20px',
-                      width: '256px',
                     {aiModels.map((model) => (
                       <button
                         key={model.id}
