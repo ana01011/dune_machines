@@ -275,7 +275,13 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack }) => {
       </div>
 
       {/* Main Chat Interface with Sidebar */}
-      <div className="relative z-10 h-full flex">
+      <div 
+        ref={containerRef}
+        className="relative z-10 h-full flex"
+        style={{
+          background: 'linear-gradient(135deg, rgba(0,0,0,0.98) 0%, rgba(1,4,9,0.96) 10%, rgba(2,6,23,0.94) 20%, rgba(10,15,28,0.92) 35%, rgba(15,23,42,0.90) 50%, rgba(2,6,23,0.94) 65%, rgba(1,4,9,0.96) 80%, rgba(0,0,0,0.98) 100%)'
+        }}
+      >
         
         {/* Chat History Sidebar - Improved */}
         {sidebarOpen && (
@@ -470,16 +476,22 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack }) => {
               <div key={message.id} className="mb-6">
                 <ChatMessage message={message} />
                 {message.sender === 'omnius' && (
-                  <div className="flex items-center space-x-2 mt-2 ml-13">
+                  <div className="flex items-center space-x-3 mt-2 ml-13">
                     <button
                       onClick={() => handleCopyMessage(message.content, message.id)}
-                      className="p-1.5 rounded-lg text-white/40 hover:text-white/80 hover:bg-white/10 transition-all duration-300 flex items-center space-x-1"
+                      className="flex items-center space-x-1 text-xs text-white/40 hover:text-white/70 transition-all duration-300"
                       title="Copy message"
                     >
                       {copiedMessageId === message.id ? (
-                        <Check className="w-3 h-3 text-green-400" />
+                        <>
+                          <Check className="w-3 h-3 text-green-400" />
+                          <span className="text-green-400">Copied</span>
+                        </>
                       ) : (
-                        <Copy className="w-3 h-3" />
+                        <>
+                          <Copy className="w-3 h-3" />
+                          <span>Copy</span>
+                        </>
                       )}
                     </button>
                   </div>
@@ -489,12 +501,12 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack }) => {
             
             {/* Thinking Indicator */}
             {isThinking && (
-              <div className="flex items-start space-x-3">
+              <div className="flex items-start space-x-3 mb-6">
                 <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-purple-600/30 to-indigo-600/30 flex items-center justify-center border border-purple-400/30">
                   <Crown className="w-4 h-4 text-purple-400" />
                 </div>
                 <div className="space-y-2">
-                  <div className="text-sm text-purple-400 font-light animate-pulse">
+                  <div className="text-sm text-white/70 font-light animate-pulse">
                     thinking...
                   </div>
                 </div>
