@@ -504,6 +504,22 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                       zIndex: 99999
                     }}
                   >
+                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
+                    style={{
+                      top: '70px',
+                      right: '120px',
+                      width: '128px',
+                      zIndex: 99999
+                    }}
+                  >
+                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
+                    style={{
+                      top: '70px',
+                      right: '120px',
+                      width: '128px',
+                      zIndex: 99999
+                    }}
+                  >
                     <button
                       onClick={() => {
                         setTheme('light');
@@ -559,6 +575,22 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 
                 {showVersionDropdown && (
                   <div 
+                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
+                    style={{
+                      top: '70px',
+                      right: '20px',
+                      width: '256px',
+                      zIndex: 99999
+                    }}
+                  >
+                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
+                    style={{
+                      top: '70px',
+                      right: '20px',
+                      width: '256px',
+                      zIndex: 99999
+                    }}
+                  >
                     className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
                     style={{
                       top: '70px',
@@ -664,81 +696,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
           </div>
         </div>
       </div>
-
-      {/* Theme Dropdown Portal */}
-      {showThemeDropdown && (
-        <div 
-          className="fixed bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-          style={{
-            top: '70px',
-            right: '120px',
-            width: '128px',
-            zIndex: 999999
-          }}
-        >
-          <button
-            onClick={() => {
-              setTheme('light');
-              setShowThemeDropdown(false);
-            }}
-            className={`w-full text-left px-4 py-3 text-sm font-medium transition-all duration-300 flex items-center space-x-2 ${
-              theme === 'light' 
-                ? 'bg-blue-600/30 text-blue-300 border-l-2 border-blue-400' 
-                : 'text-white/80 hover:bg-white/10 hover:text-white'
-            }`}
-          >
-            <Sun className="w-4 h-4" />
-            <span>Light</span>
-          </button>
-          <button
-            onClick={() => {
-              setTheme('dark');
-              setShowThemeDropdown(false);
-            }}
-            className={`w-full text-left px-4 py-3 text-sm font-medium transition-all duration-300 flex items-center space-x-2 ${
-              theme === 'dark' 
-                ? 'bg-blue-600/30 text-blue-300 border-l-2 border-blue-400' 
-                : 'text-white/80 hover:bg-white/10 hover:text-white'
-            }`}
-          >
-            <Moon className="w-4 h-4" />
-            <span>Dark</span>
-          </button>
-        </div>
-      )}
-
-      {/* Version Dropdown Portal */}
-      {showVersionDropdown && (
-        <div 
-          className="fixed bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-          style={{
-            top: '70px',
-            right: '20px',
-            width: '256px',
-            zIndex: 999999
-          }}
-        >
-          {aiModels.map((model) => (
-            <button
-              key={model.id}
-              onClick={() => {
-                setSelectedVersion(model.name);
-                setShowVersionDropdown(false);
-              }}
-              className={`w-full text-left px-4 py-3 transition-all duration-300 ${
-                selectedVersion === model.name 
-                  ? 'bg-blue-600/30 text-blue-300 border-l-2 border-blue-400' 
-                  : 'text-white/80 hover:bg-white/10 hover:text-white'
-              }`}
-            >
-              <div>
-                <div className="text-sm font-medium">{model.name}</div>
-                <div className="text-xs text-white/60">{model.subtitle}</div>
-              </div>
-            </button>
-          ))}
-        </div>
-      )}
 
       {/* Custom Animations */}
       <style jsx>{`
