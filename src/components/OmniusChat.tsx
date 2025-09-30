@@ -3,6 +3,8 @@ import { gsap } from 'gsap';
 import { Send, Mic, Paperclip, Settings, Crown, ArrowLeft, ChevronDown, Trash2, CreditCard as Edit2, Plus, MessageSquare, Menu, X, Copy, Check, Sun, Moon, Palette, Users, RotateCcw } from 'lucide-react';
 import { ChatMessage } from './ChatMessage';
 import { AdvancedInput } from './AdvancedInput';
+import { getTheme, getAvailableThemes } from '../themes/chatThemes';
+import { ThemeBackground } from './ThemeBackground';
 
 interface Message {
   id: string;
