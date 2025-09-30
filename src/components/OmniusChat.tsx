@@ -30,6 +30,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
   const [currentChatId, setCurrentChatId] = useState('1');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [currentTheme, setCurrentTheme] = useState('light');
   const [showThemeDropdown, setShowThemeDropdown] = useState(false);
   const [chatHistory, setChatHistory] = useState<ChatHistory[]>([
     {
@@ -259,6 +260,8 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
   };
 
   const themeStyles = getThemeStyles();
+  const activeTheme = getTheme(currentTheme);
+  const availableThemes = getAvailableThemes('omnius');
 
   return (
     <div 
@@ -267,7 +270,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
       style={{ background: themeStyles.background }}
     >
       {/* Welcome Screen Background for Light Theme */}
-      {theme === 'light' && (
+      {currentTheme === 'light' && (
         <div className="absolute inset-0 overflow-hidden">
           {/* Blurred Exoplanet/Blackhole at top */}
           <div className="absolute -top-64 left-1/2 transform -translate-x-1/2">
@@ -331,6 +334,9 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
           </div>
         </div>
       )}
+
+      {/* Theme Background Component */}
+      <ThemeBackground theme={activeTheme} />
 
       {/* Main Chat Interface with Sidebar */}
       <div 
@@ -487,53 +493,41 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
               <div className="relative">
                 <button
                   onClick={() => setShowThemeDropdown(!showThemeDropdown)}
-                  className="flex flex-col items-center space-y-1 px-3 py-2 text-white/90 hover:text-white transition-all duration-300"
+                  className="relative flex flex-col items-center space-y-1 px-3 py-2 text-white/90 hover:text-white transition-all duration-300"
                 >
                   <div className="flex items-center space-x-2">
                     <Palette className="w-4 h-4" />
-                    {theme === 'light' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                    {currentTheme === 'light' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                   </div>
                   <span className="text-xs font-light">Theme</span>
                 </button>
                 
                 {showThemeDropdown && (
                   <div 
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
+                    className="absolute top-full mt-2 bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
                     style={{
-                      top: '70px',
-                      right: '120px',
-                      width: '128px',
+                      right: '0px',
+                      width: '160px',
                       zIndex: 99999
                     }}
                   >
-                    <button
-                      onClick={() => {
-                        setTheme('light');
-                        setShowThemeDropdown(false);
-                      }}
-                      className={`w-full text-left px-4 py-3 text-sm font-medium transition-all duration-300 flex items-center space-x-2 ${
-                        theme === 'light' 
-                          ? 'bg-blue-600/30 text-blue-300 border-l-2 border-blue-400' 
-                          : 'text-white/80 hover:bg-white/10 hover:text-white'
-                      }`}
-                    >
-                      <Sun className="w-4 h-4" />
-                      <span>Light</span>
-                    </button>
-                    <button
-                      onClick={() => {
-                        setTheme('dark');
-                        setShowThemeDropdown(false);
-                      }}
-                      className={`w-full text-left px-4 py-3 text-sm font-medium transition-all duration-300 flex items-center space-x-2 ${
-                        theme === 'dark' 
-                          ? 'bg-blue-600/30 text-blue-300 border-l-2 border-blue-400' 
-                          : 'text-white/80 hover:bg-white/10 hover:text-white'
-                      }`}
-                    >
-                      <Moon className="w-4 h-4" />
-                      <span>Dark</span>
-                    </button>
+                    {availableThemes.map((themeOption) => (
+                      <button
+                        key={themeOption.id}
+                        onClick={() => {
+                          setCurrentTheme(themeOption.id);
+                          setShowThemeDropdown(false);
+                        }}
+                        className={`w-full text-left px-4 py-3 text-sm font-medium transition-all duration-300 flex items-center space-x-2 ${
+                          currentTheme === themeOption.id 
+                            ? 'bg-blue-600/30 text-blue-300 border-l-2 border-blue-400' 
+                            : 'text-white/80 hover:bg-white/10 hover:text-white'
+                        }`}
+                      >
+                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: themeOption.colors.primary }} />
+                        <span>{themeOption.displayName}</span>
+                      </button>
+                    ))}
                   </div>
                 )}
               </div>
@@ -597,11 +591,11 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
           {/* Chat Messages Area */}
           <div 
             ref={chatRef}
-            className="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar"
+            className="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar relative z-10"
           >
             {messages.map((message) => (
               <div key={message.id} className="mb-6">
-                <ChatMessage message={message} theme={theme} />
+                <ChatMessage message={message} theme={currentTheme} />
                 {message.sender === 'omnius' && (
                   <div className="flex items-center space-x-3 mt-2 ml-13">
                     <button
