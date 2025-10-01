@@ -634,20 +634,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 </div>
               )}
               
-              {/* Watermark Logo for Active Chat */}
-              {messages.length > 0 && (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0">
-                  <img 
-                    src="/duneicon.webp" 
-                    alt="OMNIUS Watermark" 
-                    className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-contain opacity-[0.02] animate-pulse-slow"
-                    style={{
-                      filter: 'drop-shadow(0 0 5px rgba(59, 130, 246, 0.02)) drop-shadow(0 0 10px rgba(139, 92, 246, 0.02))'
-                    }}
-                  />
-                </div>
-              )}
-              
               {messages.map((message) => (
                 <div key={message.id} className="mb-6">
                   <ChatMessage message={message} theme={currentTheme} />
