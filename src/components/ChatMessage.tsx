@@ -52,9 +52,9 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, theme = 'ligh
     switch (mood) {
       case 'curious': return 'text-cyan-400';
       case 'analytical': return 'text-blue-400';
-      case 'creative': return 'text-pink-400';
-      case 'contemplative': return 'text-purple-400';
-      default: return 'text-purple-400';
+      case 'creative': return 'text-blue-300';
+      case 'contemplative': return 'text-blue-400';
+      default: return 'text-blue-400';
     }
   };
 
@@ -88,12 +88,12 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, theme = 'ligh
             /* OMNIUS messages without bubble - clean like GPT */
             <div className="space-y-2">
               {/* Message Text */}
-              <div className="text-sm sm:text-base font-light leading-relaxed text-white/95">
+              <div className="text-sm sm:text-base font-light leading-relaxed text-white">
                 {message.content}
               </div>
 
               {/* Timestamp and Copy */}
-              <div className="flex items-center space-x-3 text-xs text-white/40 font-light">
+              <div className="flex items-center space-x-3 text-xs text-white/50 font-light">
                 <span>
                   {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </span>
@@ -113,7 +113,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, theme = 'ligh
               </div>
 
               {/* Timestamp */}
-              <div className="text-xs mt-3 text-blue-300/60 font-light">
+              <div className="text-xs mt-3 text-white/60 font-light">
                 {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </div>
 

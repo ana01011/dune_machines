@@ -48,8 +48,8 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
             onClick={() => setInputMode('text')}
             className={`px-3 py-1.5 rounded-lg text-xs font-light transition-all duration-300 ${
               inputMode === 'text' 
-                ? 'bg-purple-500/20 text-purple-400 border border-purple-400/30' 
-                : 'text-white/60 hover:text-white/90 hover:bg-white/5'
+                ? 'bg-blue-500/20 text-white border border-blue-400/30' 
+                : 'text-white/70 hover:text-white hover:bg-white/5'
             }`}
           >
             Text Mode
@@ -59,7 +59,7 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
             className={`px-3 py-1.5 rounded-lg text-xs font-light transition-all duration-300 flex items-center space-x-2 ${
               inputMode === 'code' 
                 ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-400/30' 
-                : 'text-white/60 hover:text-white/90 hover:bg-white/5'
+                : 'text-white/70 hover:text-white hover:bg-white/5'
             }`}
           >
             <Code className="w-3 h-3" />
@@ -82,8 +82,8 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
                 className={`w-full px-4 py-3 pr-12 rounded-2xl resize-none transition-all duration-300 font-light ${
                   inputMode === 'code' 
                     ? 'bg-slate-900/50 border border-cyan-400/30 text-cyan-100 placeholder-cyan-400/50 font-mono text-sm'
-                    : 'bg-white/5 border border-white/20 text-white placeholder-white/50'
-                } backdrop-blur-sm focus:outline-none focus:border-purple-400/50 focus:bg-white/10`}
+                    : 'bg-white/5 border border-white/20 text-white placeholder-white/60'
+                } backdrop-blur-sm focus:outline-none focus:border-blue-400/50 focus:bg-white/10`}
                 style={{
                   minHeight: '48px',
                   maxHeight: '120px'
@@ -91,7 +91,7 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
               />
               
               {/* Character Count */}
-              <div className="absolute bottom-2 right-12 text-xs text-white/40">
+              <div className="absolute bottom-2 right-12 text-xs text-white/50">
                 {message.length}
               </div>
             </div>
@@ -102,7 +102,7 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
               {/* Attachment Button */}
               <button 
                 onClick={() => console.log('Attachment clicked')}
-                className="p-3 rounded-xl text-white/60 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
+                className="p-3 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-all duration-300"
               >
                 <Paperclip className="w-5 h-5" />
               </button>
@@ -113,7 +113,7 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
                 className={`p-3 rounded-xl transition-all duration-300 ${
                   isRecording 
                     ? 'bg-red-500/20 text-red-400 border border-red-400/30 animate-pulse' 
-                    : 'text-white/60 hover:text-white/90 hover:bg-white/10'
+                    : 'text-white/70 hover:text-white hover:bg-white/10'
                 }`}
               >
                 <Mic className="w-5 h-5" />
@@ -125,8 +125,8 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
                 disabled={!message.trim()}
                 className={`p-3 rounded-xl transition-all duration-300 ${
                   message.trim()
-                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:shadow-lg hover:shadow-purple-500/25 hover:scale-105'
-                    : 'bg-white/10 text-white/40 cursor-not-allowed'
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:shadow-lg hover:shadow-blue-500/25 hover:scale-105'
+                    : 'bg-white/10 text-white/50 cursor-not-allowed'
                 }`}
               >
                 <Send className="w-5 h-5" />
@@ -139,21 +139,21 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
             <div className="flex items-center space-x-3">
               <button 
                 onClick={() => console.log('Image clicked')}
-                className="flex items-center space-x-2 px-2 py-1 rounded-lg text-xs text-white/60 hover:text-white/90 hover:bg-white/5 transition-all duration-300"
+                className="flex items-center space-x-2 px-2 py-1 rounded-lg text-xs text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300"
               >
                 <Image className="w-3 h-3" />
                 <span>Image</span>
               </button>
               <button 
                 onClick={() => console.log('Emoji clicked')}
-                className="flex items-center space-x-2 px-2 py-1 rounded-lg text-xs text-white/60 hover:text-white/90 hover:bg-white/5 transition-all duration-300"
+                className="flex items-center space-x-2 px-2 py-1 rounded-lg text-xs text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300"
               >
                 <Smile className="w-3 h-3" />
                 <span>Emoji</span>
               </button>
             </div>
 
-            <div className="text-xs text-white/40 font-light">
+            <div className="text-xs text-white/50 font-light">
               Press Enter to send, Shift+Enter for new line
             </div>
           </div>
