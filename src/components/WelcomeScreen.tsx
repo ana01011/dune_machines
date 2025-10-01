@@ -225,13 +225,9 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
         yoyo: true,
         repeat: 1
       });
-    } else if (selectedAI && showAISelection) {
+    } else if (selectedAI) {
       // Continue to selected AI's interface
       handleContinue();
-    } else if (showAISelection) {
-      // Close dropdown if clicking button again
-      setShowAISelection(false);
-      setSelectedAI(null);
     }
   };
 
@@ -440,99 +436,86 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
         </p>
 
         {/* Button Position Control - This button's position is controlled by the subtitle margin above */}
-        <div className="relative">
-          <button
-            ref={buttonRef}
-            onClick={handleButtonClick}
-            className={`group relative px-6 sm:px-8 py-2.5 sm:py-3 font-light transition-all duration-500 border rounded-lg backdrop-blur-sm mx-4 hover:shadow-2xl ${
-              selectedAI 
-                ? 'border-blue-400/60 bg-blue-500/20 hover:border-blue-300 hover:bg-blue-500/30 hover:shadow-blue-500/30 animate-glow-loop' 
-                : 'border-white/30 hover:border-white/60 hover:bg-white/10 hover:shadow-white/20'
-            }`}
-            style={{
-              fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
-              fontWeight: '300',
-              fontSize: 'clamp(0.85rem, 2vw, 0.95rem)',
-              letterSpacing: '0.08em',
-              color: '#ffffff',
-              textShadow: '0 0 20px rgba(255, 255, 255, 0.8)'
-            }}
-          >
-            <span className="relative z-10 flex items-center justify-center space-x-2">
-              <span>{getButtonText()}</span>
-              {!showAISelection ? (
-                <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform duration-300" />
-              ) : selectedAI ? null : (
-                <ChevronUp className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform duration-300" />
-              )}
-            </span>
-          </button>
+        <button
+          ref={buttonRef}
+          onClick={handleButtonClick}
+          className={`group relative px-6 sm:px-8 py-2.5 sm:py-3 font-light transition-all duration-500 border rounded-lg backdrop-blur-sm mx-4 hover:shadow-2xl ${
+            selectedAI 
+              ? 'border-blue-400/60 bg-blue-500/20 hover:border-blue-300 hover:bg-blue-500/30 hover:shadow-blue-500/30 animate-glow-loop' 
+              : 'border-white/30 hover:border-white/60 hover:bg-white/10 hover:shadow-white/20'
+          }`}
+          style={{
+            fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+            fontWeight: '300',
+            fontSize: 'clamp(0.85rem, 2vw, 0.95rem)',
+            letterSpacing: '0.08em',
+            color: '#ffffff',
+            textShadow: '0 0 20px rgba(255, 255, 255, 0.8)'
+          }}
+        >
+          <span className="relative z-10 flex items-center justify-center space-x-2">
+            <span>{getButtonText()}</span>
+            {!showAISelection ? (
+              <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform duration-300" />
+            ) : selectedAI ? null : (
+              <ChevronUp className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform duration-300" />
+            )}
+          </span>
+        </button>
 
-          {/* AI Selection Dropdown */}
-          {showAISelection && (
-            <>
-              {/* Backdrop for click-outside */}
-              <div 
-                className="fixed inset-0 z-40"
-                onClick={() => {
-                  setShowAISelection(false);
-                  setSelectedAI(null);
-                }}
-              />
-              <div 
-                ref={dropdownRef}
-                className="absolute top-full mt-4 left-1/2 transform -translate-x-1/2 w-80 z-50"
-              >
-                <div 
-                  className="backdrop-blur-2xl border border-blue-400/30 rounded-xl overflow-hidden shadow-2xl max-h-48 overflow-y-auto custom-ai-scrollbar"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)',
-                    boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 80px rgba(59, 130, 246, 0.2)'
-                  }}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  {aiModels.map((ai) => {
-                    const IconComponent = ai.icon;
-                    const isSelected = selectedAI === ai.id;
-                    
-                    return (
-                      <button
-                        key={ai.id}
-                        data-ai-id={ai.id}
-                        onClick={() => handleAISelect(ai.id)}
-                        className={`w-full text-left px-4 py-3 transition-all duration-300 hover:bg-blue-500/10 border-b border-white/5 last:border-b-0 ${
-                          isSelected
-                            ? 'bg-blue-500/20 text-white border-l-2 border-blue-400' 
-                            : 'text-white/80 hover:text-white'
-                        }`}
-                      >
-                        <div className="flex items-center space-x-3">
-                          <div className="w-2 h-2 rounded-full bg-blue-400 flex-shrink-0" />
-                          <div className="flex items-center space-x-2 flex-1 min-w-0">
-                            <IconComponent className="w-4 h-4 text-blue-400 flex-shrink-0" />
-                            <div className="flex-1 min-w-0">
-                              <div className="text-sm font-light text-white tracking-wider truncate">{ai.name}</div>
-                              <div className="text-xs text-white/60 font-light truncate">{ai.subtitle}</div>
-                            </div>
-                          </div>
-                          <div className="text-right flex-shrink-0">
-                            <div className="text-xs text-blue-400/80 mb-1">{ai.powerLevel}%</div>
-                            <div className="w-8 h-1 bg-white/10 rounded-full overflow-hidden">
-                              <div 
-                                className="h-full bg-blue-400 transition-all duration-1000 rounded-full"
-                                style={{ width: `${ai.powerLevel}%` }}
-                              />
-                            </div>
-                          </div>
+        {/* AI Selection Dropdown */}
+        {showAISelection && (
+          <div 
+            ref={dropdownRef}
+            className="mt-4 w-full max-w-xs sm:max-w-sm px-4"
+          >
+            <div 
+              className="backdrop-blur-2xl border border-blue-400/30 rounded-xl overflow-hidden shadow-2xl max-h-64 overflow-y-auto custom-ai-scrollbar"
+              style={{
+                background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 80px rgba(59, 130, 246, 0.2)'
+              }}
+            >
+              {aiModels.map((ai) => {
+                const IconComponent = ai.icon;
+                const isSelected = selectedAI === ai.id;
+                
+                return (
+                  <button
+                    key={ai.id}
+                    data-ai-id={ai.id}
+                    onClick={() => handleAISelect(ai.id)}
+                    className={`w-full text-left px-3 py-2.5 transition-all duration-300 hover:bg-blue-500/10 border-b border-white/5 last:border-b-0 ${
+                      isSelected
+                        ? 'bg-blue-500/20 text-white border-l-3 border-blue-400' 
+                        : 'text-white/80 hover:text-white'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-2.5">
+                      <div className="w-2 h-2 rounded-full bg-blue-400" />
+                      <div className="flex items-center space-x-1.5 flex-1 min-w-0">
+                        <IconComponent className="w-3.5 h-3.5 text-blue-400 flex-shrink-0" />
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-light text-white tracking-wider truncate">{ai.name}</div>
+                          <div className="text-xs text-white/60 font-light truncate">{ai.subtitle}</div>
                         </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            </>
-          )}
-        </div>
+                      </div>
+                      <div className="text-right flex-shrink-0">
+                        <div className="text-xs text-blue-400/80 mb-1">{ai.powerLevel}%</div>
+                        <div className="w-6 h-0.5 bg-white/10 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full bg-blue-400 transition-all duration-1000"
+                            style={{ width: `${ai.powerLevel}%` }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Custom Styles */}
