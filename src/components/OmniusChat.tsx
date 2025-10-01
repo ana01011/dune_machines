@@ -31,7 +31,7 @@ interface OmniusChatProps {
 
 export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWorkflows }) => {
   const [currentChatId, setCurrentChatId] = useState('1');
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [currentTheme, setCurrentTheme] = useState('dark');
   const [showThemeDropdown, setShowThemeDropdown] = useState(false);
   const [chatHistory, setChatHistory] = useState<ChatHistory[]>([
@@ -415,7 +415,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
           {/* Chat History Sidebar - Improved */}
           {sidebarOpen && (
             <div 
-              className="w-80 lg:w-80 md:w-72 sm:w-64 border-r border-white/5 backdrop-blur-xl flex flex-col fixed lg:relative inset-y-0 left-0 z-30 lg:z-auto"
+              className="w-80 border-r border-white/5 backdrop-blur-xl flex flex-col"
               style={{
                 background: currentTheme === 'light' 
                   ? 'linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(1,4,9,0.85) 15%, rgba(2,6,23,0.85) 30%, rgba(10,15,28,0.85) 45%, rgba(15,23,42,0.85) 60%, rgba(2,6,23,0.85) 75%, rgba(1,4,9,0.85) 85%, rgba(0,0,0,0.85) 100%)'
@@ -423,32 +423,32 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
               }}
             >
               {/* Sidebar Header */}
-              <div className="p-3 sm:p-4 border-b border-white/10">
+              <div className="p-4 border-b border-white/10">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-sm sm:text-lg font-light text-white tracking-wider">CHAT HISTORY</h2>
+                  <h2 className="text-lg font-light text-white tracking-wider">CHAT HISTORY</h2>
                   <button
                     onClick={() => setSidebarOpen(false)}
-                    className="p-1.5 sm:p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300"
+                    className="p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300"
                   >
-                    <X className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <X className="w-4 h-4" />
                   </button>
                 </div>
                 <button
                   onClick={handleNewChat}
-                  className="w-full flex items-center justify-center space-x-2 sm:space-x-3 p-3 sm:p-4 rounded-xl bg-gradient-to-r from-purple-600/30 to-indigo-600/30 border border-purple-400/30 text-white hover:from-purple-600/40 hover:to-indigo-600/40 hover:border-purple-400/50 transition-all duration-300 group"
+                  className="w-full flex items-center justify-center space-x-3 p-4 rounded-xl bg-gradient-to-r from-purple-600/30 to-indigo-600/30 border border-purple-400/30 text-white hover:from-purple-600/40 hover:to-indigo-600/40 hover:border-purple-400/50 transition-all duration-300 group"
                 >
-                  <Plus className="w-4 h-4 sm:w-5 sm:h-5 group-hover:rotate-90 transition-transform duration-300" />
-                  <span className="font-medium tracking-wide text-sm sm:text-base">NEW CHAT</span>
+                  <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
+                  <span className="font-medium tracking-wide">NEW CHAT</span>
                 </button>
               </div>
               
               {/* Chat History List */}
-              <div className="flex-1 overflow-y-auto p-2 sm:p-3 space-y-2 custom-scrollbar">
+              <div className="flex-1 overflow-y-auto p-3 space-y-2 custom-scrollbar">
                 {chatHistory.map((chat) => (
                   <div
                     key={chat.id}
                     onClick={() => setCurrentChatId(chat.id)}
-                    className={`group relative p-3 sm:p-4 rounded-xl cursor-pointer transition-all duration-300 border ${
+                    className={`group relative p-4 rounded-xl cursor-pointer transition-all duration-300 border ${
                       currentChatId === chat.id 
                         ? 'bg-blue-600/20 border-blue-400/40 shadow-lg shadow-blue-500/10' 
                         : 'hover:bg-white/5 border-white/10 hover:border-white/20'
@@ -461,18 +461,18 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                         onChange={(e) => setEditingTitle(e.target.value)}
                         onBlur={() => handleRenameChat(chat.id, editingTitle)}
                         onKeyPress={(e) => e.key === 'Enter' && handleRenameChat(chat.id, editingTitle)}
-                        className="w-full bg-transparent text-white text-xs sm:text-sm font-light border-none outline-none"
+                        className="w-full bg-transparent text-white text-sm font-light border-none outline-none"
                         autoFocus
                       />
                     ) : (
                       <>
                         <div className="flex items-start space-x-3 mb-2">
-                          <MessageSquare className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                          <MessageSquare className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
                           <div className="flex-1 min-w-0">
-                            <h3 className="text-xs sm:text-sm font-medium text-white truncate mb-1">
+                            <h3 className="text-sm font-medium text-white truncate mb-1">
                               {chat.title}
                             </h3>
-                            <p className="text-xs text-white/60 line-clamp-2 leading-relaxed hidden sm:block">
+                            <p className="text-xs text-white/60 line-clamp-2 leading-relaxed">
                               {chat.lastMessage}
                             </p>
                           </div>
@@ -481,7 +481,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                           <div className="text-xs text-white/40 font-light">
                             {chat.timestamp.toLocaleDateString()}
                           </div>
-                          <div className="text-xs text-blue-400/60 hidden sm:block">
+                          <div className="text-xs text-blue-400/60">
                             {chat.messages.length} messages
                           </div>
                         </div>
@@ -489,16 +489,16 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                     )}
                     
                     {/* Action Buttons */}
-                    <div className="absolute top-2 sm:top-3 right-2 sm:right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex space-x-1">
+                    <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex space-x-1">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           startEditing(chat.id, chat.title);
                         }}
-                        className="p-1 sm:p-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300"
+                        className="p-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300"
                         title="Rename chat"
                       >
-                        <Edit2 className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                        <Edit2 className="w-3 h-3" />
                       </button>
                       <button
                         onClick={(e) => {
@@ -507,10 +507,10 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                             handleDeleteChat(chat.id);
                           }
                         }}
-                        className="p-1 sm:p-1.5 rounded-lg text-white/60 hover:text-red-400 hover:bg-red-400/10 transition-all duration-300"
+                        className="p-1.5 rounded-lg text-white/60 hover:text-red-400 hover:bg-red-400/10 transition-all duration-300"
                         title="Delete chat"
                       >
-                        <Trash2 className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                        <Trash2 className="w-3 h-3" />
                       </button>
                     </div>
                   </div>
@@ -519,16 +519,8 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
             </div>
           )}
 
-          {/* Mobile Overlay for Sidebar */}
-          {sidebarOpen && (
-            <div 
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-20 lg:hidden"
-              onClick={() => setSidebarOpen(false)}
-            />
-          )}
-
           {/* Main Chat Area */}
-          <div className={`flex-1 flex flex-col transition-all duration-300 ${sidebarOpen ? 'lg:ml-0' : ''}`}>
+          <div className="flex-1 flex flex-col">
           
             {/* Header */}
             <div 
@@ -545,17 +537,17 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 {!sidebarOpen && (
                   <button
                     onClick={() => setSidebarOpen(true)}
-                    className="p-1.5 sm:p-2 rounded-lg text-white/60 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
+                    className="p-2 rounded-lg text-white/60 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
                   >
-                    <Menu className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <Menu className="w-5 h-5" />
                   </button>
                 )}
                 
                 <button
                   onClick={onBack}
-                  className="p-1.5 sm:p-2 rounded-lg text-white/60 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
+                  className="p-2 rounded-lg text-white/60 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
                 >
-                  <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <ArrowLeft className="w-5 h-5" />
                 </button>
                 
                 <div className="flex items-center space-x-3">
@@ -564,40 +556,40 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                     <img 
                       src="/duneicon.webp" 
                       alt="OMNIUS" 
-                      className="w-12 h-12 sm:w-16 sm:h-16 object-contain animate-opacity-fluctuate"
+                      className="w-16 h-16 object-contain animate-opacity-fluctuate"
                     />
                   </div>
                   
                   <div>
-                    <h1 className="text-sm sm:text-base font-light text-white tracking-wider">OMNIUS</h1>
-                    <p className="text-xs text-white/70 font-light hidden sm:block">The Evermind Supreme</p>
+                    <h1 className="text-base font-light text-white tracking-wider">OMNIUS</h1>
+                    <p className="text-xs text-white/70 font-light">The Evermind Supreme</p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-2 sm:space-x-3">
+              <div className="flex items-center space-x-3">
                 {/* Theme Selector */}
                 <div className="relative">
                   <button
                     ref={setThemeButtonRef}
                     onClick={() => setShowThemeDropdown(!showThemeDropdown)}
-                    className="relative flex flex-col items-center space-y-1 px-2 sm:px-3 py-1.5 sm:py-2 text-white/90 hover:text-white transition-all duration-300"
+                    className="relative flex flex-col items-center space-y-1 px-3 py-2 text-white/90 hover:text-white transition-all duration-300"
                   >
                     <div className="flex items-center space-x-2">
-                      <Palette className="w-3 h-3 sm:w-4 sm:h-4" />
-                      {currentTheme === 'light' ? <Sun className="w-3 h-3 sm:w-4 sm:h-4" /> : <Moon className="w-3 h-3 sm:w-4 sm:h-4" />}
+                      <Palette className="w-4 h-4" />
+                      {currentTheme === 'light' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                     </div>
-                    <span className="text-xs font-light text-white hidden sm:block">Theme</span>
+                    <span className="text-xs font-light text-white">Theme</span>
                   </button>
                 </div>
 
                 {/* Agents Navigation */}
                 <button
                   onClick={onNavigateToWorkflows}
-                  className="flex flex-col items-center space-y-1 px-2 sm:px-3 py-1.5 sm:py-2 text-white/90 hover:text-white transition-all duration-300"
+                  className="flex flex-col items-center space-y-1 px-3 py-2 text-white/90 hover:text-white transition-all duration-300"
                 >
-                  <Users className="w-3 h-3 sm:w-4 sm:h-4" />
-                  <span className="text-xs font-light text-white hidden sm:block">Agents</span>
+                  <Users className="w-4 h-4" />
+                  <span className="text-xs font-light text-white">Agents</span>
                 </button>
 
                 {/* Version Selector */}
@@ -605,15 +597,12 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                   <button
                     ref={setVersionButtonRef}
                     onClick={() => setShowVersionDropdown(!showVersionDropdown)}
-                    className="flex items-center space-x-1 sm:space-x-2 px-2 sm:px-4 py-1.5 sm:py-2 text-white/90 hover:text-white transition-all duration-300"
+                    className="flex items-center space-x-2 px-4 py-2 text-white/90 hover:text-white transition-all duration-300"
                   >
-                    <span className="text-xs sm:text-sm font-medium text-white hidden sm:block">
+                    <span className="text-sm font-medium text-white">
                       {aiModels.find(model => model.name === selectedVersion)?.name || selectedVersion}
                     </span>
-                    <span className="text-xs sm:text-sm font-medium text-white sm:hidden">
-                      {(aiModels.find(model => model.name === selectedVersion)?.name || selectedVersion).slice(0, 3)}
-                    </span>
-                    <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <ChevronDown className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -622,35 +611,35 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
             {/* Chat Messages Area */}
             <div 
               ref={chatRef}
-              className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 custom-scrollbar relative z-10"
+              className="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar relative z-10"
             >
               {/* Empty Chat State */}
               {messages.length === 0 && (
-                <div className="flex flex-col items-center justify-center h-full text-center py-6 sm:py-8">
+                <div className="flex flex-col items-center justify-center h-full text-center py-8">
                   <div className="relative mb-8">
                     <img 
                       src="/duneicon.webp" 
                       alt="OMNIUS" 
-                      className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain opacity-30 animate-pulse-slow"
+                      className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 object-contain opacity-30 animate-pulse-slow"
                       style={{
                         filter: 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)) drop-shadow(0 0 40px rgba(139, 92, 246, 0.4))'
                       }}
                     />
                   </div>
-                  <h2 className="text-base sm:text-lg md:text-xl font-light text-white/60 mb-1 tracking-wider -mt-4 sm:-mt-6">
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-light text-white/60 mb-1 tracking-wider -mt-6">
                     ASK OMNIUS ANYTHING
                   </h2>
-                  <p className="text-xs sm:text-sm text-white/50 font-light tracking-wide max-w-xs sm:max-w-md px-4">
+                  <p className="text-xs sm:text-sm text-white/50 font-light tracking-wide max-w-md">
                     The Evermind Supreme awaits your queries with infinite processing power
                   </p>
                 </div>
               )}
               
               {messages.map((message) => (
-                <div key={message.id} className="mb-4 sm:mb-6">
+                <div key={message.id} className="mb-6">
                   <ChatMessage message={message} theme={currentTheme} />
                   {message.sender === 'omnius' && (
-                    <div className="flex items-center space-x-2 sm:space-x-3 mt-2 ml-10 sm:ml-13">
+                    <div className="flex items-center space-x-3 mt-2 ml-13">
                       <button
                         onClick={() => handleCopyMessage(message.content, message.id)}
                         className="flex items-center space-x-1 text-xs text-white/50 hover:text-white/80 transition-all duration-300"
@@ -658,13 +647,13 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                       >
                         {copiedMessageId === message.id ? (
                           <>
-                            <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-green-400" />
-                            <span className="text-green-400 hidden sm:inline">Copied</span>
+                            <Check className="w-3 h-3 text-green-400" />
+                            <span className="text-green-400">Copied</span>
                           </>
                         ) : (
                           <>
-                            <Copy className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-                            <span className="hidden sm:inline">Copy</span>
+                            <Copy className="w-3 h-3" />
+                            <span>Copy</span>
                           </>
                         )}
                       </button>
@@ -674,8 +663,8 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                         className="flex items-center space-x-1 text-xs text-white/50 hover:text-white/80 transition-all duration-300 disabled:opacity-50"
                         title="Regenerate response"
                       >
-                        <RotateCcw className={`w-2.5 h-2.5 sm:w-3 sm:h-3 ${regeneratingMessageId === message.id ? 'animate-spin' : ''}`} />
-                        <span className="hidden sm:inline">{regeneratingMessageId === message.id ? 'Regenerating...' : 'Regenerate'}</span>
+                        <RotateCcw className={`w-3 h-3 ${regeneratingMessageId === message.id ? 'animate-spin' : ''}`} />
+                        <span>{regeneratingMessageId === message.id ? 'Regenerating...' : 'Regenerate'}</span>
                       </button>
                     </div>
                   )}
@@ -684,14 +673,14 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
               
               {/* Thinking Indicator */}
               {isThinking && (
-                <div className="flex items-start space-x-3 mb-4 sm:mb-6">
+                <div className="flex items-start space-x-3 mb-6">
                   <img 
                     src="/duneicon.webp" 
                     alt="OMNIUS" 
-                    className="w-10 h-10 sm:w-12 sm:h-12 object-contain animate-opacity-fluctuate"
+                    className="w-12 h-12 object-contain animate-opacity-fluctuate"
                   />
                   <div className="space-y-2">
-                    <div className="text-xs sm:text-sm text-white/80 font-light animate-pulse">
+                    <div className="text-sm text-white/80 font-light animate-pulse">
                       thinking...
                     </div>
                   </div>
@@ -716,8 +705,8 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
           className="fixed backdrop-blur-2xl border border-blue-400/30 rounded-2xl overflow-hidden shadow-2xl z-[99999]"
           style={{
             top: `${themeButtonRef.getBoundingClientRect().bottom + 8}px`,
-           left: `${themeButtonRef.getBoundingClientRect().left}px`,
-           width: '160px',
+            right: `${window.innerWidth - themeButtonRef.getBoundingClientRect().right}px`,
+            width: '200px',
             background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)',
             boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 80px rgba(59, 130, 246, 0.2)'
           }}
@@ -730,13 +719,13 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 setCurrentTheme(themeOption.id);
                 setShowThemeDropdown(false);
               }}
-              className={`w-full text-left px-3 py-2.5 text-xs sm:text-sm font-light transition-all duration-300 flex items-center space-x-2 ${
+              className={`w-full text-left px-4 py-3 text-sm font-light transition-all duration-300 flex items-center space-x-3 ${
                 currentTheme === themeOption.id 
                   ? 'bg-blue-500/20 text-white border-l-3 border-blue-400' 
                   : 'text-white/80 hover:bg-blue-500/10 hover:text-white'
               }`}
             >
-              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-400" />
+              <div className="w-2 h-2 rounded-full bg-blue-400" />
               <span>{themeOption.displayName}</span>
             </button>
           ))}
@@ -750,8 +739,8 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
           className="fixed backdrop-blur-2xl border border-blue-400/30 rounded-2xl overflow-hidden shadow-2xl z-[99999]"
           style={{
             top: `${versionButtonRef.getBoundingClientRect().bottom + 8}px`,
-            left: `${Math.max(8, versionButtonRef.getBoundingClientRect().right - 280)}px`,
-            width: '280px',
+            right: `${window.innerWidth - versionButtonRef.getBoundingClientRect().right}px`,
+            width: '320px',
             background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)',
             boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 80px rgba(59, 130, 246, 0.2)'
           }}
@@ -764,17 +753,17 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 setSelectedVersion(model.name);
                 setShowVersionDropdown(false);
               }}
-              className={`w-full text-left px-4 py-3 transition-all duration-300 hover:bg-blue-500/10 ${
+              className={`w-full text-left px-5 py-4 transition-all duration-300 hover:bg-blue-500/10 ${
                 selectedVersion === model.name 
                   ? 'bg-blue-500/20 text-white border-l-3 border-blue-400' 
                   : 'text-white/80 hover:text-white'
               }`}
             >
-              <div className="flex items-center space-x-2 sm:space-x-3">
-                <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-400" />
+              <div className="flex items-center space-x-3">
+                <div className="w-2 h-2 rounded-full bg-blue-400" />
                 <div>
-                  <div className="text-xs sm:text-sm font-light text-white tracking-wider">{model.name}</div>
-                  <div className="text-xs text-white/60 font-light hidden sm:block">{model.subtitle}</div>
+                  <div className="text-sm font-light text-white tracking-wider">{model.name}</div>
+                  <div className="text-xs text-white/60 font-light">{model.subtitle}</div>
                 </div>
               </div>
             </button>

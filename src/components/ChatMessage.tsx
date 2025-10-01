@@ -63,9 +63,9 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, theme = 'ligh
   return (
     <div
       ref={messageRef}
-      className={`flex ${isOmnius ? 'justify-start' : 'justify-end'} mb-4 sm:mb-6`}
+      className={`flex ${isOmnius ? 'justify-start' : 'justify-end'} mb-6`}
     >
-      <div className={`flex items-start space-x-2 sm:space-x-3 max-w-[85%] sm:max-w-[80%] ${isOmnius ? 'flex-row' : 'flex-row-reverse space-x-reverse'}`}>
+      <div className={`flex items-start space-x-3 max-w-[80%] ${isOmnius ? 'flex-row' : 'flex-row-reverse space-x-reverse'}`}>
         
         {/* Avatar */}
         <div className="flex-shrink-0">
@@ -73,17 +73,17 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, theme = 'ligh
             <img 
               src="/duneicon.webp" 
               alt="OMNIUS" 
-              className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain animate-opacity-fluctuate"
+              className="w-12 h-12 object-contain animate-opacity-fluctuate"
             />
           ) : (
-            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-br from-slate-600/30 to-slate-700/30 border border-slate-400/30 flex items-center justify-center">
-              <User className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400" />
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-slate-600/30 to-slate-700/30 border border-slate-400/30 flex items-center justify-center">
+              <User className="w-5 h-5 text-slate-400" />
             </div>
           )}
         </div>
 
         {/* Message Content */}
-        <div className={`relative ${isOmnius ? 'mr-2 sm:mr-4' : 'ml-2 sm:ml-4'}`}>
+        <div className={`relative ${isOmnius ? 'mr-4' : 'ml-4'}`}>
           {isOmnius ? (
             /* OMNIUS messages without bubble - clean like GPT */
             <div className="space-y-2">
@@ -93,7 +93,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, theme = 'ligh
               </div>
 
               {/* Timestamp and Copy */}
-              <div className="flex items-center space-x-2 sm:space-x-3 text-xs text-white/50 font-light">
+              <div className="flex items-center space-x-3 text-xs text-white/50 font-light">
                 <span>
                   {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </span>
@@ -102,18 +102,18 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, theme = 'ligh
           ) : (
             /* User messages with bubble */
             <div 
-              className="relative px-4 sm:px-6 py-3 sm:py-4 rounded-2xl backdrop-blur-sm border bg-blue-500/20 border-blue-400/30 text-white"
+              className="relative px-6 py-4 rounded-2xl backdrop-blur-sm border bg-blue-500/20 border-blue-400/30 text-white"
               style={{
                 background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(99, 102, 241, 0.1) 100%)'
               }}
             >
               {/* Message Text */}
-              <div className="text-sm font-light leading-relaxed">
+              <div className="text-sm sm:text-base font-light leading-relaxed">
                 {message.content}
               </div>
 
               {/* Timestamp */}
-              <div className="text-xs mt-2 sm:mt-3 text-white/60 font-light">
+              <div className="text-xs mt-3 text-white/60 font-light">
                 {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
               </div>
 
