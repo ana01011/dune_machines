@@ -83,6 +83,8 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
                   inputMode === 'code' 
                     ? 'bg-slate-900/50 border border-cyan-400/30 text-cyan-100 placeholder-cyan-400/50 font-mono text-sm'
                     : 'bg-white/5 border border-white/20 text-white placeholder-white/50'
+                } backdrop-blur-sm focus:outline-none focus:border-blue-400/50 focus:bg-white/10`}
+                    : 'bg-white/5 border border-white/20 text-white placeholder-white/50'
                 } backdrop-blur-sm focus:outline-none focus:border-purple-400/50 focus:bg-white/10`}
                 style={{
                   minHeight: '48px',
