@@ -505,14 +505,12 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 </button>
                 
                 {showThemeDropdown && (
-                  <div 
-                    className="absolute top-full mt-2 bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      right: '0px',
-                      width: '160px',
-                      zIndex: 99999
-                    }}
-                  >
+                  <div className="fixed bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl z-[99999]"
+                       style={{
+                         top: '80px',
+                         right: '120px',
+                         width: '180px'
+                       }}>
                     {availableThemes.map((themeOption) => (
                       <button
                         key={themeOption.id}
@@ -556,15 +554,12 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 </button>
                 
                 {showVersionDropdown && (
-                  <div 
-                    className="fixed bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl"
-                    style={{
-                      top: '70px',
-                      right: '20px',
-                      width: '256px',
-                      zIndex: 99999
-                    }}
-                  >
+                  <div className="fixed bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl z-[99999]"
+                       style={{
+                         top: '80px',
+                         right: '20px',
+                         width: '280px'
+                       }}>
                     {aiModels.map((model) => (
                       <button
                         key={model.id}
