@@ -554,7 +554,14 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                   {/* OMNIUS Avatar */}
                   <div className="relative">
                     <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600/30 to-indigo-600/30 flex items-center justify-center border border-purple-400/30">
-                      <Crown className="w-6 h-6 text-purple-400" />
+                      <img 
+                        src="/duneicon.webp" 
+                        alt="OMNIUS" 
+                        className="w-7 h-7 object-contain"
+                        style={{
+                          filter: 'drop-shadow(0 0 8px rgba(139, 92, 246, 0.8)) drop-shadow(0 0 16px rgba(99, 102, 241, 0.6)) brightness(1.1)'
+                        }}
+                      />
                     </div>
                     <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black animate-pulse"></div>
                   </div>
