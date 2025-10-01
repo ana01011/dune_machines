@@ -734,11 +734,13 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
       {/* Version Dropdown Portal */}
       {showVersionDropdown && versionButtonRef && createPortal(
         <div 
-          className="fixed bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl z-[99999]"
+          className="fixed backdrop-blur-2xl border border-cyan-400/30 rounded-2xl overflow-hidden shadow-2xl z-[99999]"
           style={{
             top: `${versionButtonRef.getBoundingClientRect().bottom + 8}px`,
             right: `${window.innerWidth - versionButtonRef.getBoundingClientRect().right}px`,
-            width: '280px'
+            width: '320px',
+            background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 80px rgba(6, 182, 212, 0.2)'
           }}
           onClick={(e) => e.stopPropagation()}
         >
@@ -749,15 +751,20 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 setSelectedVersion(model.name);
                 setShowVersionDropdown(false);
               }}
-              className={`w-full text-left px-4 py-3 transition-all duration-300 ${
+              className={`w-full text-left px-4 py-4 transition-all duration-300 border-l-2 ${
                 selectedVersion === model.name 
-                  ? 'bg-cyan-600/30 text-cyan-300 border-l-2 border-cyan-400' 
-                  : 'text-white/80 hover:bg-white/10 hover:text-white'
+                  ? 'bg-cyan-600/20 text-cyan-300 border-cyan-400 shadow-lg shadow-cyan-500/20' 
+                  : 'text-white/70 hover:bg-white/5 hover:text-white/90 border-transparent hover:border-white/30'
               }`}
             >
-              <div>
-                <div className="text-sm font-medium">{model.name}</div>
-                <div className="text-xs text-white/60">{model.subtitle}</div>
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center border border-cyan-400/30">
+                  <div className="w-3 h-3 rounded-full bg-cyan-400/60"></div>
+                </div>
+                <div>
+                  <div className="text-sm font-medium tracking-wide">{model.name}</div>
+                  <div className="text-xs text-white/50 font-light">{model.subtitle}</div>
+                </div>
               </div>
             </button>
           ))}
