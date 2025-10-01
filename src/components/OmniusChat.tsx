@@ -575,4 +575,236 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                     onClick={() => setShowThemeDropdown(!showThemeDropdown)}
                     className="relative flex flex-col items-center space-y-1 px-3 py-2 text-white/90 hover:text-white transition-all duration-300"
                   >
-                    <div className="flex items-center space-x-2
+                    <div className="flex items-center space-x-2">
+                      {currentTheme === 'light' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                      <ChevronDown className="w-3 h-3" />
+                    </div>
+                  </button>
+                  
+                  {showThemeDropdown && themeButtonRef && createPortal(
+                    <div 
+                      className="fixed z-[9999] mt-2 w-48 rounded-xl border border-white/20 shadow-2xl backdrop-blur-xl"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)',
+                        top: themeButtonRef.getBoundingClientRect().bottom + window.scrollY,
+                        left: themeButtonRef.getBoundingClientRect().left + window.scrollX - 96
+                      }}
+                    >
+                      <div className="p-2">
+                        <button
+                          onClick={() => {
+                            setCurrentTheme('dark');
+                            setShowThemeDropdown(false);
+                            setBackgroundKey(prev => prev + 1);
+                          }}
+                          className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-all duration-300 ${
+                            currentTheme === 'dark' 
+                              ? 'bg-blue-500/20 text-white' 
+                              : 'text-white/80 hover:bg-white/10 hover:text-white'
+                          }`}
+                        >
+                          <Moon className="w-4 h-4" />
+                          <span className="text-sm">Deep Space</span>
+                        </button>
+                        <button
+                          onClick={() => {
+                            setCurrentTheme('light');
+                            setShowThemeDropdown(false);
+                            setBackgroundKey(prev => prev + 1);
+                          }}
+                          className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-all duration-300 ${
+                            currentTheme === 'light' 
+                              ? 'bg-blue-500/20 text-white' 
+                              : 'text-white/80 hover:bg-white/10 hover:text-white'
+                          }`}
+                        >
+                          <Sun className="w-4 h-4" />
+                          <span className="text-sm">Cosmic Light</span>
+                        </button>
+                      </div>
+                    </div>,
+                    document.body
+                  )}
+                </div>
+
+                {/* AI Model Selector */}
+                <div className="relative">
+                  <button
+                    ref={setVersionButtonRef}
+                    onClick={() => setShowVersionDropdown(!showVersionDropdown)}
+                    className="flex items-center space-x-2 px-3 py-2 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition-all duration-300"
+                  >
+                    <Crown className="w-4 h-4 text-yellow-400" />
+                    <span className="text-sm font-medium">{selectedVersion}</span>
+                    <ChevronDown className="w-3 h-3" />
+                  </button>
+                  
+                  {showVersionDropdown && versionButtonRef && createPortal(
+                    <div 
+                      className="fixed z-[9999] mt-2 w-64 rounded-xl border border-white/20 shadow-2xl backdrop-blur-xl"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)',
+                        top: versionButtonRef.getBoundingClientRect().bottom + window.scrollY,
+                        left: versionButtonRef.getBoundingClientRect().left + window.scrollX - 128
+                      }}
+                    >
+                      <div className="p-2">
+                        {aiModels.map((model) => (
+                          <button
+                            key={model.id}
+                            onClick={() => {
+                              setSelectedVersion(model.name);
+                              setShowVersionDropdown(false);
+                            }}
+                            className={`w-full flex items-center space-x-3 px-3 py-3 rounded-lg text-left transition-all duration-300 ${
+                              selectedVersion === model.name 
+                                ? 'bg-blue-500/20 text-white' 
+                                : 'text-white/80 hover:bg-white/10 hover:text-white'
+                            }`}
+                          >
+                            <Crown className="w-4 h-4 text-yellow-400 flex-shrink-0" />
+                            <div className="flex-1 min-w-0">
+                              <div className="text-sm font-medium">{model.name}</div>
+                              <div className="text-xs text-white/60">{model.subtitle}</div>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>,
+                    document.body
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Chat Messages Area */}
+            <div 
+              ref={chatRef}
+              className="flex-1 overflow-y-auto p-4 space-y-6 custom-scrollbar"
+            >
+              {messages.length === 0 ? (
+                <div className="flex flex-col items-center justify-center h-full text-center space-y-6">
+                  <div className="relative">
+                    <img 
+                      src="/duneicon.webp" 
+                      alt="OMNIUS" 
+                      className="w-24 h-24 object-contain animate-opacity-fluctuate"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <h2 className="text-2xl font-light text-white tracking-wider">
+                      Welcome to OMNIUS
+                    </h2>
+                    <p className="text-white/70 max-w-md font-light leading-relaxed">
+                      I am the Evermind Supreme, processing infinite possibilities across the cosmos. 
+                      How may I assist your consciousness today?
+                    </p>
+                  </div>
+                  
+                  {/* Quick Start Suggestions */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-2xl w-full mt-8">
+                    {[
+                      { icon: "🧠", title: "Analyze Complex Data", desc: "Process and interpret complex information" },
+                      { icon: "🔮", title: "Predict Outcomes", desc: "Forecast possibilities and scenarios" },
+                      { icon: "💡", title: "Creative Solutions", desc: "Generate innovative approaches" },
+                      { icon: "🌌", title: "Explore Concepts", desc: "Dive deep into any topic" }
+                    ].map((suggestion, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleSendMessage(suggestion.title)}
+                        className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 text-left group"
+                      >
+                        <div className="flex items-start space-x-3">
+                          <span className="text-2xl">{suggestion.icon}</span>
+                          <div>
+                            <h3 className="text-white font-medium mb-1 group-hover:text-blue-300 transition-colors">
+                              {suggestion.title}
+                            </h3>
+                            <p className="text-white/60 text-sm">
+                              {suggestion.desc}
+                            </p>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {messages.map((message) => (
+                    <ChatMessage
+                      key={message.id}
+                      message={message}
+                      onCopy={handleCopyMessage}
+                      onRegenerate={handleRegenerateResponse}
+                      copiedMessageId={copiedMessageId}
+                      regeneratingMessageId={regeneratingMessageId}
+                    />
+                  ))}
+                  
+                  {/* Typing Indicator */}
+                  {isTyping && (
+                    <div className="flex items-start space-x-4">
+                      <div className="relative">
+                        <img 
+                          src="/duneicon.webp" 
+                          alt="OMNIUS" 
+                          className="w-10 h-10 object-contain animate-opacity-fluctuate"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <span className="text-sm font-medium text-white">OMNIUS</span>
+                          <span className="text-xs text-white/60">is thinking...</span>
+                        </div>
+                        <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
+                          <div className="flex space-x-1">
+                            <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                            <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                            <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Input Area */}
+            <div 
+              ref={inputRef}
+              className="border-t border-white/5 backdrop-blur-xl p-4"
+              style={{
+                background: currentTheme === 'light' 
+                  ? 'linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(1,4,9,0.85) 15%, rgba(2,6,23,0.85) 30%, rgba(10,15,28,0.85) 45%, rgba(15,23,42,0.85) 60%, rgba(2,6,23,0.85) 75%, rgba(1,4,9,0.85) 85%, rgba(0,0,0,0.85) 100%)'
+                  : 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)'
+              }}
+            >
+              <AdvancedInput
+                onSendMessage={handleSendMessage}
+                disabled={isTyping}
+                placeholder="Commune with the Evermind..."
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Click outside handlers */}
+      {showThemeDropdown && (
+        <div 
+          className="fixed inset-0 z-[9998]" 
+          onClick={() => setShowThemeDropdown(false)}
+        />
+      )}
+      {showVersionDropdown && (
+        <div 
+          className="fixed inset-0 z-[9998]" 
+          onClick={() => setShowVersionDropdown(false)}
+        />
+      )}
+    </div>
+  );
+};
