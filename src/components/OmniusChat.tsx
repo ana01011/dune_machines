@@ -450,7 +450,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                     onClick={() => setCurrentChatId(chat.id)}
                     className={`group relative p-4 rounded-xl cursor-pointer transition-all duration-300 border ${
                       currentChatId === chat.id 
-                        ? 'bg-purple-600/20 border-purple-400/40 shadow-lg shadow-purple-500/10' 
+                        ? 'bg-blue-600/20 border-blue-400/40 shadow-lg shadow-blue-500/10' 
                         : 'hover:bg-white/5 border-white/10 hover:border-white/20'
                     }`}
                   >
@@ -481,7 +481,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                           <div className="text-xs text-white/40 font-light">
                             {chat.timestamp.toLocaleDateString()}
                           </div>
-                          <div className="text-xs text-blue-400/60">
+                          <div className="text-xs text-purple-400/60">
                             {chat.messages.length} messages
                           </div>
                         </div>
@@ -499,9 +499,9 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                         title="Rename chat"
                       >
                         <Edit2 className="w-3 h-3" />
-                      </button>
+              className="relative px-6 py-4 rounded-2xl backdrop-blur-sm border bg-cyan-500/20 border-cyan-400/30 text-white"
                       <button
-                        onClick={(e) => {
+                background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(59, 130, 246, 0.1) 100%)'
                           e.stopPropagation();
                           if (confirm('Delete this chat?')) {
                             handleDeleteChat(chat.id);
@@ -510,12 +510,12 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                         className="p-1.5 rounded-lg text-white/60 hover:text-red-400 hover:bg-red-400/10 transition-all duration-300"
                         title="Delete chat"
                       >
-                        <Trash2 className="w-3 h-3" />
+              <div className="text-xs mt-3 text-cyan-300/60 font-light">
                       </button>
                     </div>
                   </div>
                 ))}
-              </div>
+              <div className="absolute inset-0 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-gradient-to-r from-cyan-400/0 via-cyan-400/10 to-cyan-400/0"></div>
             </div>
           )}
 
