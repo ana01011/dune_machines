@@ -32,7 +32,7 @@ interface OmniusChatProps {
 export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWorkflows }) => {
   const [currentChatId, setCurrentChatId] = useState('1');
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [currentTheme, setCurrentTheme] = useState('dark');
+  const [currentTheme, setCurrentTheme] = useState('light');
   const [showThemeDropdown, setShowThemeDropdown] = useState(false);
   const [chatHistory, setChatHistory] = useState<ChatHistory[]>([
     {
