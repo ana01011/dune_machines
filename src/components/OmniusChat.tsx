@@ -435,7 +435,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 </div>
                 <button
                   onClick={handleNewChat}
-                  className="w-full flex items-center justify-center space-x-3 p-4 rounded-xl bg-gradient-to-r from-purple-600/30 to-indigo-600/30 border border-purple-400/30 text-white hover:from-purple-600/40 hover:to-indigo-600/40 hover:border-purple-400/50 transition-all duration-300 group"
+                  className="w-full flex items-center justify-center space-x-3 p-4 rounded-xl bg-gradient-to-r from-blue-600/30 to-cyan-600/30 border border-blue-400/30 text-white hover:from-blue-600/40 hover:to-cyan-600/40 hover:border-blue-400/50 transition-all duration-300 group"
                 >
                   <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
                   <span className="font-medium tracking-wide">NEW CHAT</span>
