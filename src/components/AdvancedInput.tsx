@@ -48,7 +48,7 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
             onClick={() => setInputMode('text')}
             className={`px-3 py-1.5 rounded-lg text-xs font-light transition-all duration-300 ${
               inputMode === 'text' 
-                ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-400/30' 
+                ? 'bg-purple-500/20 text-purple-400 border border-purple-400/30' 
                 : 'text-white/60 hover:text-white/90 hover:bg-white/5'
             }`}
           >
@@ -83,7 +83,7 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
                   inputMode === 'code' 
                     ? 'bg-slate-900/50 border border-cyan-400/30 text-cyan-100 placeholder-cyan-400/50 font-mono text-sm'
                     : 'bg-white/5 border border-white/20 text-white placeholder-white/50'
-                } backdrop-blur-sm focus:outline-none focus:border-purple-400/50 focus:bg-white/10`}
+                } backdrop-blur-sm focus:outline-none focus:border-cyan-400/50 focus:bg-white/10`}
                 style={{
                   minHeight: '48px',
                   maxHeight: '120px'
@@ -125,7 +125,7 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
                 disabled={!message.trim()}
                 className={`p-3 rounded-xl transition-all duration-300 ${
                   message.trim()
-                    ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-105'
+                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:shadow-lg hover:shadow-purple-500/25 hover:scale-105'
                     : 'bg-white/10 text-white/40 cursor-not-allowed'
                 }`}
               >
