@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { gsap } from 'gsap';
-import { Send, Mic, Paperclip, Settings, Crown, ArrowLeft, ChevronDown, Trash2, CreditCard as Edit2, Plus, MessageSquare, Menu, X, Copy, Check, Sun, Moon, Palette, Users, RotateCcw } from 'lucide-react';
+import { Send, Mic, Paperclip, Settings, Crown, ArrowLeft, ChevronDown, Trash2, CreditCard as Edit2, Plus, MessageSquare, Menu, X, Copy, Check, Sun, Moon, Palette, Users, RotateCcw, User } from 'lucide-react';
 import { ChatMessage } from './ChatMessage';
 import { AdvancedInput } from './AdvancedInput';
 import { getTheme, getAvailableThemes } from '../themes/chatThemes';
@@ -52,7 +52,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
   const [regeneratingMessageId, setRegeneratingMessageId] = useState<string | null>(null);
   const [themeButtonRef, setThemeButtonRef] = useState<HTMLButtonElement | null>(null);
   const [versionButtonRef, setVersionButtonRef] = useState<HTMLButtonElement | null>(null);
-  const [backgroundKey, setBackgroundKey] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   
   const getCurrentChat = () => chatHistory.find(chat => chat.id === currentChatId);
@@ -126,7 +125,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
 
   const handleNewChat = () => {
     const newChatId = Date.now().toString();
-    setBackgroundKey(prev => prev + 1); // Force background re-render
     const newChat: ChatHistory = {
       id: newChatId,
       title: 'New Chat',
@@ -292,7 +290,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
             </div>
 
             {/* Ultra-small glittering stars */}
-            <div key={`cosmic-${backgroundKey}`} className="absolute inset-0 overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden">
               {/* Blurred Exoplanet/Blackhole at top */}
               <div className="absolute -top-64 left-1/2 transform -translate-x-1/2">
                 <div 
@@ -316,54 +314,40 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
               {/* Ultra-small glittering stars */}
               <div className="absolute inset-0">
                 {[...Array(50)].map((_, i) => {
-                  const randomLeft = Math.random() * 100;
-                  const randomTop = Math.random() * 100;
-                  const randomDelay = Math.random() * 5;
-                  const randomDuration = 8 + Math.random() * 3;
-                  const randomOpacity = 0.2 + Math.random() * 0.7;
-                  const randomScale = 0.5 + Math.random() * 0.5;
-                  
                   return (
                   <div
-                    key={`particle-${backgroundKey}-${i}`}
+                    key={`particle-${i}`}
                     className="absolute bg-white rounded-full animate-pulse twinkle-star"
                     style={{
                       width: '0.1px',
                       height: '0.1px',
-                      left: `${randomLeft}%`,
-                      top: `${randomTop}%`,
-                      animationDelay: `${randomDelay}s`,
-                      animationDuration: `${randomDuration}s`,
-                      opacity: randomOpacity,
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                      animationDelay: `${Math.random() * 5}s`,
+                      animationDuration: `${8 + Math.random() * 3}s`,
+                      opacity: 0.2 + Math.random() * 0.7,
                       boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
-                      transform: `scale(${randomScale})`
+                      transform: `scale(${0.5 + Math.random() * 0.5})`
                     }}
                   />
                   );
                 })}
                 {/* Additional tiny glitter layer */}
                 {[...Array(30)].map((_, i) => {
-                  const randomLeft = Math.random() * 100;
-                  const randomTop = Math.random() * 100;
-                  const randomDelay = Math.random() * 6;
-                  const randomDuration = 1 + Math.random() * 2;
-                  const randomOpacity = 0.2 + Math.random() * 0.5;
-                  const randomScale = 0.3 + Math.random() * 0.4;
-                  
                   return (
                   <div
-                    key={`glitter-${backgroundKey}-${i}`}
+                    key={`glitter-${i}`}
                     className="absolute bg-blue-200 rounded-full animate-pulse twinkle-star-blue"
                     style={{
                       width: '0.5px',
                       height: '0.5px',
-                      left: `${randomLeft}%`,
-                      top: `${randomTop}%`,
-                      animationDelay: `${randomDelay}s`,
-                      animationDuration: `${randomDuration}s`,
-                      opacity: randomOpacity,
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                      animationDelay: `${Math.random() * 6}s`,
+                      animationDuration: `${1 + Math.random() * 2}s`,
+                      opacity: 0.2 + Math.random() * 0.5,
                       boxShadow: '0 0 1px rgba(191, 219, 254, 0.6)',
-                      transform: `scale(${randomScale})`
+                      transform: `scale(${0.3 + Math.random() * 0.4})`
                     }}
                   />
                   );
@@ -385,30 +369,23 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
             }}
           />
           {/* Minimal stars for deep space */}
-          <div key={`dark-${backgroundKey}`} className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
             {/* Minimal twinkling stars for deep space */}
             {[...Array(40)].map((_, i) => {
-              const randomLeft = Math.random() * 100;
-              const randomTop = Math.random() * 100;
-              const randomDelay = Math.random() * 8;
-              const randomDuration = 6 + Math.random() * 4;
-              const randomOpacity = 0.2 + Math.random() * 0.5;
-              const randomScale = 0.2 + Math.random() * 0.2;
-              
               return (
               <div
-                key={`dark-particle-${backgroundKey}-${i}`}
+                key={`dark-particle-${i}`}
                 className="absolute bg-white rounded-full animate-pulse twinkle-star"
                 style={{
                   width: '0.3px',
                   height: '0.3px',
-                  left: `${randomLeft}%`,
-                  top: `${randomTop}%`,
-                  animationDelay: `${randomDelay}s`,
-                  animationDuration: `${randomDuration}s`,
-                  opacity: randomOpacity,
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 8}s`,
+                  animationDuration: `${6 + Math.random() * 4}s`,
+                  opacity: 0.2 + Math.random() * 0.5,
                   boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
-                  transform: `scale(${randomScale})`
+                  transform: `scale(${0.2 + Math.random() * 0.2})`
                 }}
               />
               );
@@ -423,11 +400,11 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
         <div 
           className="relative z-10 h-full flex"
         >
-        
-          {/* Chat History Sidebar - Mobile Optimized */}
-          {sidebarOpen && !isMobile && (
+          
+          {/* Chat History Sidebar - Desktop Only */}
+          {sidebarOpen && (
             <div 
-              className="w-80 border-r border-white/5 backdrop-blur-xl flex flex-col"
+              className="hidden md:flex w-80 border-r border-white/5 backdrop-blur-xl flex-col"
               style={{
                 background: currentTheme === 'light' 
                   ? 'linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(1,4,9,0.85) 15%, rgba(2,6,23,0.85) 30%, rgba(10,15,28,0.85) 45%, rgba(15,23,42,0.85) 60%, rgba(2,6,23,0.85) 75%, rgba(1,4,9,0.85) 85%, rgba(0,0,0,0.85) 100%)'
@@ -528,6 +505,22 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                   </div>
                 ))}
               </div>
+              
+              {/* User Account Section */}
+              <div className="p-4 border-t border-white/10">
+                <div className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 border border-white/10">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/30 to-purple-500/30 flex items-center justify-center border border-blue-400/30">
+                    <User className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-sm font-medium text-white">Enterprise User</div>
+                    <div className="text-xs text-white/60">Premium Account</div>
+                  </div>
+                  <button className="p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300">
+                    <Settings className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
             </div>
           )}
 
@@ -562,15 +555,15 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                   </div>
                   <button
                     onClick={handleNewChat}
-                    className="w-full flex items-center justify-center space-x-3 p-4 rounded-xl bg-gradient-to-r from-purple-600/30 to-indigo-600/30 border border-purple-400/30 text-white hover:from-purple-600/40 hover:to-indigo-600/40 hover:border-purple-400/50 transition-all duration-300 group"
+                    className="w-full flex items-center justify-center space-x-3 p-3 sm:p-4 rounded-xl bg-gradient-to-r from-purple-600/30 to-indigo-600/30 border border-purple-400/30 text-white hover:from-purple-600/40 hover:to-indigo-600/40 hover:border-purple-400/50 transition-all duration-300 group"
                   >
-                    <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
-                    <span className="font-medium tracking-wide">NEW CHAT</span>
+                    <Plus className="w-4 h-4 sm:w-5 sm:h-5 group-hover:rotate-90 transition-transform duration-300" />
+                    <span className="text-sm sm:text-base font-medium tracking-wide">NEW CHAT</span>
                   </button>
                 </div>
                 
                 {/* Chat History List */}
-                <div className="flex-1 overflow-y-auto p-3 space-y-2 custom-scrollbar">
+                <div className="flex-1 overflow-y-auto p-2 sm:p-3 space-y-2 custom-scrollbar">
                   {chatHistory.map((chat) => (
                     <div
                       key={chat.id}
@@ -578,7 +571,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                         setCurrentChatId(chat.id);
                         setSidebarOpen(false);
                       }}
-                      className={`group relative p-4 rounded-xl cursor-pointer transition-all duration-300 border ${
+                      className={`group relative p-3 sm:p-4 rounded-xl cursor-pointer transition-all duration-300 border ${
                         currentChatId === chat.id 
                           ? 'bg-blue-600/20 border-blue-400/40 shadow-lg shadow-blue-500/10' 
                           : 'hover:bg-white/5 border-white/10 hover:border-white/20'
@@ -591,7 +584,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                           onChange={(e) => setEditingTitle(e.target.value)}
                           onBlur={() => handleRenameChat(chat.id, editingTitle)}
                           onKeyPress={(e) => e.key === 'Enter' && handleRenameChat(chat.id, editingTitle)}
-                          className="w-full bg-transparent text-white text-sm font-light border-none outline-none"
+                          className="w-full bg-transparent text-white text-xs sm:text-sm font-light border-none outline-none"
                           autoFocus
                         />
                       ) : (
@@ -599,7 +592,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                           <div className="flex items-start space-x-3 mb-2">
                             <MessageSquare className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
                             <div className="flex-1 min-w-0">
-                              <h3 className="text-sm font-medium text-white truncate mb-1">
+                              <h3 className="text-xs sm:text-sm font-medium text-white truncate mb-1">
                                 {chat.title}
                               </h3>
                               <p className="text-xs text-white/60 line-clamp-2 leading-relaxed">
@@ -619,16 +612,16 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                       )}
                       
                       {/* Action Buttons */}
-                      <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex space-x-1">
+                      <div className="absolute top-2 sm:top-3 right-2 sm:right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex space-x-1">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             startEditing(chat.id, chat.title);
                           }}
-                          className="p-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300"
+                          className="p-1 sm:p-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300"
                           title="Rename chat"
                         >
-                          <Edit2 className="w-3 h-3" />
+                          <Edit2 className="w-3 h-3 sm:w-3 sm:h-3" />
                         </button>
                         <button
                           onClick={(e) => {
@@ -637,14 +630,30 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                               handleDeleteChat(chat.id);
                             }
                           }}
-                          className="p-1.5 rounded-lg text-white/60 hover:text-red-400 hover:bg-red-400/10 transition-all duration-300"
+                          className="p-1 sm:p-1.5 rounded-lg text-white/60 hover:text-red-400 hover:bg-red-400/10 transition-all duration-300"
                           title="Delete chat"
                         >
-                          <Trash2 className="w-3 h-3" />
+                          <Trash2 className="w-3 h-3 sm:w-3 sm:h-3" />
                         </button>
                       </div>
                     </div>
                   ))}
+                </div>
+                
+                {/* User Account Section */}
+                <div className="p-3 sm:p-4 border-t border-white/10">
+                  <div className="flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 rounded-xl bg-white/5 border border-white/10">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-blue-500/30 to-purple-500/30 flex items-center justify-center border border-blue-400/30">
+                      <User className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-xs sm:text-sm font-medium text-white">Enterprise User</div>
+                      <div className="text-xs text-white/60">Premium Account</div>
+                    </div>
+                    <button className="p-1.5 sm:p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300">
+                      <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </>
@@ -656,57 +665,60 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
             {/* Header */}
             <div 
               ref={headerRef}
-              className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-white/5 backdrop-blur-xl" 
+              className="flex items-center justify-between px-3 py-3 sm:px-4 sm:py-3 md:px-6 md:py-4 border-b border-white/5 backdrop-blur-xl" 
               style={{
                 background: currentTheme === 'light' 
                   ? 'linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(1,4,9,0.85) 15%, rgba(2,6,23,0.85) 30%, rgba(10,15,28,0.85) 45%, rgba(15,23,42,0.85) 60%, rgba(2,6,23,0.85) 75%, rgba(1,4,9,0.85) 85%, rgba(0,0,0,0.85) 100%)'
                   : 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)'
               }}
             >
-              <div className="flex items-center space-x-2 sm:space-x-3">
+              <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4">
                 {/* Sidebar Toggle - Always Visible on Mobile */}
                 <button
                   onClick={() => setSidebarOpen(!sidebarOpen)}
-                  className="p-2 sm:p-2.5 rounded-lg text-white/70 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
+                  className="p-2 sm:p-2.5 md:p-3 rounded-lg text-white/70 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
                 >
-                  <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
+                  <Menu className="w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                 </button>
                 
                 {/* Back Button - Smaller on Mobile */}
                 <button
                   onClick={onBack}
-                  className="p-2 sm:p-2.5 rounded-lg text-white/70 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
+                  className="p-2 sm:p-2.5 md:p-3 rounded-lg text-white/70 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
                 >
-                  <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                  <ArrowLeft className="w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                 </button>
                 
                 {/* OMNIUS Info - Responsive */}
-                <div className="flex items-center space-x-3 sm:space-x-4">
+                <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4">
                   <div className="relative">
                     <img 
                       src="/duneicon.webp" 
                       alt="OMNIUS" 
-                      className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain animate-opacity-fluctuate"
+                      className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain animate-opacity-fluctuate"
                     />
                   </div>
                   
                   <div>
-                    <h1 className="text-base sm:text-lg font-light text-white tracking-wider">OMNIUS</h1>
-                    <p className="text-xs sm:text-sm text-white/70 font-light hidden sm:block">The Evermind Supreme</p>
+                    <h1 className="text-sm sm:text-base md:text-lg font-light text-white tracking-wider">OMNIUS</h1>
+                    <p className="text-xs text-white/70 font-light hidden sm:block">The Evermind Supreme</p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-2 sm:space-x-3">
+              <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-3">
                 {/* Theme Selector - Compact on Mobile */}
                 <div className="relative">
                   <button
                     ref={setThemeButtonRef}
                     onClick={() => setShowThemeDropdown(!showThemeDropdown)}
-                    className="flex items-center space-x-2 px-3 py-2 sm:px-4 sm:py-2.5 text-white/80 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10"
+                    className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-2 px-2 py-2 sm:px-3 sm:py-2 md:px-4 md:py-2.5 text-white/80 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10"
                   >
-                    <Palette className="w-4 h-4 sm:w-5 sm:h-5" />
-                    {currentTheme === 'light' ? <Sun className="w-4 h-4 sm:w-5 sm:h-5" /> : <Moon className="w-4 h-4 sm:w-5 sm:h-5" />}
+                    <div className="flex items-center space-x-1 md:space-x-2">
+                      <Palette className="w-4 h-4 sm:w-4 sm:h-4 md:w-5 md:h-5" />
+                      {currentTheme === 'light' ? <Sun className="w-4 h-4 sm:w-4 sm:h-4 md:w-5 md:h-5" /> : <Moon className="w-4 h-4 sm:w-4 sm:h-4 md:w-5 md:h-5" />}
+                    </div>
+                    <span className="text-xs md:hidden font-light">Theme</span>
                     <span className="hidden md:inline text-sm font-light">Theme</span>
                   </button>
                 </div>
@@ -714,9 +726,10 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 {/* Agents Navigation - Compact on Mobile */}
                 <button
                   onClick={onNavigateToWorkflows}
-                  className="flex items-center space-x-2 px-3 py-2 sm:px-4 sm:py-2.5 text-white/80 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10"
+                  className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-2 px-2 py-2 sm:px-3 sm:py-2 md:px-4 md:py-2.5 text-white/80 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10"
                 >
-                  <Users className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <Users className="w-4 h-4 sm:w-4 sm:h-4 md:w-5 md:h-5" />
+                  <span className="text-xs md:hidden font-light">Agents</span>
                   <span className="hidden md:inline text-sm font-light">Agents</span>
                 </button>
 
@@ -725,13 +738,16 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                   <button
                     ref={setVersionButtonRef}
                     onClick={() => setShowVersionDropdown(!showVersionDropdown)}
-                    className="flex items-center space-x-2 px-3 py-2 sm:px-4 sm:py-2.5 text-white/80 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10"
+                    className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-2 px-2 py-2 sm:px-3 sm:py-2 md:px-4 md:py-2.5 text-white/80 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10"
                   >
-                    <Crown className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <div className="flex items-center space-x-1 md:space-x-2">
+                      <Crown className="w-4 h-4 sm:w-4 sm:h-4 md:w-5 md:h-5" />
+                      <ChevronDown className="w-3 h-3 sm:w-3 sm:h-3 md:w-4 md:h-4" />
+                    </div>
+                    <span className="text-xs md:hidden font-light">AI</span>
                     <span className="hidden md:inline text-sm font-medium text-white">
                       {aiModels.find(model => model.name === selectedVersion)?.name || selectedVersion}
                     </span>
-                    <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
                 </div>
               </div>
@@ -826,7 +842,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
               onClick={() => {
                 setCurrentTheme(themeOption.id);
                 setShowThemeDropdown(false);
-                setBackgroundKey(prev => prev + 1);
               }}
               className={`w-full text-left px-3 py-2.5 text-xs sm:text-sm font-light transition-all duration-300 flex items-center space-x-2 sm:space-x-3 ${
                 currentTheme === themeOption.id 
@@ -848,10 +863,8 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
           className="fixed backdrop-blur-2xl border border-blue-400/30 rounded-xl overflow-hidden shadow-2xl z-[99999] max-h-64 overflow-y-auto custom-dropdown-scrollbar"
           style={{
             top: `${versionButtonRef.getBoundingClientRect().bottom + 8}px`,
-            left: isMobile 
-              ? `${Math.max(8, versionButtonRef.getBoundingClientRect().left - 120)}px`
-              : `${versionButtonRef.getBoundingClientRect().right - 280}px`,
-            width: isMobile ? '240px' : '280px',
+            right: isMobile ? '8px' : `${window.innerWidth - versionButtonRef.getBoundingClientRect().right}px`,
+            width: isMobile ? '200px' : '280px',
             background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)',
             boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 80px rgba(59, 130, 246, 0.2)'
           }}
@@ -873,7 +886,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-400" />
                 <div>
-                  <div className="text-xs sm:text-sm font-light text-white tracking-wider">{model.name}</div>
+                  <div className="text-xs font-light text-white tracking-wider">{model.name}</div>
                   <div className="text-xs text-white/60 font-light">{model.subtitle}</div>
                 </div>
               </div>
