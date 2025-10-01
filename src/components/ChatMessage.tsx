@@ -104,7 +104,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
               </div>
 
               {/* Timestamp and Actions */}
-              <div className="flex items-center space-x-3 text-xs text-white/50 font-light px-1">
+              <div className="flex items-center justify-between text-xs text-white/50 font-light px-1">
                 <span>
                   {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </span>
