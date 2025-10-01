@@ -450,7 +450,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                     onClick={() => setCurrentChatId(chat.id)}
                     className={`group relative p-4 rounded-xl cursor-pointer transition-all duration-300 border ${
                       currentChatId === chat.id 
-                        ? 'bg-purple-600/20 border-purple-400/40 shadow-lg shadow-purple-500/10' 
+                        ? 'bg-blue-600/20 border-blue-400/40 shadow-lg shadow-blue-500/10' 
                         : 'hover:bg-white/5 border-white/10 hover:border-white/20'
                     }`}
                   >
