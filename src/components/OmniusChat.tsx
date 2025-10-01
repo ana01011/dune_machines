@@ -562,7 +562,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                   
                   <div>
                     <h1 className="text-base font-light text-white tracking-wider">OMNIUS</h1>
-                    <p className="text-xs text-purple-400 font-light">The Evermind Supreme</p>
+                    <p className="text-xs text-cyan-400 font-light">The Evermind Supreme</p>
                   </div>
                 </div>
               </div>
