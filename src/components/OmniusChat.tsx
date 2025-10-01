@@ -61,6 +61,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
   const [regeneratingMessageId, setRegeneratingMessageId] = useState<string | null>(null);
   const [themeButtonRef, setThemeButtonRef] = useState<HTMLButtonElement | null>(null);
   const [versionButtonRef, setVersionButtonRef] = useState<HTMLButtonElement | null>(null);
+  const [backgroundKey, setBackgroundKey] = useState(0);
   
   const getCurrentChat = () => chatHistory.find(chat => chat.id === currentChatId);
   const messages = getCurrentChat()?.messages || [];
@@ -122,6 +123,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
 
   const handleNewChat = () => {
     const newChatId = Date.now().toString();
+    setBackgroundKey(prev => prev + 1); // Force background re-render
     const newChat: ChatHistory = {
       id: newChatId,
       title: 'New Chat',
@@ -287,42 +289,83 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
             </div>
 
             {/* Ultra-small glittering stars */}
-            <div className="absolute inset-0">
-              {[...Array(50)].map((_, i) => (
-                <div
-                  key={`particle-${i}`}
-                  className="absolute bg-white rounded-full animate-pulse twinkle-star"
+            <div key={`cosmic-${backgroundKey}`} className="absolute inset-0 overflow-hidden">
+              {/* Blurred Exoplanet/Blackhole at top */}
+              <div className="absolute -top-64 left-1/2 transform -translate-x-1/2">
+                <div 
+                  className="w-96 h-96 sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] rounded-full opacity-20 animate-planet-rotate-smooth"
                   style={{
-                    width: '0.1px',
-                    height: '0.1px',
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                    animationDelay: `${Math.random() * 5}s`,
-                    animationDuration: `${8 + Math.random() * 3}s`,
-                    opacity: 0.2 + Math.random() * 0.7,
-                    boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
-                    transform: `scale(${0.5 + Math.random() * 0.5})`
+                    background: 'radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.8) 0%, rgba(29, 78, 216, 0.6) 25%, rgba(30, 64, 175, 0.4) 50%, rgba(15, 23, 42, 0.2) 75%, transparent 100%)',
+                    filter: 'blur(40px)',
+                    boxShadow: '0 0 200px rgba(59, 130, 246, 0.3), inset 0 0 100px rgba(29, 78, 216, 0.2)'
                   }}
                 />
-              ))}
-              {/* Additional tiny glitter layer */}
-              {[...Array(30)].map((_, i) => (
-                <div
-                  key={`glitter-${i}`}
-                  className="absolute bg-blue-200 rounded-full animate-pulse twinkle-star-blue"
+                {/* Planet atmosphere glow */}
+                <div 
+                  className="absolute inset-0 w-96 h-96 sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] rounded-full opacity-10 animate-planet-rotate-reverse-smooth"
                   style={{
-                    width: '0.5px',
-                    height: '0.5px',
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                    animationDelay: `${Math.random() * 6}s`,
-                    animationDuration: `${1 + Math.random() * 2}s`,
-                    opacity: 0.2 + Math.random() * 0.5,
-                    boxShadow: '0 0 1px rgba(191, 219, 254, 0.6)',
-                    transform: `scale(${0.3 + Math.random() * 0.4})`
+                    background: 'radial-gradient(circle at 70% 70%, rgba(6, 182, 212, 0.6) 0%, rgba(59, 130, 246, 0.4) 40%, transparent 70%)',
+                    filter: 'blur(60px)'
                   }}
                 />
-              ))}
+              </div>
+
+              {/* Ultra-small glittering stars */}
+              <div className="absolute inset-0">
+                {[...Array(50)].map((_, i) => {
+                  const randomLeft = Math.random() * 100;
+                  const randomTop = Math.random() * 100;
+                  const randomDelay = Math.random() * 5;
+                  const randomDuration = 8 + Math.random() * 3;
+                  const randomOpacity = 0.2 + Math.random() * 0.7;
+                  const randomScale = 0.5 + Math.random() * 0.5;
+                  
+                  return (
+                  <div
+                    key={`particle-${backgroundKey}-${i}`}
+                    className="absolute bg-white rounded-full animate-pulse twinkle-star"
+                    style={{
+                      width: '0.1px',
+                      height: '0.1px',
+                      left: `${randomLeft}%`,
+                      top: `${randomTop}%`,
+                      animationDelay: `${randomDelay}s`,
+                      animationDuration: `${randomDuration}s`,
+                      opacity: randomOpacity,
+                      boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
+                      transform: `scale(${randomScale})`
+                    }}
+                  />
+                  );
+                })}
+                {/* Additional tiny glitter layer */}
+                {[...Array(30)].map((_, i) => {
+                  const randomLeft = Math.random() * 100;
+                  const randomTop = Math.random() * 100;
+                  const randomDelay = Math.random() * 6;
+                  const randomDuration = 1 + Math.random() * 2;
+                  const randomOpacity = 0.2 + Math.random() * 0.5;
+                  const randomScale = 0.3 + Math.random() * 0.4;
+                  
+                  return (
+                  <div
+                    key={`glitter-${backgroundKey}-${i}`}
+                    className="absolute bg-blue-200 rounded-full animate-pulse twinkle-star-blue"
+                    style={{
+                      width: '0.5px',
+                      height: '0.5px',
+                      left: `${randomLeft}%`,
+                      top: `${randomTop}%`,
+                      animationDelay: `${randomDelay}s`,
+                      animationDuration: `${randomDuration}s`,
+                      opacity: randomOpacity,
+                      boxShadow: '0 0 1px rgba(191, 219, 254, 0.6)',
+                      transform: `scale(${randomScale})`
+                    }}
+                  />
+                  );
+                })}
+              </div>
             </div>
           </div>
         </>
@@ -339,24 +382,34 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
             }}
           />
           {/* Minimal stars for deep space */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {[...Array(80)].map((_, i) => (
+          <div key={`dark-${backgroundKey}`} className="absolute inset-0 overflow-hidden pointer-events-none">
+            {/* Minimal twinkling stars for deep space */}
+            {[...Array(60)].map((_, i) => {
+              const randomLeft = Math.random() * 100;
+              const randomTop = Math.random() * 100;
+              const randomDelay = Math.random() * 4;
+              const randomDuration = 2 + Math.random() * 3;
+              const randomOpacity = 0.2 + Math.random() * 0.5;
+              const randomScale = 0.3 + Math.random() * 0.3;
+              
+              return (
               <div
-                key={`dark-particle-${i}`}
+                key={`dark-particle-${backgroundKey}-${i}`}
                 className="absolute bg-white rounded-full animate-pulse twinkle-star"
                 style={{
-                  width: '1px',
-                  height: '1px',
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 4}s`,
-                  animationDuration: `${2 + Math.random() * 3}s`,
-                  opacity: 0.3 + Math.random() * 0.7,
+                  width: '0.5px',
+                  height: '0.5px',
+                  left: `${randomLeft}%`,
+                  top: `${randomTop}%`,
+                  animationDelay: `${randomDelay}s`,
+                  animationDuration: `${randomDuration}s`,
+                  opacity: randomOpacity,
                   boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
-                  transform: `scale(${0.5 + Math.random() * 0.5})`
+                  transform: `scale(${randomScale})`
                 }}
               />
-            ))}
+              );
+            })}
           </div>
         </>
       )}
@@ -371,13 +424,15 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
           {/* Chat History Sidebar - Improved */}
           {sidebarOpen && (
             <div 
-              className="w-80 border-r border-white/10 backdrop-blur-xl flex flex-col"
+              className="w-80 border-r border-white/5 backdrop-blur-xl flex flex-col"
               style={{
-                background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)'
+                background: currentTheme === 'light' 
+                  ? 'linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(1,4,9,0.85) 15%, rgba(2,6,23,0.85) 30%, rgba(10,15,28,0.85) 45%, rgba(15,23,42,0.85) 60%, rgba(2,6,23,0.85) 75%, rgba(1,4,9,0.85) 85%, rgba(0,0,0,0.85) 100%)'
+                  : 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)'
               }}
             >
               {/* Sidebar Header */}
-              <div className="p-4 border-b border-white/5">
+              <div className="p-4 border-b border-white/10">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-light text-white tracking-wider">CHAT HISTORY</h2>
                   <button
@@ -479,9 +534,11 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
             {/* Header */}
             <div 
               ref={headerRef}
-              className="flex items-center justify-between p-4 sm:p-6 border-b border-white/10 backdrop-blur-xl" 
+              className="flex items-center justify-between p-4 sm:p-6 border-b border-white/5 backdrop-blur-xl" 
               style={{
-                background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)'
+                background: currentTheme === 'light' 
+                  ? 'linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(1,4,9,0.85) 15%, rgba(2,6,23,0.85) 30%, rgba(10,15,28,0.85) 45%, rgba(15,23,42,0.85) 60%, rgba(2,6,23,0.85) 75%, rgba(1,4,9,0.85) 85%, rgba(0,0,0,0.85) 100%)'
+                  : 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)'
               }}
             >
               <div className="flex items-center space-x-4">
