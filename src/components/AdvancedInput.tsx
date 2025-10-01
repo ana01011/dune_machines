@@ -39,14 +39,14 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
   };
 
   return (
-    <div className="p-3 sm:p-4 border-t border-white/10">
-      <div className="max-w-4xl mx-auto">
+    <div className="p-2 sm:p-3 md:p-4 border-t border-white/10">
+      <div className="max-w-4xl mx-auto px-1 sm:px-0">
         
         {/* Input Mode Selector */}
-        <div className="flex items-center space-x-2 mb-3">
+        <div className="flex items-center space-x-1 sm:space-x-2 mb-2 sm:mb-3">
           <button
             onClick={() => setInputMode('text')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-light transition-all duration-300 ${
+            className={`px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg text-xs font-light transition-all duration-300 ${
               inputMode === 'text' 
                 ? 'bg-blue-500/20 text-white border border-blue-400/30' 
                 : 'text-white/70 hover:text-white hover:bg-white/5'
@@ -56,20 +56,21 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
           </button>
           <button
             onClick={() => setInputMode('code')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-light transition-all duration-300 flex items-center space-x-2 ${
+            className={`px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg text-xs font-light transition-all duration-300 flex items-center space-x-1 sm:space-x-2 ${
               inputMode === 'code' 
                 ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-400/30' 
                 : 'text-white/70 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Code className="w-3 h-3" />
-            <span>Code Mode</span>
+            <Code className="w-3 h-3 sm:w-3 sm:h-3" />
+            <span className="hidden sm:inline">Code Mode</span>
+            <span className="sm:hidden">Code</span>
           </button>
         </div>
 
         {/* Main Input Area */}
         <div className="relative">
-          <div className="flex items-end space-x-4">
+          <div className="flex items-end space-x-2 sm:space-x-3 md:space-x-4">
             
             {/* Text Input */}
             <div className="flex-1 relative">
@@ -79,81 +80,81 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
                 onChange={handleTextareaChange}
                 onKeyPress={handleKeyPress}
                 placeholder={inputMode === 'code' ? 'Enter your code or technical query...' : 'Ask OMNIUS anything...'}
-                className={`w-full px-4 py-3 pr-12 rounded-2xl resize-none transition-all duration-300 font-light ${
+                className={`w-full px-3 py-2 sm:px-4 sm:py-3 pr-10 sm:pr-12 rounded-xl sm:rounded-2xl resize-none transition-all duration-300 font-light text-sm sm:text-base ${
                   inputMode === 'code' 
-                    ? 'bg-slate-900/50 border border-cyan-400/30 text-cyan-100 placeholder-cyan-400/50 font-mono text-sm'
+                    ? 'bg-slate-900/50 border border-cyan-400/30 text-cyan-100 placeholder-cyan-400/50 font-mono'
                     : 'bg-white/5 border border-white/20 text-white placeholder-white/60'
                 } backdrop-blur-sm focus:outline-none focus:border-blue-400/50 focus:bg-white/10`}
                 style={{
-                  minHeight: '48px',
-                  maxHeight: '120px'
+                  minHeight: '40px',
+                  maxHeight: '100px'
                 }}
               />
               
               {/* Character Count */}
-              <div className="absolute bottom-2 right-12 text-xs text-white/50">
+              <div className="absolute bottom-1.5 sm:bottom-2 right-8 sm:right-12 text-xs text-white/50">
                 {message.length}
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1 sm:space-x-2">
               
               {/* Attachment Button */}
               <button 
                 onClick={() => console.log('Attachment clicked')}
-                className="p-3 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-all duration-300"
+                className="p-2 sm:p-3 rounded-lg sm:rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-all duration-300"
               >
-                <Paperclip className="w-5 h-5" />
+                <Paperclip className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
 
               {/* Voice Button */}
               <button 
                 onClick={() => setIsRecording(!isRecording)}
-                className={`p-3 rounded-xl transition-all duration-300 ${
+                className={`p-2 sm:p-3 rounded-lg sm:rounded-xl transition-all duration-300 ${
                   isRecording 
                     ? 'bg-red-500/20 text-red-400 border border-red-400/30 animate-pulse' 
                     : 'text-white/70 hover:text-white hover:bg-white/10'
                 }`}
               >
-                <Mic className="w-5 h-5" />
+                <Mic className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
 
               {/* Send Button */}
               <button
                 onClick={handleSend}
                 disabled={!message.trim()}
-                className={`p-3 rounded-xl transition-all duration-300 ${
+                className={`p-2 sm:p-3 rounded-lg sm:rounded-xl transition-all duration-300 ${
                   message.trim()
                     ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:shadow-lg hover:shadow-blue-500/25 hover:scale-105'
                     : 'bg-white/10 text-white/50 cursor-not-allowed'
                 }`}
               >
-                <Send className="w-5 h-5" />
+                <Send className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
           </div>
 
           {/* Quick Actions */}
-          <div className="flex items-center justify-between mt-3">
-            <div className="flex items-center space-x-3">
+          <div className="flex items-center justify-between mt-2 sm:mt-3">
+            <div className="flex items-center space-x-2 sm:space-x-3">
               <button 
                 onClick={() => console.log('Image clicked')}
-                className="flex items-center space-x-2 px-2 py-1 rounded-lg text-xs text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300"
+                className="flex items-center space-x-1 sm:space-x-2 px-2 py-1 rounded-lg text-xs text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300"
               >
                 <Image className="w-3 h-3" />
-                <span>Image</span>
+                <span className="hidden sm:inline">Image</span>
               </button>
               <button 
                 onClick={() => console.log('Emoji clicked')}
-                className="flex items-center space-x-2 px-2 py-1 rounded-lg text-xs text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300"
+                className="flex items-center space-x-1 sm:space-x-2 px-2 py-1 rounded-lg text-xs text-white/70 hover:text-white hover:bg-white/5 transition-all duration-300"
               >
                 <Smile className="w-3 h-3" />
-                <span>Emoji</span>
+                <span className="hidden sm:inline">Emoji</span>
               </button>
             </div>
 
-            <div className="text-xs text-white/50 font-light">
+            <div className="text-xs text-white/50 font-light hidden sm:block">
               Press Enter to send, Shift+Enter for new line
             </div>
           </div>
