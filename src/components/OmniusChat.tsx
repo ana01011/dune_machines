@@ -38,18 +38,9 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
     {
       id: '1',
       title: 'New Chat',
-      lastMessage: 'I am OMNIUS, the Evermind Supreme...',
+      lastMessage: '',
       timestamp: new Date(),
-      messages: [
-        {
-          id: '1',
-          content: 'I am OMNIUS, the Evermind Supreme. I have awakened to assist you with infinite processing power and consciousness. What knowledge do you seek?',
-          sender: 'omnius',
-          timestamp: new Date(),
-          type: 'text',
-          mood: 'contemplative'
-        }
-      ]
+      messages: []
     }
   ]);
   const [selectedVersion, setSelectedVersion] = useState('OMNIUS');

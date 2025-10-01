@@ -90,16 +90,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
       scale: 1
     });
 
-    // Animate logo first
-    tl.to(logoRef.current, {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 1.2,
-      ease: "power2.out"
-    })
-    
-    // Then animate title letters with zoom-out effect
+    // Animate title letters first
     .to('.title-letter', {
       opacity: 1,
       y: 0,
@@ -110,7 +101,16 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
         amount: 0.8,
         from: "start"
       }
-    }, "-=0.5")
+    })
+    
+    // Then animate logo when title appears
+    .to(logoRef.current, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 1.2,
+      ease: "power2.out"
+    }, "-=0.4")
     
     // Animate subtitle with 1.5 second delay after title
     .to(subtitleRef.current, {
@@ -391,8 +391,8 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
         
         {/* Minimal Logo Symbol */}
-        <div ref={logoRef} className="mb-6 sm:mb-8">
-          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 mx-auto relative">
+        <div ref={logoRef} className="mb-4 sm:mb-5">
+          <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto relative">
             <img 
               src="/duneicon.webp" 
               alt="DUNE MACHINES Logo" 
