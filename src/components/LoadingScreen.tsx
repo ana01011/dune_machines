@@ -73,7 +73,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ selectedAI, onComp
       }}
     >
       {/* Animated Logo - No Effects */}
-      <div ref={animationRef} className="mb-8 sm:mb-12">
+      <div ref={animationRef} className="mb-2">
         <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 mx-auto relative">
           <img 
             src="/dune animation.gif" 
@@ -84,11 +84,11 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ selectedAI, onComp
       </div>
 
       {/* Website Title - Cinematic Font */}
-      <div ref={titleRef} className="mb-4 sm:mb-6">
+      <div ref={titleRef} className="mb-3">
         <h1 
           className="text-xl sm:text-2xl md:text-3xl font-light tracking-[0.3em] sm:tracking-[0.4em] text-center"
           style={{
-            fontFamily: 'Cinzel, serif',
+            fontFamily: 'Orbitron, monospace',
             fontWeight: '300',
             color: '#ffffff',
             textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)'
@@ -103,7 +103,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ selectedAI, onComp
         <p 
           className="text-base sm:text-lg md:text-xl font-light tracking-[0.2em] text-center"
           style={{
-            fontFamily: 'Playfair Display, serif',
+            fontFamily: 'Orbitron, monospace',
             fontWeight: '300',
             color: 'rgba(255, 255, 255, 0.9)',
             textShadow: '1px 1px 3px rgba(0, 0, 0, 0.7)'
