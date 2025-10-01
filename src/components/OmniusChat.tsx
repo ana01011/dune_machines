@@ -450,7 +450,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                     onClick={() => setCurrentChatId(chat.id)}
                     className={`group relative p-4 rounded-xl cursor-pointer transition-all duration-300 border ${
                       currentChatId === chat.id 
-                        ? 'bg-purple-600/20 border-purple-400/40 shadow-lg shadow-purple-500/10' 
+                        ? 'bg-blue-500/20 text-white border border-blue-400/30' 
                         : 'hover:bg-white/5 border-white/10 hover:border-white/20'
                     }`}
                   >
@@ -562,7 +562,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                   
                   <div>
                     <h1 className="text-base font-light text-white tracking-wider">OMNIUS</h1>
-                    <p className="text-xs text-cyan-400 font-light">The Evermind Supreme</p>
+                    <p className="text-xs text-white/70 font-light">The Evermind Supreme</p>
                   </div>
                 </div>
               </div>
@@ -576,34 +576,111 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                     className="relative flex flex-col items-center space-y-1 px-3 py-2 text-white/90 hover:text-white transition-all duration-300"
                   >
                     <div className="flex items-center space-x-2">
-                      <Palette className="w-4 h-4" />
                       {currentTheme === 'light' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                      <ChevronDown className="w-3 h-3" />
                     </div>
-                    <span className="text-xs font-light">Theme</span>
                   </button>
+                  
+                  {showThemeDropdown && themeButtonRef && createPortal(
+                    <div 
+                      className="fixed z-[9999] mt-2 w-48 rounded-xl border border-white/20 shadow-2xl backdrop-blur-xl"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)',
+                        top: themeButtonRef.getBoundingClientRect().bottom + window.scrollY,
+                        left: themeButtonRef.getBoundingClientRect().left + window.scrollX - 96
+                      }}
+                    >
+                      <div className="p-2">
+                        <button
+                          onClick={() => {
+                            setCurrentTheme('dark');
+                            setShowThemeDropdown(false);
+                            setBackgroundKey(prev => prev + 1);
+                          }}
+                          className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-all duration-300 ${
+                            currentTheme === 'dark' 
+                              ? 'bg-blue-500/20 text-white' 
+                              : 'text-white/70 hover:text-white hover:bg-white/10'
+                          }`}
+                        >
+                          <Moon className="w-4 h-4" />
+                          <span className="text-sm">Deep Space</span>
+                        </button>
+                        <button
+                          onClick={() => {
+                            setCurrentTheme('light');
+                            setShowThemeDropdown(false);
+                            setBackgroundKey(prev => prev + 1);
+                          }}
+                          className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-left transition-all duration-300 ${
+                            currentTheme === 'light' 
+                              ? 'bg-blue-500/20 text-white' 
+                              : 'text-white/70 hover:text-white hover:bg-white/10'
+                          }`}
+                        >
+                          <Sun className="w-4 h-4" />
+                          <span className="text-sm">Cosmic Light</span>
+                        </button>
+                      </div>
+                    </div>,
+                    document.body
+                  )}
                 </div>
 
-                {/* Agents Navigation */}
-                <button
-                  onClick={onNavigateToWorkflows}
-                  className="flex flex-col items-center space-y-1 px-3 py-2 text-white/90 hover:text-white transition-all duration-300"
-                >
-                  <Users className="w-4 h-4" />
-                  <span className="text-xs font-light">Agents</span>
-                </button>
-
-                {/* Version Selector */}
+                {/* AI Model Selector */}
                 <div className="relative">
                   <button
                     ref={setVersionButtonRef}
                     onClick={() => setShowVersionDropdown(!showVersionDropdown)}
-                    className="flex items-center space-x-2 px-4 py-2 text-white/90 hover:text-white transition-all duration-300"
+                    className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600/30 to-blue-600/30 border border-purple-400/30 text-white hover:from-purple-600/40 hover:to-blue-600/40 hover:border-purple-400/50 transition-all duration-300"
                   >
-                    <span className="text-sm font-medium">
-                      {aiModels.find(model => model.name === selectedVersion)?.name || selectedVersion}
-                    </span>
-                    <ChevronDown className="w-4 h-4" />
+                    <Crown className="w-4 h-4" />
+                    <span className="text-sm font-medium">{selectedVersion}</span>
+                    <ChevronDown className="w-3 h-3" />
                   </button>
+                  
+                  {showVersionDropdown && versionButtonRef && createPortal(
+                    <div 
+                      className="fixed z-[9999] mt-2 w-72 rounded-xl border border-white/20 shadow-2xl backdrop-blur-xl"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)',
+                        top: versionButtonRef.getBoundingClientRect().bottom + window.scrollY,
+                        left: versionButtonRef.getBoundingClientRect().left + window.scrollX - 144
+                      }}
+                    >
+                      <div className="p-3">
+                        <div className="mb-3">
+                          <h3 className="text-sm font-medium text-white/90 mb-1">AI MODELS</h3>
+                          <p className="text-xs text-white/60">Choose your artificial intelligence</p>
+                        </div>
+                        <div className="space-y-1">
+                          {aiModels.map((model) => (
+                            <button
+                              key={model.id}
+                              onClick={() => {
+                                setSelectedVersion(model.name);
+                                setShowVersionDropdown(false);
+                              }}
+                              className={`w-full flex items-center justify-between p-3 rounded-lg text-left transition-all duration-300 ${
+                                selectedVersion === model.name 
+                                  ? 'bg-gradient-to-r from-purple-600/30 to-blue-600/30 border border-purple-400/30 text-white' 
+                                  : 'text-white/70 hover:text-white hover:bg-white/10 border border-transparent'
+                              }`}
+                            >
+                              <div>
+                                <div className="text-sm font-medium">{model.name}</div>
+                                <div className="text-xs text-white/60">{model.subtitle}</div>
+                              </div>
+                              {selectedVersion === model.name && (
+                                <Crown className="w-4 h-4 text-purple-400" />
+                              )}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>,
+                    document.body
+                  )}
                 </div>
               </div>
             </div>
@@ -611,280 +688,131 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
             {/* Chat Messages Area */}
             <div 
               ref={chatRef}
-              className="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar relative z-10"
+              className="flex-1 overflow-y-auto p-4 space-y-6 custom-scrollbar"
             >
-              {/* Empty Chat State */}
-              {messages.length === 0 && (
-                <div className="flex flex-col items-center justify-center h-full text-center py-8">
-                  <div className="relative mb-8">
+              {messages.length === 0 ? (
+                <div className="flex flex-col items-center justify-center h-full text-center space-y-6">
+                  <div className="relative">
                     <img 
                       src="/duneicon.webp" 
                       alt="OMNIUS" 
-                      className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 object-contain opacity-30 animate-pulse-slow"
-                      style={{
-                        filter: 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)) drop-shadow(0 0 40px rgba(139, 92, 246, 0.4))'
-                      }}
+                      className="w-24 h-24 object-contain animate-opacity-fluctuate"
                     />
                   </div>
-                  <h2 className="text-lg sm:text-xl md:text-2xl font-light text-white/60 mb-1 tracking-wider -mt-6">
-                    ASK OMNIUS ANYTHING
-                  </h2>
-                  <p className="text-xs sm:text-sm text-white/40 font-light tracking-wide max-w-md">
-                    The Evermind Supreme awaits your queries with infinite processing power
-                  </p>
-                </div>
-              )}
-              
-              {messages.map((message) => (
-                <div key={message.id} className="mb-6">
-                  <ChatMessage message={message} theme={currentTheme} />
-                  {message.sender === 'omnius' && (
-                    <div className="flex items-center space-x-3 mt-2 ml-13">
+                  <div className="space-y-3">
+                    <h2 className="text-2xl font-light text-white tracking-wider">
+                      Welcome to OMNIUS
+                    </h2>
+                    <p className="text-white/70 max-w-md font-light leading-relaxed">
+                      I am the Evermind Supreme, processing infinite possibilities across the cosmos. 
+                      How may I assist your consciousness today?
+                    </p>
+                  </div>
+                  
+                  {/* Quick Start Suggestions */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-2xl w-full mt-8">
+                    {[
+                      { icon: "🧠", title: "Analyze Complex Data", desc: "Process and interpret complex information" },
+                      { icon: "🔮", title: "Predict Outcomes", desc: "Forecast possibilities and scenarios" },
+                      { icon: "💡", title: "Creative Solutions", desc: "Generate innovative ideas and approaches" },
+                      { icon: "🌌", title: "Explore Concepts", desc: "Dive deep into philosophical questions" }
+                    ].map((suggestion, index) => (
                       <button
-                        onClick={() => handleCopyMessage(message.content, message.id)}
-                        className="flex items-center space-x-1 text-xs text-white/40 hover:text-white/70 transition-all duration-300"
-                        title="Copy message"
+                        key={index}
+                        onClick={() => handleSendMessage(suggestion.title)}
+                        className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 text-left group"
                       >
-                        {copiedMessageId === message.id ? (
-                          <>
-                            <Check className="w-3 h-3 text-green-400" />
-                            <span className="text-green-400">Copied</span>
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-3 h-3" />
-                            <span>Copy</span>
-                          </>
-                        )}
+                        <div className="flex items-start space-x-3">
+                          <span className="text-2xl">{suggestion.icon}</span>
+                          <div>
+                            <h3 className="text-white font-medium text-sm mb-1 group-hover:text-blue-300 transition-colors">
+                              {suggestion.title}
+                            </h3>
+                            <p className="text-white/60 text-xs leading-relaxed">
+                              {suggestion.desc}
+                            </p>
+                          </div>
+                        </div>
                       </button>
-                      <button
-                        onClick={() => handleRegenerateResponse(message.id)}
-                        disabled={regeneratingMessageId === message.id}
-                        className="flex items-center space-x-1 text-xs text-white/40 hover:text-white/70 transition-all duration-300 disabled:opacity-50"
-                        title="Regenerate response"
-                      >
-                        <RotateCcw className={`w-3 h-3 ${regeneratingMessageId === message.id ? 'animate-spin' : ''}`} />
-                        <span>{regeneratingMessageId === message.id ? 'Regenerating...' : 'Regenerate'}</span>
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ))}
-              
-              {/* Thinking Indicator */}
-              {isThinking && (
-                <div className="flex items-start space-x-3 mb-6">
-                  <img 
-                    src="/duneicon.webp" 
-                    alt="OMNIUS" 
-                    className="w-12 h-12 object-contain animate-opacity-fluctuate"
-                  />
-                  <div className="space-y-2">
-                    <div className="text-sm text-white/70 font-light animate-pulse">
-                      thinking...
-                    </div>
+                    ))}
                   </div>
                 </div>
+              ) : (
+                <>
+                  {messages.map((message) => (
+                    <ChatMessage
+                      key={message.id}
+                      message={message}
+                      onCopy={handleCopyMessage}
+                      onRegenerate={handleRegenerateResponse}
+                      copiedMessageId={copiedMessageId}
+                      regeneratingMessageId={regeneratingMessageId}
+                    />
+                  ))}
+                  
+                  {/* Typing Indicator */}
+                  {isTyping && (
+                    <div className="flex items-start space-x-4">
+                      <div className="relative">
+                        <img 
+                          src="/duneicon.webp" 
+                          alt="OMNIUS" 
+                          className="w-10 h-10 object-contain animate-opacity-fluctuate"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <span className="text-sm font-medium text-white">OMNIUS</span>
+                          <span className="text-xs text-white/60">is thinking...</span>
+                        </div>
+                        <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
+                          <div className="flex space-x-2">
+                            <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                            <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                            <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
-              
-              {/* Auto scroll target */}
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Advanced Input Area */}
-            <div ref={inputRef}>
-              <AdvancedInput onSendMessage={handleSendMessage} />
+            {/* Input Area */}
+            <div 
+              ref={inputRef}
+              className="border-t border-white/5 backdrop-blur-xl p-4"
+              style={{
+                background: currentTheme === 'light' 
+                  ? 'linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(1,4,9,0.85) 15%, rgba(2,6,23,0.85) 30%, rgba(10,15,28,0.85) 45%, rgba(15,23,42,0.85) 60%, rgba(2,6,23,0.85) 75%, rgba(1,4,9,0.85) 85%, rgba(0,0,0,0.85) 100%)'
+                  : 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)'
+              }}
+            >
+              <AdvancedInput
+                onSendMessage={handleSendMessage}
+                disabled={isTyping}
+                placeholder="Commune with the Evermind..."
+              />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Theme Dropdown Portal */}
-      {showThemeDropdown && themeButtonRef && createPortal(
+      {/* Click outside handlers */}
+      {showThemeDropdown && (
         <div 
-          className="fixed bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl z-[99999]"
-          style={{
-            top: `${themeButtonRef.getBoundingClientRect().bottom + 8}px`,
-            right: `${window.innerWidth - themeButtonRef.getBoundingClientRect().right}px`,
-            width: '180px'
-          }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {availableThemes.map((themeOption) => (
-            <button
-              key={themeOption.id}
-              onClick={() => {
-                setCurrentTheme(themeOption.id);
-                setShowThemeDropdown(false);
-              }}
-              className={`w-full text-left px-4 py-3 text-sm font-medium transition-all duration-300 flex items-center space-x-2 ${
-                currentTheme === themeOption.id 
-                  ? 'bg-cyan-600/30 text-cyan-300 border-l-2 border-cyan-400' 
-                  : 'text-white/80 hover:bg-white/10 hover:text-white'
-              }`}
-            >
-              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: themeOption.colors.primary }} />
-              <span>{themeOption.displayName}</span>
-            </button>
-          ))}
-        </div>,
-        document.body
+          className="fixed inset-0 z-[9998]" 
+          onClick={() => setShowThemeDropdown(false)}
+        />
       )}
-
-      {/* Version Dropdown Portal */}
-      {showVersionDropdown && versionButtonRef && createPortal(
+      {showVersionDropdown && (
         <div 
-          className="fixed backdrop-blur-2xl border border-cyan-400/30 rounded-2xl overflow-hidden shadow-2xl z-[99999]"
-          style={{
-            top: `${versionButtonRef.getBoundingClientRect().bottom + 8}px`,
-            right: `${window.innerWidth - versionButtonRef.getBoundingClientRect().right}px`,
-            width: '320px',
-            background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 80px rgba(6, 182, 212, 0.2)'
-          }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {aiModels.map((model) => (
-            <button
-              key={model.id}
-              onClick={() => {
-                setSelectedVersion(model.name);
-                setShowVersionDropdown(false);
-              }}
-              className={`w-full text-left px-4 py-4 transition-all duration-300 border-l-2 ${
-                selectedVersion === model.name 
-                  ? 'bg-cyan-600/20 text-cyan-300 border-cyan-400 shadow-lg shadow-cyan-500/20' 
-                  : 'text-white/70 hover:bg-white/5 hover:text-white/90 border-transparent hover:border-white/30'
-              }`}
-            >
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center border border-cyan-400/30">
-                  <div className="w-3 h-3 rounded-full bg-cyan-400/60"></div>
-                </div>
-                <div>
-                  <div className="text-sm font-medium tracking-wide">{model.name}</div>
-                  <div className="text-xs text-white/50 font-light">{model.subtitle}</div>
-                </div>
-              </div>
-            </button>
-          ))}
-        </div>,
-        document.body
+          className="fixed inset-0 z-[9998]" 
+          onClick={() => setShowVersionDropdown(false)}
+        />
       )}
-
-      {/* Custom Animations */}
-      <style jsx>{`
-        @keyframes planetRotateSmooth {
-          0% { transform: translateX(-50%) rotate(0deg); }
-          100% { transform: translateX(-50%) rotate(360deg); }
-        }
-        
-        @keyframes planetRotateReverseSmooth {
-          0% { transform: rotate(360deg); }
-          100% { transform: rotate(0deg); }
-        }
-        
-        .animate-planet-rotate-smooth {
-          animation: planetRotateSmooth 120s linear infinite;
-        }
-        
-        .animate-planet-rotate-reverse-smooth {
-          animation: planetRotateReverseSmooth 180s linear infinite;
-        }
-        
-        @keyframes twinkle {
-          0%, 100% { 
-            opacity: 0.3; 
-            transform: scale(0.5);
-            filter: brightness(0.8);
-          }
-          25% { 
-            opacity: 1; 
-            transform: scale(1.2);
-            filter: brightness(1.5);
-          }
-          50% { 
-            opacity: 0.6; 
-            transform: scale(0.8);
-            filter: brightness(1.2);
-          }
-          75% { 
-            opacity: 0.9; 
-            transform: scale(1);
-            filter: brightness(1.3);
-          }
-        }
-        
-        @keyframes twinkleBlue {
-          0%, 100% { 
-            opacity: 0.2; 
-            transform: scale(0.3);
-            filter: brightness(0.7) hue-rotate(0deg);
-          }
-          33% { 
-            opacity: 0.8; 
-            transform: scale(1);
-            filter: brightness(1.4) hue-rotate(10deg);
-          }
-          66% { 
-            opacity: 0.5; 
-            transform: scale(0.6);
-            filter: brightness(1.1) hue-rotate(-5deg);
-          }
-        }
-        
-        .twinkle-star {
-          animation: twinkle 3s ease-in-out infinite;
-          animation-delay: var(--delay, 0s);
-        }
-        
-        .twinkle-star-blue {
-          animation: twinkleBlue 4s ease-in-out infinite;
-          animation-delay: var(--delay, 0s);
-        }
-        
-        @keyframes opacityFluctuate {
-          0%, 100% { 
-            opacity: 0.7;
-            filter: brightness(0.9);
-          }
-          50% { 
-            opacity: 1;
-            filter: brightness(1.1);
-          }
-        }
-        
-        .animate-opacity-fluctuate {
-          animation: opacityFluctuate 3s ease-in-out infinite;
-        }
-        
-        /* Custom scrollbar */
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.02);
-          border-radius: 3px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: linear-gradient(135deg, rgba(6, 182, 212, 0.4), rgba(59, 130, 246, 0.4));
-          border-radius: 3px;
-          border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(135deg, rgba(6, 182, 212, 0.7), rgba(59, 130, 246, 0.7));
-        }
-        
-        .line-clamp-2 {
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-      `}</style>
     </div>
   );
 };
