@@ -125,7 +125,7 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
                 disabled={!message.trim()}
                 className={`p-3 rounded-xl transition-all duration-300 ${
                   message.trim()
-                    ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:shadow-lg hover:shadow-blue-500/25 hover:scale-105'
+                    ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-105'
                     : 'bg-white/10 text-white/40 cursor-not-allowed'
                 }`}
               >
