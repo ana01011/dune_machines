@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { gsap } from 'gsap';
 import { Send, Mic, Paperclip, Settings, Crown, ArrowLeft, ChevronDown, Trash2, CreditCard as Edit2, Plus, MessageSquare, Menu, X, Copy, Check, Sun, Moon, Palette, Users, RotateCcw } from 'lucide-react';
 import { ChatMessage } from './ChatMessage';
@@ -59,6 +60,8 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
   const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null);
   const [isThinking, setIsThinking] = useState(false);
   const [regeneratingMessageId, setRegeneratingMessageId] = useState<string | null>(null);
+  const [themeButtonRef, setThemeButtonRef] = useState<HTMLButtonElement | null>(null);
+  const [versionButtonRef, setVersionButtonRef] = useState<HTMLButtonElement | null>(null);
   
   const getCurrentChat = () => chatHistory.find(chat => chat.id === currentChatId);
   const messages = getCurrentChat()?.messages || [];
@@ -494,6 +497,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
               {/* Theme Selector */}
               <div className="relative">
                 <button
+                  ref={setThemeButtonRef}
                   onClick={() => setShowThemeDropdown(!showThemeDropdown)}
                   className="relative flex flex-col items-center space-y-1 px-3 py-2 text-white/90 hover:text-white transition-all duration-300"
                 >
@@ -503,33 +507,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                   </div>
                   <span className="text-xs font-light">Theme</span>
                 </button>
-                
-                {showThemeDropdown && (
-                  <div className="fixed bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl z-[99999]"
-                       style={{
-                         top: '80px',
-                         right: '120px',
-                         width: '180px'
-                       }}>
-                    {availableThemes.map((themeOption) => (
-                      <button
-                        key={themeOption.id}
-                        onClick={() => {
-                          setCurrentTheme(themeOption.id);
-                          setShowThemeDropdown(false);
-                        }}
-                        className={`w-full text-left px-4 py-3 text-sm font-medium transition-all duration-300 flex items-center space-x-2 ${
-                          currentTheme === themeOption.id 
-                            ? 'bg-blue-600/30 text-blue-300 border-l-2 border-blue-400' 
-                            : 'text-white/80 hover:bg-white/10 hover:text-white'
-                        }`}
-                      >
-                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: themeOption.colors.primary }} />
-                        <span>{themeOption.displayName}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
               </div>
 
               {/* Agents Navigation */}
@@ -544,6 +521,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
               {/* Version Selector */}
               <div className="relative">
                 <button
+                  ref={setVersionButtonRef}
                   onClick={() => setShowVersionDropdown(!showVersionDropdown)}
                   className="flex items-center space-x-2 px-4 py-2 text-white/90 hover:text-white transition-all duration-300"
                 >
@@ -552,35 +530,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                   </span>
                   <ChevronDown className="w-4 h-4" />
                 </button>
-                
-                {showVersionDropdown && (
-                  <div className="fixed bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl z-[99999]"
-                       style={{
-                         top: '80px',
-                         right: '20px',
-                         width: '280px'
-                       }}>
-                    {aiModels.map((model) => (
-                      <button
-                        key={model.id}
-                        onClick={() => {
-                          setSelectedVersion(model.name);
-                          setShowVersionDropdown(false);
-                        }}
-                        className={`w-full text-left px-4 py-3 transition-all duration-300 ${
-                          selectedVersion === model.name 
-                            ? 'bg-purple-600/30 text-purple-300 border-l-2 border-purple-400' 
-                            : 'text-white/80 hover:bg-white/10 hover:text-white'
-                        }`}
-                      >
-                        <div>
-                          <div className="text-sm font-medium">{model.name}</div>
-                          <div className="text-xs text-white/60">{model.subtitle}</div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                )}
               </div>
             </div>
           </div>
@@ -650,6 +599,72 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
           </div>
         </div>
       </div>
+
+      {/* Theme Dropdown Portal */}
+      {showThemeDropdown && themeButtonRef && createPortal(
+        <div 
+          className="fixed bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl z-[99999]"
+          style={{
+            top: `${themeButtonRef.getBoundingClientRect().bottom + 8}px`,
+            right: `${window.innerWidth - themeButtonRef.getBoundingClientRect().right}px`,
+            width: '180px'
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {availableThemes.map((themeOption) => (
+            <button
+              key={themeOption.id}
+              onClick={() => {
+                setCurrentTheme(themeOption.id);
+                setShowThemeDropdown(false);
+              }}
+              className={`w-full text-left px-4 py-3 text-sm font-medium transition-all duration-300 flex items-center space-x-2 ${
+                currentTheme === themeOption.id 
+                  ? 'bg-blue-600/30 text-blue-300 border-l-2 border-blue-400' 
+                  : 'text-white/80 hover:bg-white/10 hover:text-white'
+              }`}
+            >
+              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: themeOption.colors.primary }} />
+              <span>{themeOption.displayName}</span>
+            </button>
+          ))}
+        </div>,
+        document.body
+      )}
+
+      {/* Version Dropdown Portal */}
+      {showVersionDropdown && versionButtonRef && createPortal(
+        <div 
+          className="fixed bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl z-[99999]"
+          style={{
+            top: `${versionButtonRef.getBoundingClientRect().bottom + 8}px`,
+            right: `${window.innerWidth - versionButtonRef.getBoundingClientRect().right}px`,
+            width: '280px'
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {aiModels.map((model) => (
+            <button
+              key={model.id}
+              onClick={() => {
+                setSelectedVersion(model.name);
+                setShowVersionDropdown(false);
+              }}
+              className={`w-full text-left px-4 py-3 transition-all duration-300 ${
+                selectedVersion === model.name 
+                  ? 'bg-purple-600/30 text-purple-300 border-l-2 border-purple-400' 
+                  : 'text-white/80 hover:bg-white/10 hover:text-white'
+              }`}
+            >
+              <div>
+                <div className="text-sm font-medium">{model.name}</div>
+                <div className="text-xs text-white/60">{model.subtitle}</div>
+              </div>
+            </button>
+          ))}
+        </div>,
+        document.body
+      )}
 
       {/* Custom Animations */}
       <style jsx>{`
