@@ -575,15 +575,4 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                     onClick={() => setShowThemeDropdown(!showThemeDropdown)}
                     className="relative flex flex-col items-center space-y-1 px-3 py-2 text-white/90 hover:text-white transition-all duration-300"
                   >
-                    <div className="flex items-center space-x-2">
-                    </div>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+                    <div className="flex items-center space-x-2
