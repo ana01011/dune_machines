@@ -91,7 +91,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
     });
 
     // Animate title letters first
-    .to('.title-letter', {
+    tl.to('.title-letter', {
       opacity: 1,
       y: 0,
       scale: 1,
@@ -104,7 +104,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
     })
     
     // Then animate logo when title appears
-    .to(logoRef.current, {
+    tl.to(logoRef.current, {
       opacity: 1,
       y: 0,
       scale: 1,
@@ -113,7 +113,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
     }, "-=0.4")
     
     // Animate subtitle with 1.5 second delay after title
-    .to(subtitleRef.current, {
+    tl.to(subtitleRef.current, {
       opacity: 1,
       y: 0,
       scale: 1,
@@ -122,7 +122,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
     }, "+=1.5")
     
     // Finally animate button with 3 second delay after title
-    .to(buttonRef.current, {
+    tl.to(buttonRef.current, {
       opacity: 1,
       y: 0,
       scale: 1,
