@@ -391,9 +391,9 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
         
         {/* Logo Position Control - Adjust margin-bottom values to control gap between logo and title */}
-        {/* Current: mb-6 sm:mb-8 (increase for more gap, decrease for less gap) */}
-        <div ref={logoRef} className="mb-3 sm:mb-6">
-          <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 mx-auto relative">
+        {/* Current: mb-2 sm:mb-3 (increase for more gap, decrease for less gap) */}
+        <div ref={logoRef} className="mb-2 sm:mb-3">
+          <div className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto relative">
             <img 
               src="/duneicon.webp" 
               alt="DUNE MACHINES Logo" 
