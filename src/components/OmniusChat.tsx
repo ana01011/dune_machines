@@ -253,10 +253,10 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
     <div 
       ref={containerRef}
       className="fixed inset-0 z-50 overflow-hidden"
-      style={{ background: activeTheme.background.gradient }}
+      style={{ background: currentTheme === 'light' ? activeTheme.background.gradient : 'linear-gradient(135deg, #000000 0%, #010409 10%, #020617 20%, #0a0f1c 35%, #0f172a 50%, #020617 65%, #010409 80%, #000000 100%)' }}
     >
-      {/* Welcome Screen Background for Light Theme */}
-      {currentTheme === 'light' && (
+      {/* Theme-specific backgrounds */}
+      {(currentTheme === 'light' || currentTheme === 'dark') && (
         <div className="absolute inset-0 overflow-hidden">
           {/* Blurred Exoplanet/Blackhole at top */}
           <div className="absolute -top-64 left-1/2 transform -translate-x-1/2">
@@ -321,8 +321,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
         </div>
       )}
 
-      {/* Theme Background Component */}
-      <ThemeBackground theme={activeTheme} />
 
       {/* Main Chat Interface with Sidebar */}
       <div 
