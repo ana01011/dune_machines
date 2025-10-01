@@ -39,11 +39,11 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
   };
 
   return (
-    <div className="p-4 sm:p-6 border-t border-white/10">
+    <div className="p-3 sm:p-4 border-t border-white/10">
       <div className="max-w-4xl mx-auto">
         
         {/* Input Mode Selector */}
-        <div className="flex items-center space-x-2 mb-4">
+        <div className="flex items-center space-x-2 mb-3">
           <button
             onClick={() => setInputMode('text')}
             className={`px-3 py-1.5 rounded-lg text-xs font-light transition-all duration-300 ${
@@ -135,18 +135,18 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
           </div>
 
           {/* Quick Actions */}
-          <div className="flex items-center justify-between mt-4">
+          <div className="flex items-center justify-between mt-3">
             <div className="flex items-center space-x-3">
               <button 
                 onClick={() => console.log('Image clicked')}
-                className="flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs text-white/60 hover:text-white/90 hover:bg-white/5 transition-all duration-300"
+                className="flex items-center space-x-2 px-2 py-1 rounded-lg text-xs text-white/60 hover:text-white/90 hover:bg-white/5 transition-all duration-300"
               >
                 <Image className="w-3 h-3" />
                 <span>Image</span>
               </button>
               <button 
                 onClick={() => console.log('Emoji clicked')}
-                className="flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs text-white/60 hover:text-white/90 hover:bg-white/5 transition-all duration-300"
+                className="flex items-center space-x-2 px-2 py-1 rounded-lg text-xs text-white/60 hover:text-white/90 hover:bg-white/5 transition-all duration-300"
               >
                 <Smile className="w-3 h-3" />
                 <span>Emoji</span>
