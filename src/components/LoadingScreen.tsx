@@ -88,12 +88,12 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ selectedAI, onComp
       }}
     >
       {/* Animated Logo - No Effects */}
-      <div ref={animationRef} className="mb-0">
-        <div className="w-72 h-72 sm:w-96 sm:h-96 md:w-[28rem] md:h-[28rem] mx-auto relative">
+      <div ref={animationRef} className="mb-0" style={{ marginBottom: '2px' }}>
+        <div className="w-80 h-80 sm:w-[28rem] sm:h-[28rem] md:w-[32rem] md:h-[32rem] mx-auto relative">
           <img 
             src="/dune animation.gif" 
             alt="DUNE MACHINES Animation" 
-            className="w-full h-full object-contain"
+            className="w-full h-full object-contain animate-opacity-flicker"
           />
         </div>
       </div>
@@ -101,25 +101,27 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ selectedAI, onComp
       {/* Website Title - Cinematic Font */}
       <div ref={titleRef} className="mb-0" style={{ marginTop: '2px' }}>
         <h1 
-          className="text-xs sm:text-sm md:text-base font-thin tracking-[0.1em] sm:tracking-[0.15em] text-center"
+          className="font-thin tracking-[0.1em] sm:tracking-[0.15em] text-center"
           style={{
             fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
             fontWeight: '100',
+            fontSize: 'clamp(0.75rem, 2vw, 1rem)',
             color: '#ffffff',
             textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)'
           }}
         >
-          www.Dunemachines.com
+          DUNE MACHINES
         </h1>
       </div>
 
       {/* Selected AI Model - Cinematic Font */}
-      <div ref={subtitleRef} style={{ marginTop: '2px' }}>
+      <div ref={subtitleRef} style={{ marginTop: '1px' }}>
         <p 
-          className="text-sm sm:text-base md:text-lg font-thin tracking-[0.2em] sm:tracking-[0.25em] text-center"
+          className="font-thin tracking-[0.2em] sm:tracking-[0.25em] text-center"
           style={{
             fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
             fontWeight: '100',
+            fontSize: 'clamp(0.875rem, 2.5vw, 1.125rem)',
             color: 'rgba(255, 255, 255, 0.9)',
             textShadow: '1px 1px 3px rgba(0, 0, 0, 0.7)'
           }}
@@ -127,6 +129,36 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ selectedAI, onComp
           {selectedModel?.name || 'OMNIUS'}
         </p>
       </div>
+
+      {/* Custom Styles for GIF Flicker Effect */}
+      <style jsx>{`
+        @keyframes opacityFlicker {
+          0% { 
+            opacity: 0.7;
+            filter: brightness(0.9);
+          }
+          25% { 
+            opacity: 1;
+            filter: brightness(1.1);
+          }
+          50% { 
+            opacity: 0.8;
+            filter: brightness(0.95);
+          }
+          75% { 
+            opacity: 0.95;
+            filter: brightness(1.05);
+          }
+          100% { 
+            opacity: 0.85;
+            filter: brightness(1);
+          }
+        }
+        
+        .animate-opacity-flicker {
+          animation: opacityFlicker 3s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
 };
