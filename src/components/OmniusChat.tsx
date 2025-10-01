@@ -551,15 +551,18 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 </button>
                 
                 <div className="flex items-center space-x-4">
-                  {/* OMNIUS Icon - Animated Glow */}
-                  <img 
-                    src="/duneicon.webp" 
-                    alt="OMNIUS" 
-                    className="w-20 h-20 object-contain animate-dune-glow"
-                    style={{
-                      filter: 'drop-shadow(0 0 12px rgba(139, 92, 246, 0.9)) drop-shadow(0 0 24px rgba(99, 102, 241, 0.7)) drop-shadow(0 0 36px rgba(59, 130, 246, 0.5)) brightness(1.2)'
-                    }}
-                  />
+                  {/* OMNIUS Icon - No Box */}
+                  <div className="relative">
+                    <img 
+                      src="/duneicon.webp" 
+                      alt="OMNIUS" 
+                      className="w-16 h-16 object-contain"
+                      style={{
+                        filter: 'drop-shadow(0 0 12px rgba(139, 92, 246, 0.9)) drop-shadow(0 0 24px rgba(99, 102, 241, 0.7)) drop-shadow(0 0 36px rgba(59, 130, 246, 0.5)) brightness(1.2)'
+                      }}
+                    />
+                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black animate-pulse"></div>
+                  </div>
                   
                   <div>
                     <h1 className="text-lg font-light text-white tracking-wider">OMNIUS</h1>
@@ -766,19 +769,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
 
       {/* Custom Animations */}
       <style jsx>{`
-        @keyframes duneGlow {
-          0%, 100% { 
-            filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.6)) drop-shadow(0 0 16px rgba(99, 102, 241, 0.4)) drop-shadow(0 0 24px rgba(59, 130, 246, 0.3)) brightness(1.1);
-          }
-          50% { 
-            filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.9)) drop-shadow(0 0 24px rgba(99, 102, 241, 0.7)) drop-shadow(0 0 36px rgba(59, 130, 246, 0.5)) brightness(1.2);
-          }
-        }
-        
-        .animate-dune-glow {
-          animation: duneGlow 3s ease-in-out infinite;
-        }
-        
         @keyframes planetRotateSmooth {
           0% { transform: translateX(-50%) rotate(0deg); }
           100% { transform: translateX(-50%) rotate(360deg); }
