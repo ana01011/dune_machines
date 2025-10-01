@@ -253,7 +253,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
     <div 
       ref={containerRef}
       className="fixed inset-0 z-50 overflow-hidden"
-      style={{ background: themeStyles.background }}
+      style={{ background: activeTheme.background.gradient }}
     >
       {/* Welcome Screen Background for Light Theme */}
       {currentTheme === 'light' && (
