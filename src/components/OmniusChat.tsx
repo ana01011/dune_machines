@@ -253,95 +253,71 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
     <div 
       ref={containerRef}
       className="fixed inset-0 z-50 overflow-hidden"
-      style={{ background: currentTheme === 'light' ? activeTheme.background.gradient : 'linear-gradient(135deg, #000000 0%, #010409 10%, #020617 20%, #0a0f1c 35%, #0f172a 50%, #020617 65%, #010409 80%, #000000 100%)' }}
+      style={{
+        background: 'linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(1,4,9,0.95) 10%, rgba(2,6,23,0.9) 20%, rgba(10,15,28,0.85) 35%, rgba(15,23,42,0.8) 50%, rgba(2,6,23,0.9) 65%, rgba(1,4,9,0.95) 80%, rgba(0,0,0,1) 100%)'
+      }}
     >
-      {/* Theme-specific backgrounds */}
-      {currentTheme === 'light' && (
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Blurred Exoplanet/Blackhole at top */}
-          <div className="absolute -top-64 left-1/2 transform -translate-x-1/2">
-            <div 
-              className="w-96 h-96 sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] rounded-full opacity-20 animate-planet-rotate-smooth"
-              style={{
-                background: 'radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.8) 0%, rgba(29, 78, 216, 0.6) 25%, rgba(30, 64, 175, 0.4) 50%, rgba(15, 23, 42, 0.2) 75%, transparent 100%)',
-                filter: 'blur(40px)',
-                boxShadow: '0 0 200px rgba(59, 130, 246, 0.3), inset 0 0 100px rgba(29, 78, 216, 0.2)'
-              }}
-            />
-            {/* Planet atmosphere glow */}
-            <div 
-              className="absolute inset-0 w-96 h-96 sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] rounded-full opacity-10 animate-planet-rotate-reverse-smooth"
-              style={{
-                background: 'radial-gradient(circle at 70% 70%, rgba(6, 182, 212, 0.6) 0%, rgba(59, 130, 246, 0.4) 40%, transparent 70%)',
-                filter: 'blur(60px)'
-              }}
-            />
-          </div>
-
-          {/* Ultra-small glittering stars - Exact same as welcome screen */}
-          <div className="absolute inset-0">
-            {[...Array(50)].map((_, i) => (
-              <div
-                key={`particle-${i}`}
-                className="absolute bg-white rounded-full animate-pulse twinkle-star"
-                style={{
-                  width: '0.1px',
-                  height: '0.1px',
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 5}s`,
-                  animationDuration: `${8 + Math.random() * 3}s`,
-                  opacity: 0.2 + Math.random() * 0.7,
-                  boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
-                  transform: `scale(${0.5 + Math.random() * 0.5})`
-                }}
-              />
-            ))}
-            {/* Additional tiny glitter layer */}
-            {[...Array(30)].map((_, i) => (
-              <div
-                key={`glitter-${i}`}
-                className="absolute bg-blue-200 rounded-full animate-pulse twinkle-star-blue"
-                style={{
-                  width: '0.5px',
-                  height: '0.5px',
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 6}s`,
-                  animationDuration: `${1 + Math.random() * 2}s`,
-                  opacity: 0.2 + Math.random() * 0.5,
-                  boxShadow: '0 0 1px rgba(191, 219, 254, 0.6)',
-                  transform: `scale(${0.3 + Math.random() * 0.4})`
-                }}
-              />
-            ))}
-          </div>
+      {/* Enhanced Animated Background - Exact Copy from Welcome Screen */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Blurred Exoplanet/Blackhole at top */}
+        <div className="absolute -top-64 left-1/2 transform -translate-x-1/2">
+          <div 
+            className="w-96 h-96 sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] rounded-full opacity-20 animate-planet-rotate-smooth"
+            style={{
+              background: 'radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.8) 0%, rgba(29, 78, 216, 0.6) 25%, rgba(30, 64, 175, 0.4) 50%, rgba(15, 23, 42, 0.2) 75%, transparent 100%)',
+              filter: 'blur(40px)',
+              boxShadow: '0 0 200px rgba(59, 130, 246, 0.3), inset 0 0 100px rgba(29, 78, 216, 0.2)'
+            }}
+          />
+          {/* Planet atmosphere glow */}
+          <div 
+            className="absolute inset-0 w-96 h-96 sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] rounded-full opacity-10 animate-planet-rotate-reverse-smooth"
+            style={{
+              background: 'radial-gradient(circle at 70% 70%, rgba(6, 182, 212, 0.6) 0%, rgba(59, 130, 246, 0.4) 40%, transparent 70%)',
+              filter: 'blur(60px)'
+            }}
+          />
         </div>
-      )}
 
-      {/* Deep Space theme - simple dark background with minimal stars */}
-      {currentTheme === 'dark' && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Minimal twinkling stars for deep space */}
-          {[...Array(80)].map((_, i) => (
+        {/* Ultra-small glittering stars */}
+        <div className="absolute inset-0">
+          {[...Array(50)].map((_, i) => (
             <div
-              key={`dark-particle-${i}`}
+              key={`particle-${i}`}
               className="absolute bg-white rounded-full animate-pulse twinkle-star"
               style={{
-                width: '1px',
-                height: '1px',
+                width: '0.1px',
+                height: '0.1px',
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 4}s`,
-                animationDuration: `${2 + Math.random() * 3}s`,
-                opacity: 0.3 + Math.random() * 0.7,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${8 + Math.random() * 3}s`,
+                opacity: 0.2 + Math.random() * 0.7,
                 boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
                 transform: `scale(${0.5 + Math.random() * 0.5})`
               }}
             />
           ))}
+          {/* Additional tiny glitter layer */}
+          {[...Array(30)].map((_, i) => (
+            <div
+              key={`glitter-${i}`}
+              className="absolute bg-blue-200 rounded-full animate-pulse twinkle-star-blue"
+              style={{
+                width: '0.5px',
+                height: '0.5px',
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 6}s`,
+                animationDuration: `${1 + Math.random() * 2}s`,
+                opacity: 0.2 + Math.random() * 0.5,
+                boxShadow: '0 0 1px rgba(191, 219, 254, 0.6)',
+                transform: `scale(${0.3 + Math.random() * 0.4})`
+              }}
+            />
+          ))}
         </div>
-      )}
+      </div>
 
       {/* Main Chat Interface with Sidebar */}
       <div 
