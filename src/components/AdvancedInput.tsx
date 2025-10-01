@@ -48,7 +48,7 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
             onClick={() => setInputMode('text')}
             className={`px-3 py-1.5 rounded-lg text-xs font-light transition-all duration-300 ${
               inputMode === 'text' 
-                ? 'bg-purple-500/20 text-purple-400 border border-purple-400/30' 
+                ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-400/30' 
                 : 'text-white/60 hover:text-white/90 hover:bg-white/5'
             }`}
           >
