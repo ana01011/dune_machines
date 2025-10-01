@@ -435,7 +435,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 </div>
                 <button
                   onClick={handleNewChat}
-                  className="w-full flex items-center justify-center space-x-3 p-4 rounded-xl bg-gradient-to-r from-purple-600/30 to-indigo-600/30 border border-purple-400/30 text-white hover:from-purple-600/40 hover:to-indigo-600/40 hover:border-purple-400/50 transition-all duration-300 group"
+                  className="w-full flex items-center justify-center space-x-3 p-4 rounded-xl bg-gradient-to-r from-blue-600/30 to-cyan-600/30 border border-blue-400/30 text-white hover:from-blue-600/40 hover:to-cyan-600/40 hover:border-blue-400/50 transition-all duration-300 group"
                 >
                   <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
                   <span className="font-medium tracking-wide">NEW CHAT</span>
@@ -481,7 +481,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                           <div className="text-xs text-white/40 font-light">
                             {chat.timestamp.toLocaleDateString()}
                           </div>
-                          <div className="text-xs text-purple-400/60">
+                          <div className="text-xs text-blue-400/60">
                             {chat.messages.length} messages
                           </div>
                         </div>
@@ -562,7 +562,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                   
                   <div>
                     <h1 className="text-base font-light text-white tracking-wider">OMNIUS</h1>
-                    <p className="text-xs text-purple-400 font-light">The Evermind Supreme</p>
+                    <p className="text-xs text-cyan-400 font-light">The Evermind Supreme</p>
                   </div>
                 </div>
               </div>
@@ -719,7 +719,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
               }}
               className={`w-full text-left px-4 py-3 text-sm font-medium transition-all duration-300 flex items-center space-x-2 ${
                 currentTheme === themeOption.id 
-                  ? 'bg-blue-600/30 text-blue-300 border-l-2 border-blue-400' 
+                  ? 'bg-cyan-600/30 text-cyan-300 border-l-2 border-cyan-400' 
                   : 'text-white/80 hover:bg-white/10 hover:text-white'
               }`}
             >
@@ -734,11 +734,13 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
       {/* Version Dropdown Portal */}
       {showVersionDropdown && versionButtonRef && createPortal(
         <div 
-          className="fixed bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-2xl z-[99999]"
+          className="fixed backdrop-blur-2xl border border-cyan-400/30 rounded-2xl overflow-hidden shadow-2xl z-[99999]"
           style={{
             top: `${versionButtonRef.getBoundingClientRect().bottom + 8}px`,
             right: `${window.innerWidth - versionButtonRef.getBoundingClientRect().right}px`,
-            width: '280px'
+            width: '320px',
+            background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 80px rgba(6, 182, 212, 0.2)'
           }}
           onClick={(e) => e.stopPropagation()}
         >
@@ -749,15 +751,20 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 setSelectedVersion(model.name);
                 setShowVersionDropdown(false);
               }}
-              className={`w-full text-left px-4 py-3 transition-all duration-300 ${
+              className={`w-full text-left px-4 py-4 transition-all duration-300 border-l-2 ${
                 selectedVersion === model.name 
-                  ? 'bg-purple-600/30 text-purple-300 border-l-2 border-purple-400' 
-                  : 'text-white/80 hover:bg-white/10 hover:text-white'
+                  ? 'bg-cyan-600/20 text-cyan-300 border-cyan-400 shadow-lg shadow-cyan-500/20' 
+                  : 'text-white/70 hover:bg-white/5 hover:text-white/90 border-transparent hover:border-white/30'
               }`}
             >
-              <div>
-                <div className="text-sm font-medium">{model.name}</div>
-                <div className="text-xs text-white/60">{model.subtitle}</div>
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center border border-cyan-400/30">
+                  <div className="w-3 h-3 rounded-full bg-cyan-400/60"></div>
+                </div>
+                <div>
+                  <div className="text-sm font-medium tracking-wide">{model.name}</div>
+                  <div className="text-xs text-white/50 font-light">{model.subtitle}</div>
+                </div>
               </div>
             </button>
           ))}
@@ -862,13 +869,13 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
         }
         
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(99, 102, 241, 0.4));
+          background: linear-gradient(135deg, rgba(6, 182, 212, 0.4), rgba(59, 130, 246, 0.4));
           border-radius: 3px;
           border: 1px solid rgba(255, 255, 255, 0.05);
         }
         
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(135deg, rgba(139, 92, 246, 0.7), rgba(99, 102, 241, 0.7));
+          background: linear-gradient(135deg, rgba(6, 182, 212, 0.7), rgba(59, 130, 246, 0.7));
         }
         
         .line-clamp-2 {
