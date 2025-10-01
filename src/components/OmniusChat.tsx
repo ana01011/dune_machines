@@ -123,7 +123,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
 
   const handleNewChat = () => {
     const newChatId = Date.now().toString();
-    setBackgroundKey(prev => prev + 1); // Force background re-render
     const newChat: ChatHistory = {
       id: newChatId,
       title: 'New Chat',
@@ -197,6 +196,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
   };
 
   const handleSendMessage = (content: string, type: 'text' | 'code' | 'voice' = 'text') => {
+    // Don't refresh background on message send
     const newMessage: Message = {
       id: Date.now().toString(),
       content,
@@ -338,28 +338,35 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                   />
                   );
                 })}
+                {/* Dark gradient background */}
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    background: 'linear-gradient(135deg, #000000 0%, #010409 10%, #020617 20%, #0a0f1c 35%, #0f172a 50%, #020617 65%, #010409 80%, #000000 100%)'
+                  }}
+                />
                 {/* Additional tiny glitter layer */}
-                {[...Array(30)].map((_, i) => {
+                {[...Array(40)].map((_, i) => {
                   const randomLeft = Math.random() * 100;
                   const randomTop = Math.random() * 100;
                   const randomDelay = Math.random() * 6;
                   const randomDuration = 1 + Math.random() * 2;
-                  const randomOpacity = 0.2 + Math.random() * 0.5;
-                  const randomScale = 0.3 + Math.random() * 0.4;
+                  const randomOpacity = 0.1 + Math.random() * 0.3;
+                  const randomScale = 0.2 + Math.random() * 0.2;
                   
                   return (
                   <div
                     key={`glitter-${backgroundKey}-${i}`}
                     className="absolute bg-blue-200 rounded-full animate-pulse twinkle-star-blue"
                     style={{
-                      width: '0.5px',
-                      height: '0.5px',
+                      width: '0.3px',
+                      height: '0.3px',
                       left: `${randomLeft}%`,
                       top: `${randomTop}%`,
                       animationDelay: `${randomDelay}s`,
                       animationDuration: `${randomDuration}s`,
                       opacity: randomOpacity,
-                      boxShadow: '0 0 1px rgba(191, 219, 254, 0.6)',
+                      boxShadow: '0 0 1px rgba(255, 255, 255, 0.5)',
                       transform: `scale(${randomScale})`
                     }}
                   />
@@ -426,13 +433,13 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
             <div 
               className="w-80 border-r border-white/5 backdrop-blur-xl flex flex-col"
               style={{
-                background: currentTheme === 'light' 
-                  ? 'linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(1,4,9,0.85) 15%, rgba(2,6,23,0.85) 30%, rgba(10,15,28,0.85) 45%, rgba(15,23,42,0.85) 60%, rgba(2,6,23,0.85) 75%, rgba(1,4,9,0.85) 85%, rgba(0,0,0,0.85) 100%)'
-                  : 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)'
+                background: currentTheme === 'light'
+                  ? 'rgba(0, 0, 0, 0.3)'
+                  : 'rgba(0, 0, 0, 0.8)'
               }}
             >
               {/* Sidebar Header */}
-              <div className="p-4 border-b border-white/10">
+              <div className="p-4 border-b border-white/5">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-light text-white tracking-wider">CHAT HISTORY</h2>
                   <button
@@ -534,11 +541,12 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
             {/* Header */}
             <div 
               ref={headerRef}
-              className="flex items-center justify-between p-4 sm:p-6 border-b border-white/5 backdrop-blur-xl" 
+              className="flex items-center justify-between p-4 sm:p-6 backdrop-blur-xl" 
               style={{
-                background: currentTheme === 'light' 
-                  ? 'linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(1,4,9,0.85) 15%, rgba(2,6,23,0.85) 30%, rgba(10,15,28,0.85) 45%, rgba(15,23,42,0.85) 60%, rgba(2,6,23,0.85) 75%, rgba(1,4,9,0.85) 85%, rgba(0,0,0,0.85) 100%)'
-                  : 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)'
+                background: currentTheme === 'light'
+                  ? 'rgba(0, 0, 0, 0.3)'
+                  : 'rgba(0, 0, 0, 0.8)',
+                borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
               }}
             >
               <div className="flex items-center space-x-4">
@@ -700,6 +708,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
               onClick={() => {
                 setCurrentTheme(themeOption.id);
                 setShowThemeDropdown(false);
+                setBackgroundKey(prev => prev + 1); // Only refresh on theme change
               }}
               className={`w-full text-left px-4 py-3 text-sm font-medium transition-all duration-300 flex items-center space-x-2 ${
                 currentTheme === themeOption.id 
