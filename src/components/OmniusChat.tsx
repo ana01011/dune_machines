@@ -772,36 +772,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
               {messages.map((message) => (
                 <div key={message.id} className="mb-6">
                   <ChatMessage message={message} theme={currentTheme} />
-                  {message.sender === 'omnius' && (
-                    <div className="flex items-center space-x-3 mt-2 ml-13">
-                      <button
-                        onClick={() => handleCopyMessage(message.content, message.id)}
-                        className="flex items-center space-x-1 text-xs text-white/50 hover:text-white/80 transition-all duration-300"
-                        title="Copy message"
-                      >
-                        {copiedMessageId === message.id ? (
-                          <>
-                            <Check className="w-3 h-3 text-green-400" />
-                            <span className="text-green-400">Copied</span>
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-3 h-3" />
-                            <span>Copy</span>
-                          </>
-                        )}
-                      </button>
-                      <button
-                        onClick={() => handleRegenerateResponse(message.id)}
-                        disabled={regeneratingMessageId === message.id}
-                        className="flex items-center space-x-1 text-xs text-white/50 hover:text-white/80 transition-all duration-300 disabled:opacity-50"
-                        title="Regenerate response"
-                      >
-                        <RotateCcw className={`w-3 h-3 ${regeneratingMessageId === message.id ? 'animate-spin' : ''}`} />
-                        <span>{regeneratingMessageId === message.id ? 'Regenerating...' : 'Regenerate'}</span>
-                      </button>
-                    </div>
-                  )}
                 </div>
               ))}
               
