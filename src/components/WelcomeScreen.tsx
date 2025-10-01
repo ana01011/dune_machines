@@ -388,7 +388,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
+      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
         
         {/* Logo Position Control - Adjust margin-bottom values to control gap between logo and title */}
         {/* Current: mb-6 sm:mb-8 (increase for more gap, decrease for less gap) */}
