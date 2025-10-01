@@ -387,21 +387,21 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
           {/* Minimal stars for deep space */}
           <div key={`dark-${backgroundKey}`} className="absolute inset-0 overflow-hidden pointer-events-none">
             {/* Minimal twinkling stars for deep space */}
-            {[...Array(60)].map((_, i) => {
+            {[...Array(40)].map((_, i) => {
               const randomLeft = Math.random() * 100;
               const randomTop = Math.random() * 100;
-              const randomDelay = Math.random() * 4;
-              const randomDuration = 2 + Math.random() * 3;
+              const randomDelay = Math.random() * 8;
+              const randomDuration = 6 + Math.random() * 4;
               const randomOpacity = 0.2 + Math.random() * 0.5;
-              const randomScale = 0.3 + Math.random() * 0.3;
+              const randomScale = 0.2 + Math.random() * 0.2;
               
               return (
               <div
                 key={`dark-particle-${backgroundKey}-${i}`}
                 className="absolute bg-white rounded-full animate-pulse twinkle-star"
                 style={{
-                  width: '0.5px',
-                  height: '0.5px',
+                  width: '0.3px',
+                  height: '0.3px',
                   left: `${randomLeft}%`,
                   top: `${randomTop}%`,
                   animationDelay: `${randomDelay}s`,
@@ -656,73 +656,68 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
             {/* Header */}
             <div 
               ref={headerRef}
-              className="flex items-center justify-between px-3 py-2 sm:px-4 sm:py-3 border-b border-white/5 backdrop-blur-xl" 
+              className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b border-white/5 backdrop-blur-xl" 
               style={{
                 background: currentTheme === 'light' 
                   ? 'linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(1,4,9,0.85) 15%, rgba(2,6,23,0.85) 30%, rgba(10,15,28,0.85) 45%, rgba(15,23,42,0.85) 60%, rgba(2,6,23,0.85) 75%, rgba(1,4,9,0.85) 85%, rgba(0,0,0,0.85) 100%)'
                   : 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)'
               }}
             >
-              <div className="flex items-center space-x-1 sm:space-x-2">
+              <div className="flex items-center space-x-2 sm:space-x-3">
                 {/* Sidebar Toggle - Always Visible on Mobile */}
                 <button
-                  onClick={() => setSidebarOpen(true)}
-                  className="p-1.5 sm:p-2 rounded-lg text-white/60 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
+                  className="p-2 sm:p-2.5 rounded-lg text-white/70 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
                 >
-                  <Menu className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
                 
                 {/* Back Button - Smaller on Mobile */}
                 <button
                   onClick={onBack}
-                  className="p-1.5 sm:p-2 rounded-lg text-white/60 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
+                  className="p-2 sm:p-2.5 rounded-lg text-white/70 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
                 >
-                  <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
                 
                 {/* OMNIUS Info - Responsive */}
-                <div className="flex items-center space-x-2 sm:space-x-3">
+                <div className="flex items-center space-x-3 sm:space-x-4">
                   <div className="relative">
                     <img 
                       src="/duneicon.webp" 
                       alt="OMNIUS" 
-                      className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 object-contain animate-opacity-fluctuate"
+                      className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain animate-opacity-fluctuate"
                     />
                   </div>
                   
-                  <div className="hidden sm:block">
-                    <h1 className="text-sm sm:text-base font-light text-white tracking-wider">OMNIUS</h1>
-                    <p className="text-xs text-white/70 font-light">The Evermind Supreme</p>
-                  </div>
-                  
-                  {/* Mobile Title */}
-                  <div className="sm:hidden">
-                    <h1 className="text-sm font-light text-white tracking-wider">OMNIUS</h1>
+                  <div>
+                    <h1 className="text-base sm:text-lg font-light text-white tracking-wider">OMNIUS</h1>
+                    <p className="text-xs sm:text-sm text-white/70 font-light hidden sm:block">The Evermind Supreme</p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-1 sm:space-x-2">
+              <div className="flex items-center space-x-2 sm:space-x-3">
                 {/* Theme Selector - Compact on Mobile */}
                 <div className="relative">
                   <button
                     ref={setThemeButtonRef}
                     onClick={() => setShowThemeDropdown(!showThemeDropdown)}
-                    className="flex items-center space-x-1 sm:space-x-2 px-2 py-1.5 sm:px-3 sm:py-2 text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10"
+                    className="flex items-center space-x-2 px-3 py-2 sm:px-4 sm:py-2.5 text-white/80 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10"
                   >
-                    <Palette className="w-3 h-3 sm:w-4 sm:h-4" />
-                    {currentTheme === 'light' ? <Sun className="w-3 h-3 sm:w-4 sm:h-4" /> : <Moon className="w-3 h-3 sm:w-4 sm:h-4" />}
-                    <span className="hidden sm:inline text-xs font-light">Theme</span>
+                    <Palette className="w-4 h-4 sm:w-5 sm:h-5" />
+                    {currentTheme === 'light' ? <Sun className="w-4 h-4 sm:w-5 sm:h-5" /> : <Moon className="w-4 h-4 sm:w-5 sm:h-5" />}
+                    <span className="hidden md:inline text-sm font-light">Theme</span>
                   </button>
                 </div>
 
                 {/* Agents Navigation - Compact on Mobile */}
                 <button
                   onClick={onNavigateToWorkflows}
-                  className="flex items-center space-x-1 sm:space-x-2 px-2 py-1.5 sm:px-3 sm:py-2 text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10"
+                  className="flex items-center space-x-2 px-3 py-2 sm:px-4 sm:py-2.5 text-white/80 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10"
                 >
-                  <Users className="w-3 h-3 sm:w-4 sm:h-4" />
-                  <span className="hidden sm:inline text-xs font-light">Agents</span>
+                  <Users className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="hidden md:inline text-sm font-light">Agents</span>
                 </button>
 
                 {/* Version Selector - Compact on Mobile */}
@@ -730,13 +725,13 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                   <button
                     ref={setVersionButtonRef}
                     onClick={() => setShowVersionDropdown(!showVersionDropdown)}
-                    className="flex items-center space-x-1 sm:space-x-2 px-2 py-1.5 sm:px-3 sm:py-2 text-white/90 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10"
+                    className="flex items-center space-x-2 px-3 py-2 sm:px-4 sm:py-2.5 text-white/80 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10"
                   >
-                    <Crown className="w-3 h-3 sm:w-4 sm:h-4" />
-                    <span className="hidden sm:inline text-xs sm:text-sm font-medium text-white">
+                    <Crown className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <span className="hidden md:inline text-sm font-medium text-white">
                       {aiModels.find(model => model.name === selectedVersion)?.name || selectedVersion}
                     </span>
-                    <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
                 </div>
               </div>

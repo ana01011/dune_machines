@@ -108,7 +108,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
                 <span>
                   {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </span>
-                {onCopy && (
+                <div className="flex items-center space-x-1">
                   <button
                     onClick={() => onCopy(message.content, message.id)}
                     className="text-white/40 hover:text-white/80 transition-all duration-300 p-1 rounded"
