@@ -614,21 +614,21 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
             >
               {/* Empty Chat State */}
               {messages.length === 0 && (
-                <div className="flex flex-col items-center justify-center h-full min-h-[50vh] text-center">
+                <div className="flex flex-col items-center justify-center h-full text-center py-8">
                   <div className="relative mb-8">
                     <img 
                       src="/duneicon.webp" 
                       alt="OMNIUS" 
-                      className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 object-contain opacity-30 animate-pulse-slow"
+                      className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 object-contain opacity-30 animate-pulse-slow"
                       style={{
                         filter: 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)) drop-shadow(0 0 40px rgba(139, 92, 246, 0.4))'
                       }}
                     />
                   </div>
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-white/60 mb-1 tracking-wider -mt-4">
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-light text-white/60 mb-1 tracking-wider -mt-6">
                     ASK OMNIUS ANYTHING
                   </h2>
-                  <p className="text-xs sm:text-sm text-white/40 font-light tracking-wide max-w-md mb-0">
+                  <p className="text-xs sm:text-sm text-white/40 font-light tracking-wide max-w-md">
                     The Evermind Supreme awaits your queries with infinite processing power
                   </p>
                 </div>
