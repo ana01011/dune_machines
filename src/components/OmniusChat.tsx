@@ -32,7 +32,6 @@ interface OmniusChatProps {
 export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWorkflows }) => {
   const [currentChatId, setCurrentChatId] = useState('1');
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [currentTheme, setCurrentTheme] = useState('light');
   const [showThemeDropdown, setShowThemeDropdown] = useState(false);
   const [chatHistory, setChatHistory] = useState<ChatHistory[]>([
@@ -246,25 +245,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
     }, 2000);
   };
 
-  const getThemeStyles = () => {
-    if (theme === 'light') {
-      return {
-        background: 'linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(1,4,9,0.95) 10%, rgba(2,6,23,0.9) 20%, rgba(10,15,28,0.85) 35%, rgba(15,23,42,0.8) 50%, rgba(2,6,23,0.9) 65%, rgba(1,4,9,0.95) 80%, rgba(0,0,0,1) 100%)',
-        containerBg: 'linear-gradient(135deg, rgba(0,0,0,0.98) 0%, rgba(1,4,9,0.96) 10%, rgba(2,6,23,0.94) 20%, rgba(10,15,28,0.92) 35%, rgba(15,23,42,0.90) 50%, rgba(2,6,23,0.94) 65%, rgba(1,4,9,0.96) 80%, rgba(0,0,0,0.98) 100%)',
-        sidebarBg: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(15,23,42,0.98) 50%, rgba(0,0,0,0.95) 100%)',
-        headerBg: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(15,23,42,0.95) 50%, rgba(0,0,0,0.9) 100%)'
-      };
-    } else {
-      return {
-        background: 'linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(5,5,5,0.98) 20%, rgba(10,10,10,0.95) 50%, rgba(5,5,5,0.98) 80%, rgba(0,0,0,1) 100%)',
-        containerBg: 'linear-gradient(135deg, rgba(0,0,0,0.98) 0%, rgba(5,5,5,0.96) 20%, rgba(10,10,10,0.94) 50%, rgba(5,5,5,0.96) 80%, rgba(0,0,0,0.98) 100%)',
-        sidebarBg: 'linear-gradient(135deg, rgba(0,0,0,0.98) 0%, rgba(10,10,10,0.95) 50%, rgba(0,0,0,0.98) 100%)',
-        headerBg: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(10,10,10,0.92) 50%, rgba(0,0,0,0.95) 100%)'
-      };
-    }
-  };
 
-  const themeStyles = getThemeStyles();
   const activeTheme = getTheme(currentTheme);
   const availableThemes = getAvailableThemes('omnius');
 
@@ -347,12 +328,12 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
       <div 
         ref={containerRef}
         className="relative z-10 h-full flex"
-        style={{ background: themeStyles.containerBg }}
+        style={{ background: activeTheme.background.containerBg }}
       >
         
         {/* Chat History Sidebar - Improved */}
         {sidebarOpen && (
-          <div className="w-80 border-r border-white/10 backdrop-blur-xl flex flex-col" style={{ background: themeStyles.sidebarBg }}>
+          <div className="w-80 border-r border-white/10 backdrop-blur-xl flex flex-col" style={{ background: activeTheme.background.sidebarBg }}>
             {/* Sidebar Header */}
             <div className="p-4 border-b border-white/5">
               <div className="flex items-center justify-between mb-4">
@@ -457,7 +438,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
           <div 
             ref={headerRef}
             className="flex items-center justify-between p-4 sm:p-6 border-b border-white/10 backdrop-blur-xl"
-            style={{ background: themeStyles.headerBg }}
+            style={{ background: activeTheme.background.headerBg }}
           >
             <div className="flex items-center space-x-4">
               {/* Sidebar Toggle */}

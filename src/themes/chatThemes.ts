@@ -152,7 +152,7 @@ export const chatThemes: Record<string, ChatTheme> = {
 
 // AI-specific theme mappings
 export const aiThemeMapping: Record<string, string[]> = {
-  omnius: ['light', 'dark', 'matrix', 'neon'],
+  omnius: ['light', 'dark'],
   erasmus: ['light', 'dark', 'ocean'],
   sarah: ['light', 'dark', 'neon'],
   mentat: ['light', 'dark', 'matrix'],
