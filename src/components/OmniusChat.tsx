@@ -256,7 +256,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
       style={{ background: currentTheme === 'light' ? activeTheme.background.gradient : 'linear-gradient(135deg, #000000 0%, #010409 10%, #020617 20%, #0a0f1c 35%, #0f172a 50%, #020617 65%, #010409 80%, #000000 100%)' }}
     >
       {/* Theme-specific backgrounds */}
-      {(currentTheme === 'light' || currentTheme === 'dark') && (
+      {currentTheme === 'light' && (
         <div className="absolute inset-0 overflow-hidden">
           {/* Blurred Exoplanet/Blackhole at top */}
           <div className="absolute -top-64 left-1/2 transform -translate-x-1/2">
@@ -278,10 +278,8 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
             />
           </div>
 
-          {/* Ultra-small glittering stars */}
-          <div 
-            className="absolute inset-0"
-          >
+          {/* Ultra-small glittering stars - Exact same as welcome screen */}
+          <div className="absolute inset-0">
             {[...Array(50)].map((_, i) => (
               <div
                 key={`particle-${i}`}
@@ -321,6 +319,29 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
         </div>
       )}
 
+      {/* Deep Space theme - simple dark background with minimal stars */}
+      {currentTheme === 'dark' && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Minimal twinkling stars for deep space */}
+          {[...Array(80)].map((_, i) => (
+            <div
+              key={`dark-particle-${i}`}
+              className="absolute bg-white rounded-full animate-pulse twinkle-star"
+              style={{
+                width: '1px',
+                height: '1px',
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 4}s`,
+                animationDuration: `${2 + Math.random() * 3}s`,
+                opacity: 0.3 + Math.random() * 0.7,
+                boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
+                transform: `scale(${0.5 + Math.random() * 0.5})`
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Main Chat Interface with Sidebar */}
       <div 
