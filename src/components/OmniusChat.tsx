@@ -771,7 +771,14 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
               
               {messages.map((message) => (
                 <div key={message.id} className="mb-6">
-                  <ChatMessage message={message} theme={currentTheme} />
+                  <ChatMessage 
+                    message={message} 
+                    theme={currentTheme}
+                    onCopy={handleCopyMessage}
+                    onRegenerate={handleRegenerateResponse}
+                    copiedMessageId={copiedMessageId}
+                    regeneratingMessageId={regeneratingMessageId}
+                  />
                 </div>
               ))}
               
