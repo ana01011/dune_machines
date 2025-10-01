@@ -7,6 +7,7 @@ import { WorkflowSelection } from './components/WorkflowSelection';
 import { OrganizationChart } from './components/OrganizationChart';
 import { MedicalChart } from './components/MedicalChart';
 import { OmniusChat } from './components/OmniusChat';
+import { LoadingScreen } from './components/LoadingScreen';
 import { Documentation } from './components/Documentation';
 import { HelpSection } from './components/HelpSection';
 import { PricingSection } from './components/PricingSection';
@@ -14,6 +15,8 @@ import { FAQSection } from './components/FAQSection';
 
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
+  const [showLoading, setShowLoading] = useState(false);
+  const [loadingAI, setLoadingAI] = useState<string | null>(null);
   const [showWorkflowSelection, setShowWorkflowSelection] = useState(false);
   const [selectedAI, setSelectedAI] = useState<string | null>(null);
   const [currentSection, setCurrentSection] = useState('workflow');
@@ -23,7 +26,7 @@ function App() {
   // Scroll to top when changing sections
   React.useEffect(() => {
     window.scrollTo(0, 0);
-  }, [currentSection, selectedWorkflow, showWorkflowSelection, selectedAI]);
+  }, [currentSection, selectedWorkflow, showWorkflowSelection, selectedAI, showLoading]);
 
   // Handle back navigation
   const handleBack = () => {
@@ -113,6 +116,17 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
+  // Show Loading Screen
+  if (showLoading && loadingAI) {
+    return <LoadingScreen 
+      selectedAI={loadingAI} 
+      onComplete={() => {
+        setShowLoading(false);
+        setSelectedAI(loadingAI);
+        setLoadingAI(null);
+      }} 
+    />;
+  }
   // Show AI Chat Interface
   if (selectedAI) {
     if (selectedAI === 'omnius') {
@@ -131,7 +145,8 @@ function App() {
   if (showWelcome) {
     return <WelcomeScreen onComplete={(aiId?: string) => {
       if (aiId) {
-        setSelectedAI(aiId);
+        setLoadingAI(aiId);
+        setShowLoading(true);
         setShowWelcome(false);
       } else {
         setShowWelcome(false);

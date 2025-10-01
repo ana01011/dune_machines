@@ -62,7 +62,7 @@ export const Header: React.FC<HeaderProps> = ({ onSectionChange, currentSection,
             <div className="flex-shrink-0">
               <div className="flex items-center space-x-3">
                 <img 
-                  src="/dune animation.gif" 
+                  src="/duneicon.webp" 
                   alt="DUNE MACHINES" 
                   className="w-8 h-8 object-contain"
                   style={{
