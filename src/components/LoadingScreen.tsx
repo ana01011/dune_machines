@@ -86,10 +86,10 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ selectedAI, onComp
       {/* Website Title - Cinematic Font */}
       <div ref={titleRef} className="mb-3">
         <h1 
-          className="text-xl sm:text-2xl md:text-3xl font-light tracking-[0.3em] sm:tracking-[0.4em] text-center"
+          className="text-sm sm:text-base md:text-lg font-light tracking-[0.15em] sm:tracking-[0.2em] text-center"
           style={{
-            fontFamily: 'Orbitron, monospace',
-            fontWeight: '300',
+            fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+            fontWeight: '200',
             color: '#ffffff',
             textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)'
           }}
@@ -101,10 +101,10 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ selectedAI, onComp
       {/* Selected AI Model - Cinematic Font */}
       <div ref={subtitleRef}>
         <p 
-          className="text-base sm:text-lg md:text-xl font-light tracking-[0.2em] text-center"
+          className="text-xs sm:text-sm md:text-base font-light tracking-[0.1em] sm:tracking-[0.15em] text-center"
           style={{
-            fontFamily: 'Orbitron, monospace',
-            fontWeight: '300',
+            fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+            fontWeight: '200',
             color: 'rgba(255, 255, 255, 0.9)',
             textShadow: '1px 1px 3px rgba(0, 0, 0, 0.7)'
           }}
