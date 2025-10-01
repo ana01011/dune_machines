@@ -110,7 +110,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
                 </span>
                 <div className="flex items-center space-x-1">
                   <button
-                    onClick={() => onCopy(message.content, message.id)}
+                    onClick={() => onCopy && onCopy(message.content, message.id)}
                     className="text-white/40 hover:text-white/80 transition-all duration-300 p-1 rounded"
                     title="Copy message"
                   >
@@ -120,17 +120,17 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
                       <Copy className="w-3 h-3" />
                     )}
                   </button>
-                )}
-                {onRegenerate && (
-                  <button
-                    onClick={() => onRegenerate(message.id)}
-                    disabled={regeneratingMessageId === message.id}
-                    className="text-white/40 hover:text-white/80 transition-all duration-300 disabled:opacity-50 p-1 rounded"
-                    title="Regenerate response"
-                  >
-                    <RotateCcw className={`w-3 h-3 ${regeneratingMessageId === message.id ? 'animate-spin' : ''}`} />
-                  </button>
-                )}
+                  {onRegenerate && (
+                    <button
+                      onClick={() => onRegenerate(message.id)}
+                      disabled={regeneratingMessageId === message.id}
+                      className="text-white/40 hover:text-white/80 transition-all duration-300 disabled:opacity-50 p-1 rounded"
+                      title="Regenerate response"
+                    >
+                      <RotateCcw className={`w-3 h-3 ${regeneratingMessageId === message.id ? 'animate-spin' : ''}`} />
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           ) : (
