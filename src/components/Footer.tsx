@@ -113,7 +113,7 @@ export const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="text-white/40 text-sm font-light">
-            © 2025 Thinking Machines. All rights reserved.
+            © 2025 Dune Machines. All rights reserved.
           </div>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="text-white/40 hover:text-white/70 text-sm font-light transition-colors duration-300">

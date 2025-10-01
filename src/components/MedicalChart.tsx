@@ -171,7 +171,7 @@ export const MedicalChart: React.FC<MedicalChartProps> = ({ onBack }) => {
             textShadow: '0 0 20px rgba(203, 213, 225, 0.3)'
           }}
         >
-          THINKING MACHINES
+          DUNE MACHINES
         </h1>
         <p 
           className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-200 max-w-4xl mx-auto px-4 transition-all duration-[800ms] ease-out"
@@ -490,7 +490,7 @@ export const MedicalChart: React.FC<MedicalChartProps> = ({ onBack }) => {
             letterSpacing: '0.1em'
           }}
         >
-          © 2025 THINKING MACHINES | MEDICAL WORKFLOW | SHIFT+CLICK FOR CUSTOM TEAMS
+          © 2025 DUNE MACHINES | MEDICAL WORKFLOW | SHIFT+CLICK FOR CUSTOM TEAMS
         </p>
       </div>
 

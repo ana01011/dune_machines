@@ -157,6 +157,14 @@ export const WorkflowHeader: React.FC<WorkflowHeaderProps> = ({ onBack, selected
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div ref={logoRef} className="flex items-center">
+              <img 
+                src="/duneicon.webp" 
+                alt="DUNE MACHINES" 
+                className="w-6 h-6 mr-3 object-contain"
+                style={{
+                  filter: 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.4))'
+                }}
+              />
               <h1 className="text-sm sm:text-lg font-light tracking-[0.15em] sm:tracking-[0.2em] text-white/85">
                 DUNE MACHINES
               </h1>

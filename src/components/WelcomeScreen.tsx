@@ -392,78 +392,15 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
         
         {/* Minimal Logo Symbol */}
         <div ref={logoRef} className="mb-6 sm:mb-8">
-          <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 mx-auto relative">
-            <svg width="80" height="80" viewBox="0 0 80 80" className="w-full h-full drop-shadow-2xl">
-              <defs>
-                <linearGradient id="circuitGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#3b82f6" />
-                  <stop offset="50%" stopColor="#1d4ed8" />
-                  <stop offset="100%" stopColor="#1e40af" />
-                </linearGradient>
-                <linearGradient id="coreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#ffffff" />
-                  <stop offset="100%" stopColor="#e2e8f0" />
-                </linearGradient>
-                <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                  <feMerge> 
-                    <feMergeNode in="coloredBlur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
-              </defs>
-              
-              {/* Outer Circuit Ring */}
-              <circle 
-                cx="40" 
-                cy="40" 
-                r="35" 
-                fill="none" 
-                stroke="url(#circuitGradient)" 
-                strokeWidth="1" 
-                opacity="0.4"
-                className="animate-spin-slow"
-              />
-              
-              {/* Inner Circuit Ring */}
-              <circle 
-                cx="40" 
-                cy="40" 
-                r="25" 
-                fill="none" 
-                stroke="url(#circuitGradient)" 
-                strokeWidth="0.5" 
-                opacity="0.6"
-                className="animate-spin-reverse"
-              />
-              
-              {/* Circuit Nodes */}
-              <circle cx="40" cy="15" r="2" fill="#3b82f6" className="animate-pulse-smooth" style={{animationDelay: '0s'}} />
-              <circle cx="65" cy="40" r="2" fill="#3b82f6" className="animate-pulse-smooth" style={{animationDelay: '0.5s'}} />
-              <circle cx="40" cy="65" r="2" fill="#3b82f6" className="animate-pulse-smooth" style={{animationDelay: '1s'}} />
-              <circle cx="15" cy="40" r="2" fill="#3b82f6" className="animate-pulse-smooth" style={{animationDelay: '1.5s'}} />
-              
-              {/* Connection Lines */}
-              <line x1="40" y1="17" x2="40" y2="25" stroke="#3b82f6" strokeWidth="1" opacity="0.6" className="animate-pulse-smooth" style={{animationDelay: '0s'}} />
-              <line x1="63" y1="40" x2="40" y2="40" stroke="#3b82f6" strokeWidth="1" opacity="0.6" className="animate-pulse-smooth" style={{animationDelay: '0.5s'}} />
-              <line x1="40" y1="63" x2="40" y2="55" stroke="#3b82f6" strokeWidth="1" opacity="0.6" className="animate-pulse-smooth" style={{animationDelay: '1s'}} />
-              <line x1="17" y1="40" x2="25" y2="40" stroke="#3b82f6" strokeWidth="1" opacity="0.6" className="animate-pulse-smooth" style={{animationDelay: '1.5s'}} />
-              
-              {/* Central Processing Core */}
-              <circle 
-                cx="40" 
-                cy="40" 
-                r="12" 
-                fill="url(#coreGradient)" 
-                filter="url(#glow)"
-                className="animate-pulse-slow"
-              />
-              
-              {/* Core Activity Indicators */}
-              <circle cx="37" cy="37" r="1.5" fill="#1d4ed8" className="animate-pulse-smooth" style={{animationDelay: '0.2s'}} />
-              <circle cx="40" cy="40" r="1.5" fill="#1d4ed8" className="animate-pulse-smooth" style={{animationDelay: '0.4s'}} />
-              <circle cx="43" cy="43" r="1.5" fill="#1d4ed8" className="animate-pulse-smooth" style={{animationDelay: '0.6s'}} />
-            </svg>
+          <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 mx-auto relative">
+            <img 
+              src="/duneicon.webp" 
+              alt="DUNE MACHINES Logo" 
+              className="w-full h-full object-contain drop-shadow-2xl animate-pulse-slow"
+              style={{
+                filter: 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)) drop-shadow(0 0 40px rgba(139, 92, 246, 0.4))'
+              }}
+            />
           </div>
         </div>
 

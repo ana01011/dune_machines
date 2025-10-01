@@ -170,7 +170,7 @@ export const OrganizationChart: React.FC<OrganizationChartProps> = ({ onBack }) 
             textShadow: '0 0 20px rgba(203, 213, 225, 0.3)'
           }}
         >
-          CORPORATE WORKFLOW
+          DUNE MACHINES
         </h1>
       </div>
 
@@ -450,7 +450,7 @@ export const OrganizationChart: React.FC<OrganizationChartProps> = ({ onBack }) 
             letterSpacing: '0.1em'
           }}
         >
-          © 2025 THINKING MACHINES | CORPORATE WORKFLOW | SHIFT+CLICK FOR CUSTOM TEAMS
+          © 2025 DUNE MACHINES | CORPORATE WORKFLOW | SHIFT+CLICK FOR CUSTOM TEAMS
         </p>
       </div>
 

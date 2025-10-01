@@ -60,8 +60,16 @@ export const Header: React.FC<HeaderProps> = ({ onSectionChange, currentSection,
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div className="flex-shrink-0">
+              <div className="flex items-center space-x-3">
+                <img 
+                  src="/duneicon.webp" 
+                  alt="DUNE MACHINES" 
+                  className="w-8 h-8 object-contain"
+                  style={{
+                    filter: 'drop-shadow(0 0 10px rgba(59, 130, 246, 0.4))'
+                  }}
+                />
               <h1 
-                ref={logoRef}
                 className="text-sm sm:text-lg font-light cursor-pointer transition-all duration-500 hover:text-white/90 tracking-[0.15em] sm:tracking-[0.2em]"
                 style={{
                   fontFamily: 'Poppins, system-ui, -apple-system, sans-serif',
@@ -71,8 +79,9 @@ export const Header: React.FC<HeaderProps> = ({ onSectionChange, currentSection,
                 }}
                 onClick={onBack}
               >
-                THINKING MACHINES
+                DUNE MACHINES
               </h1>
+              </div>
             </div>
           </div>
 
