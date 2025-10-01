@@ -135,7 +135,7 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
           </div>
 
           {/* Quick Actions */}
-          <div className="flex items-center justify-between mt-2">
+          <div className="flex items-center justify-between mt-3">
             <div className="flex items-center space-x-3">
               <button 
                 onClick={() => console.log('Image clicked')}
