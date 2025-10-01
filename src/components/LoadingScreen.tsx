@@ -88,8 +88,8 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ selectedAI, onComp
       }}
     >
       {/* Animated Logo - No Effects */}
-      <div ref={animationRef} className="mb-1">
-        <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 mx-auto relative">
+      <div ref={animationRef} className="mb-0">
+        <div className="w-72 h-72 sm:w-96 sm:h-96 md:w-[28rem] md:h-[28rem] mx-auto relative">
           <img 
             src="/dune animation.gif" 
             alt="DUNE MACHINES Animation" 
@@ -99,11 +99,11 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ selectedAI, onComp
       </div>
 
       {/* Website Title - Cinematic Font */}
-      <div ref={titleRef} className="mb-1">
+      <div ref={titleRef} className="mb-0" style={{ marginTop: '2px' }}>
         <h1 
           className="text-xs sm:text-sm md:text-base font-thin tracking-[0.1em] sm:tracking-[0.15em] text-center"
           style={{
-            fontFamily: 'Orbitron, monospace',
+            fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
             fontWeight: '100',
             color: '#ffffff',
             textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)'
@@ -114,11 +114,11 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ selectedAI, onComp
       </div>
 
       {/* Selected AI Model - Cinematic Font */}
-      <div ref={subtitleRef}>
+      <div ref={subtitleRef} style={{ marginTop: '2px' }}>
         <p 
           className="text-sm sm:text-base md:text-lg font-thin tracking-[0.2em] sm:tracking-[0.25em] text-center"
           style={{
-            fontFamily: 'Orbitron, monospace',
+            fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
             fontWeight: '100',
             color: 'rgba(255, 255, 255, 0.9)',
             textShadow: '1px 1px 3px rgba(0, 0, 0, 0.7)'
