@@ -508,17 +508,35 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
               
               {/* User Account Section */}
               <div className="p-4 border-t border-white/10">
-                <div className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 border border-white/10">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/30 to-purple-500/30 flex items-center justify-center border border-blue-400/30">
-                    <User className="w-5 h-5 text-blue-400" />
+                <div className="space-y-3">
+                  {/* User Profile Card */}
+                  <div className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/30 to-purple-500/30 flex items-center justify-center border border-blue-400/30">
+                      <User className="w-5 h-5 text-blue-400" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-sm font-medium text-white">Enterprise User</div>
+                      <div className="text-xs text-white/60">Premium Account</div>
+                    </div>
+                    <button className="p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300">
+                      <Settings className="w-4 h-4" />
+                    </button>
                   </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-medium text-white">Enterprise User</div>
-                    <div className="text-xs text-white/60">Premium Account</div>
+                  
+                  {/* Account Stats */}
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="bg-black/20 rounded-lg p-2 border border-white/5">
+                      <div className="text-xs text-white/60 mb-1">Chats</div>
+                      <div className="text-sm font-light text-white">{chatHistory.length}</div>
+                    </div>
+                    <div className="bg-black/20 rounded-lg p-2 border border-white/5">
+                      <div className="text-xs text-white/60 mb-1">Status</div>
+                      <div className="flex items-center">
+                        <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
+                        <div className="text-xs font-light text-green-400">Online</div>
+                      </div>
+                    </div>
                   </div>
-                  <button className="p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300">
-                    <Settings className="w-4 h-4" />
-                  </button>
                 </div>
               </div>
             </div>
@@ -642,17 +660,34 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 
                 {/* User Account Section */}
                 <div className="p-3 sm:p-4 border-t border-white/10">
-                  <div className="flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 rounded-xl bg-white/5 border border-white/10">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-blue-500/30 to-purple-500/30 flex items-center justify-center border border-blue-400/30">
-                      <User className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 rounded-xl bg-white/5 border border-white/10">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-blue-500/30 to-purple-500/30 flex items-center justify-center border border-blue-400/30">
+                        <User className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-xs sm:text-sm font-medium text-white">Enterprise User</div>
+                        <div className="text-xs text-white/60">Premium Account</div>
+                      </div>
+                      <button className="p-1.5 sm:p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300">
+                        <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
+                      </button>
                     </div>
-                    <div className="flex-1">
-                      <div className="text-xs sm:text-sm font-medium text-white">Enterprise User</div>
-                      <div className="text-xs text-white/60">Premium Account</div>
+                    
+                    {/* Mobile Account Stats */}
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="bg-black/20 rounded-lg p-2 border border-white/5">
+                        <div className="text-xs text-white/60 mb-1">Chats</div>
+                        <div className="text-sm font-light text-white">{chatHistory.length}</div>
+                      </div>
+                      <div className="bg-black/20 rounded-lg p-2 border border-white/5">
+                        <div className="text-xs text-white/60 mb-1">Status</div>
+                        <div className="flex items-center">
+                          <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
+                          <div className="text-xs font-light text-green-400">Online</div>
+                        </div>
+                      </div>
                     </div>
-                    <button className="p-1.5 sm:p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300">
-                      <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
-                    </button>
                   </div>
                 </div>
               </div>
@@ -665,60 +700,59 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
             {/* Header */}
             <div 
               ref={headerRef}
-              className="flex items-center justify-between px-3 py-3 sm:px-4 sm:py-3 md:px-6 md:py-4 border-b border-white/5 backdrop-blur-xl" 
+              className="flex items-center justify-between px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-4 border-b border-white/5 backdrop-blur-xl" 
               style={{
                 background: currentTheme === 'light' 
                   ? 'linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(1,4,9,0.85) 15%, rgba(2,6,23,0.85) 30%, rgba(10,15,28,0.85) 45%, rgba(15,23,42,0.85) 60%, rgba(2,6,23,0.85) 75%, rgba(1,4,9,0.85) 85%, rgba(0,0,0,0.85) 100%)'
                   : 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)'
               }}
             >
-              <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4">
+              <div className="flex items-center space-x-1 sm:space-x-3 md:space-x-4">
                 {/* Sidebar Toggle - Always Visible on Mobile */}
                 <button
                   onClick={() => setSidebarOpen(!sidebarOpen)}
-                  className="p-2 sm:p-2.5 md:p-3 rounded-lg text-white/70 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
+                  className="p-1.5 sm:p-2.5 md:p-3 rounded-md sm:rounded-lg text-white/70 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
                 >
-                  <Menu className="w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+                  <Menu className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                 </button>
                 
                 {/* Back Button - Smaller on Mobile */}
                 <button
                   onClick={onBack}
-                  className="p-2 sm:p-2.5 md:p-3 rounded-lg text-white/70 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
+                  className="p-1.5 sm:p-2.5 md:p-3 rounded-md sm:rounded-lg text-white/70 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
                 >
-                  <ArrowLeft className="w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+                  <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                 </button>
                 
                 {/* OMNIUS Info - Responsive */}
-                <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4">
+                <div className="flex items-center space-x-1.5 sm:space-x-3 md:space-x-4">
                   <div className="relative">
                     <img 
                       src="/duneicon.webp" 
                       alt="OMNIUS" 
-                      className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain animate-opacity-fluctuate"
+                      className="w-6 h-6 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain animate-opacity-fluctuate"
                     />
                   </div>
                   
                   <div>
-                    <h1 className="text-sm sm:text-base md:text-lg font-light text-white tracking-wider">OMNIUS</h1>
-                    <p className="text-xs text-white/70 font-light hidden sm:block">The Evermind Supreme</p>
+                    <h1 className="text-xs sm:text-base md:text-lg font-light text-white tracking-wider">OMNIUS</h1>
+                    <p className="text-xs text-white/70 font-light hidden md:block">The Evermind Supreme</p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-3">
+              <div className="flex items-center space-x-0.5 sm:space-x-2 md:space-x-3">
                 {/* Theme Selector - Compact on Mobile */}
                 <div className="relative">
                   <button
                     ref={setThemeButtonRef}
                     onClick={() => setShowThemeDropdown(!showThemeDropdown)}
-                    className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-2 px-2 py-2 sm:px-3 sm:py-2 md:px-4 md:py-2.5 text-white/80 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10"
+                    className="flex flex-col md:flex-row items-center space-y-0.5 md:space-y-0 md:space-x-2 px-1.5 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2.5 text-white/80 hover:text-white transition-all duration-300 rounded-md sm:rounded-lg hover:bg-white/10"
                   >
-                    <div className="flex items-center space-x-1 md:space-x-2">
-                      <Palette className="w-4 h-4 sm:w-4 sm:h-4 md:w-5 md:h-5" />
-                      {currentTheme === 'light' ? <Sun className="w-4 h-4 sm:w-4 sm:h-4 md:w-5 md:h-5" /> : <Moon className="w-4 h-4 sm:w-4 sm:h-4 md:w-5 md:h-5" />}
+                    <div className="flex items-center justify-center">
+                      {currentTheme === 'light' ? <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5" /> : <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5" />}
                     </div>
-                    <span className="text-xs md:hidden font-light">Theme</span>
+                    <span className="text-xs md:hidden font-light leading-none">Theme</span>
                     <span className="hidden md:inline text-sm font-light">Theme</span>
                   </button>
                 </div>
@@ -726,10 +760,10 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 {/* Agents Navigation - Compact on Mobile */}
                 <button
                   onClick={onNavigateToWorkflows}
-                  className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-2 px-2 py-2 sm:px-3 sm:py-2 md:px-4 md:py-2.5 text-white/80 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10"
+                  className="flex flex-col md:flex-row items-center space-y-0.5 md:space-y-0 md:space-x-2 px-1.5 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2.5 text-white/80 hover:text-white transition-all duration-300 rounded-md sm:rounded-lg hover:bg-white/10"
                 >
-                  <Users className="w-4 h-4 sm:w-4 sm:h-4 md:w-5 md:h-5" />
-                  <span className="text-xs md:hidden font-light">Agents</span>
+                  <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5" />
+                  <span className="text-xs md:hidden font-light leading-none">Agents</span>
                   <span className="hidden md:inline text-sm font-light">Agents</span>
                 </button>
 
@@ -738,13 +772,12 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                   <button
                     ref={setVersionButtonRef}
                     onClick={() => setShowVersionDropdown(!showVersionDropdown)}
-                    className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-2 px-2 py-2 sm:px-3 sm:py-2 md:px-4 md:py-2.5 text-white/80 hover:text-white transition-all duration-300 rounded-lg hover:bg-white/10"
+                    className="flex flex-col md:flex-row items-center space-y-0.5 md:space-y-0 md:space-x-2 px-1.5 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-2.5 text-white/80 hover:text-white transition-all duration-300 rounded-md sm:rounded-lg hover:bg-white/10"
                   >
-                    <div className="flex items-center space-x-1 md:space-x-2">
-                      <Crown className="w-4 h-4 sm:w-4 sm:h-4 md:w-5 md:h-5" />
-                      <ChevronDown className="w-3 h-3 sm:w-3 sm:h-3 md:w-4 md:h-4" />
+                    <div className="flex items-center justify-center">
+                      <Crown className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5" />
                     </div>
-                    <span className="text-xs md:hidden font-light">AI</span>
+                    <span className="text-xs md:hidden font-light leading-none">AI</span>
                     <span className="hidden md:inline text-sm font-medium text-white">
                       {aiModels.find(model => model.name === selectedVersion)?.name || selectedVersion}
                     </span>

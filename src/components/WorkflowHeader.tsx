@@ -158,7 +158,7 @@ export const WorkflowHeader: React.FC<WorkflowHeaderProps> = ({ onBack, selected
             </button>
             <div ref={logoRef} className="flex items-center">
               <img 
-                src="/duneicon.webp" 
+                src="/dune animation.gif" 
                 alt="DUNE MACHINES" 
                 className="w-6 h-6 mr-3 object-contain"
                 style={{

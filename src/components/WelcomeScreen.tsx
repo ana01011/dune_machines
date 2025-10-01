@@ -395,7 +395,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
         <div ref={logoRef} className="mb-2 sm:mb-3">
           <div className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto relative">
             <img 
-              src="/duneicon.webp" 
+              src="/dune animation.gif" 
               alt="DUNE MACHINES Logo" 
               className="w-full h-full object-contain drop-shadow-2xl animate-pulse-slow"
               style={{
