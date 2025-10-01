@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { HelpCircle, DollarSign, MessageSquare, Menu, X, ArrowLeft, Layers } from 'lucide-react';
+import { Circle as HelpCircle, DollarSign, MessageSquare, Menu, X, ArrowLeft, Layers } from 'lucide-react';
 import { gsap } from 'gsap';
 
 interface HeaderProps {

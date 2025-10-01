@@ -1,44 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { 
-  Building2, 
-  Stethoscope, 
-  Code, 
-  FlaskConical, 
-  GraduationCap, 
-  Factory, 
-  Briefcase, 
-  Truck, 
-  ShoppingCart, 
-  Scale,
-  ArrowRight,
-  Users,
-  Zap,
-  Shield,
-  BarChart3,
-  Clock,
-  CheckCircle,
-  Star,
-  TrendingUp,
-  Globe,
-  Cpu,
-  Heart,
-  Microscope,
-  Rocket,
-  BookOpen,
-  Wrench,
-  DollarSign,
-  Package,
-  ChevronRight,
-  Filter,
-  Search,
-  Award,
-  Target,
-  Layers,
-  Activity,
-  User
-} from 'lucide-react';
+import { Building2, Stethoscope, Code, FlaskConical, GraduationCap, Factory, Briefcase, Truck, ShoppingCart, Scale, ArrowRight, Users, Zap, Shield, ChartBar as BarChart3, Clock, CircleCheck as CheckCircle, Star, TrendingUp, Globe, Cpu, Heart, Microscope, Rocket, BookOpen, Wrench, DollarSign, Package, ChevronRight, ListFilter as Filter, Search, Award, Target, Layers, Activity, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { WorkflowHeader } from './WorkflowHeader';
 import { Footer } from './Footer';

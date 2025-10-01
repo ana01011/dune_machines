@@ -1,16 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { 
-  HelpCircle, 
-  MessageCircle, 
-  Mail, 
-  Phone, 
-  Clock,
-  CheckCircle,
-  AlertTriangle,
-  Info
-} from 'lucide-react';
+import { Circle as HelpCircle, MessageCircle, Mail, Phone, Clock, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle, Info } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { Footer } from './Footer';
@@ -141,7 +132,7 @@ export const HelpSection: React.FC = () => {
             </span>
           </h1>
           <p className="text-xl text-white/60 max-w-2xl mx-auto leading-relaxed font-light">
-            Get assistance with the DUNE MACHINES Corporate Workflow Visualization System
+            Get assistance with the Corporate Workflow Visualization System
           </p>
         </div>
 

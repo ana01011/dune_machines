@@ -1,18 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { 
-  Users, 
-  Network, 
-  MousePointer, 
-  Layers, 
-  Zap, 
-  Shield, 
-  Target,
-  CheckCircle,
-  Lightbulb,
-  ArrowRight
-} from 'lucide-react';
+import { Users, Network, MousePointer, Layers, Zap, Shield, Target, CircleCheck as CheckCircle, Lightbulb, ArrowRight } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
@@ -81,7 +70,7 @@ export const Documentation: React.FC = () => {
             </span>
           </h1>
           <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed font-light">
-            Enterprise-grade organizational visualization and workflow management by DUNE MACHINES
+            Enterprise-grade organizational visualization and workflow management
           </p>
         </div>
 

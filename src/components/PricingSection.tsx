@@ -1,16 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { 
-  Check, 
-  Star, 
-  Zap, 
-  Shield, 
-  Users, 
-  BarChart3,
-  Crown,
-  Rocket
-} from 'lucide-react';
+import { Check, Star, Zap, Shield, Users, ChartBar as BarChart3, Crown, Rocket } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Footer } from './Footer';
 
