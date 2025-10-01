@@ -53,8 +53,8 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message, theme = 'ligh
       case 'curious': return 'text-cyan-400';
       case 'analytical': return 'text-blue-400';
       case 'creative': return 'text-pink-400';
-      case 'contemplative': return 'text-cyan-400';
-      default: return 'text-cyan-400';
+      case 'contemplative': return 'text-purple-400';
+      default: return 'text-purple-400';
     }
   };
 
