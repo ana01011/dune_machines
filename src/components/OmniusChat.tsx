@@ -525,14 +525,14 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
             {/* Header */}
             <div 
               ref={headerRef}
-              className="flex items-center justify-between p-4 sm:p-6 border-b border-white/5 backdrop-blur-xl" 
+              className="flex items-center justify-between p-3 sm:p-4 border-b border-white/5 backdrop-blur-xl" 
               style={{
                 background: currentTheme === 'light' 
                   ? 'linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(1,4,9,0.85) 15%, rgba(2,6,23,0.85) 30%, rgba(10,15,28,0.85) 45%, rgba(15,23,42,0.85) 60%, rgba(2,6,23,0.85) 75%, rgba(1,4,9,0.85) 85%, rgba(0,0,0,0.85) 100%)'
                   : 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)'
               }}
             >
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
                 {/* Sidebar Toggle */}
                 {!sidebarOpen && (
                   <button
@@ -550,18 +550,18 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                   <ArrowLeft className="w-5 h-5" />
                 </button>
                 
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-3">
                   {/* OMNIUS Icon - No Box */}
                   <div className="relative">
                     <img 
                       src="/duneicon.webp" 
                       alt="OMNIUS" 
-                      className="w-24 h-24 object-contain animate-opacity-fluctuate"
+                      className="w-16 h-16 object-contain animate-opacity-fluctuate"
                     />
                   </div>
                   
                   <div>
-                    <h1 className="text-lg font-light text-white tracking-wider">OMNIUS</h1>
+                    <h1 className="text-base font-light text-white tracking-wider">OMNIUS</h1>
                     <p className="text-xs text-purple-400 font-light">The Evermind Supreme</p>
                   </div>
                 </div>
