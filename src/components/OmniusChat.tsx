@@ -625,7 +625,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                       }}
                     />
                   </div>
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-white/60 mb-1 tracking-wider">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-white/60 mb-1 tracking-wider -mt-4">
                     ASK OMNIUS ANYTHING
                   </h2>
                   <p className="text-xs sm:text-sm text-white/40 font-light tracking-wide max-w-md mb-0">
