@@ -27,49 +27,40 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ selectedAI, onComp
     if (containerRef.current && animationRef.current && titleRef.current && subtitleRef.current) {
       const tl = gsap.timeline();
 
-      // Set initial states
+      // Set initial states - everything hidden
       gsap.set([animationRef.current, titleRef.current, subtitleRef.current], {
-        opacity: 0,
-        y: 50,
-        scale: 0.8
+        opacity: 0
       });
 
-      // Entrance animation sequence
+      // 1. Animation fades in slowly (2 seconds)
       tl.to(animationRef.current, {
         opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 1.5,
-        ease: "power3.out"
+        duration: 2,
+        ease: "power2.out"
       })
+      
+      // 2. Wait 3 seconds, then title appears (1.5 seconds fade)
       .to(titleRef.current, {
         opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 1.2,
+        duration: 1.5,
         ease: "power2.out"
-      }, "-=0.8")
+      }, "+=3")
+      
+      // 3. Wait 3 seconds, then subtitle appears (1.5 seconds fade)
       .to(subtitleRef.current, {
         opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 1,
+        duration: 1.5,
         ease: "power2.out"
-      }, "-=0.6");
-
-      // Auto-complete after 4 seconds
-      const timer = setTimeout(() => {
-        // Exit animation
-        gsap.to(containerRef.current, {
-          opacity: 0,
-          scale: 0.95,
-          duration: 0.8,
-          ease: "power2.in",
-          onComplete: onComplete
-        });
-      }, 4000);
-
-      return () => clearTimeout(timer);
+      }, "+=3")
+      
+      // 4. Hold everything for 5 seconds, then fade out entire screen slowly
+      .to(containerRef.current, {
+        opacity: 0,
+        duration: 2,
+        ease: "power2.in",
+        delay: 5,
+        onComplete: onComplete
+      });
     }
   }, [onComplete]);
 
@@ -81,57 +72,45 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ selectedAI, onComp
         background: '#000000'
       }}
     >
-      {/* Animated Logo */}
+      {/* Animated Logo - No Effects */}
       <div ref={animationRef} className="mb-8 sm:mb-12">
         <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 mx-auto relative">
           <img 
             src="/dune animation.gif" 
             alt="DUNE MACHINES Animation" 
             className="w-full h-full object-contain"
-            style={{
-              filter: 'drop-shadow(0 0 30px rgba(59, 130, 246, 0.8)) drop-shadow(0 0 60px rgba(139, 92, 246, 0.6))'
-            }}
           />
         </div>
       </div>
 
-      {/* Website Title */}
+      {/* Website Title - Cinematic Font */}
       <div ref={titleRef} className="mb-4 sm:mb-6">
         <h1 
-          className="text-xl sm:text-2xl md:text-3xl font-light tracking-[0.2em] sm:tracking-[0.25em] text-center"
+          className="text-xl sm:text-2xl md:text-3xl font-light tracking-[0.3em] sm:tracking-[0.4em] text-center"
           style={{
-            fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+            fontFamily: 'Cinzel, serif',
             fontWeight: '300',
             color: '#ffffff',
-            textShadow: '0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.4)'
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)'
           }}
         >
           www.Dunemachines.com
         </h1>
       </div>
 
-      {/* Selected AI Model */}
+      {/* Selected AI Model - Cinematic Font */}
       <div ref={subtitleRef}>
         <p 
-          className="text-base sm:text-lg md:text-xl font-light tracking-[0.15em] text-center"
+          className="text-base sm:text-lg md:text-xl font-light tracking-[0.2em] text-center"
           style={{
-            fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+            fontFamily: 'Playfair Display, serif',
             fontWeight: '300',
-            color: 'rgba(255, 255, 255, 0.8)',
-            textShadow: '0 0 15px rgba(255, 255, 255, 0.6)'
+            color: 'rgba(255, 255, 255, 0.9)',
+            textShadow: '1px 1px 3px rgba(0, 0, 0, 0.7)'
           }}
         >
           {selectedModel?.name || 'OMNIUS'} - {selectedModel?.subtitle || 'The Evermind Supreme'}
         </p>
-      </div>
-
-      {/* Loading Progress Indicator */}
-      <div className="absolute bottom-12 sm:bottom-16 left-1/2 transform -translate-x-1/2">
-        <div className="flex items-center space-x-2">
-          <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style={{animationDelay: '0s'}}></div>
-          <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-          <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
-        </div>
       </div>
     </div>
   );
