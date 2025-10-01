@@ -683,7 +683,7 @@ export const WorkflowSelection: React.FC<WorkflowSelectionProps> = ({ onWorkflow
           <div className="bg-gradient-to-r from-white/[0.02] to-white/[0.01] backdrop-blur-sm rounded-2xl p-6 sm:p-8 md:p-12 border border-white/10">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-white mb-6">Ready to Transform Your Organization?</h2>
             <p className="text-sm sm:text-base md:text-lg text-white/70 mb-8 sm:mb-10 max-w-3xl mx-auto font-light leading-relaxed">
-              Join thousands of organizations already using Thinking Machines to optimize 
+              Join thousands of organizations already using DUNE MACHINES to optimize 
               their workflows and achieve unprecedented operational excellence.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

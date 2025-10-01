@@ -141,7 +141,7 @@ export const HelpSection: React.FC = () => {
             </span>
           </h1>
           <p className="text-xl text-white/60 max-w-2xl mx-auto leading-relaxed font-light">
-            Get assistance with the Corporate Workflow Visualization System
+            Get assistance with the DUNE MACHINES Corporate Workflow Visualization System
           </p>
         </div>
 

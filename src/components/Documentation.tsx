@@ -81,7 +81,7 @@ export const Documentation: React.FC = () => {
             </span>
           </h1>
           <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed font-light">
-            Enterprise-grade organizational visualization and workflow management
+            Enterprise-grade organizational visualization and workflow management by DUNE MACHINES
           </p>
         </div>
 

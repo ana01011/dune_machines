@@ -369,7 +369,7 @@ export const PricingSection: React.FC = () => {
           <div className="bg-gradient-to-r from-white/[0.02] to-white/[0.01] backdrop-blur-sm rounded-2xl p-12 border border-white/10">
             <h2 className="text-3xl font-light text-white mb-6">Ready to Transform Your Workflow?</h2>
             <p className="text-xl text-white/70 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
-              Join thousands of organizations already using Thinking Machines to optimize 
+              Join thousands of organizations already using DUNE MACHINES to optimize 
               their corporate workflows and improve team collaboration.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
