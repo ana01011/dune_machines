@@ -697,30 +697,30 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                     </h2>
                     <p className="text-white/70 max-w-md font-light leading-relaxed">
                       I am the Evermind Supreme, processing infinite possibilities across the cosmos. 
-                      How may I assist your consciousness today?
+                      How may I assist you in your quest for knowledge?
                     </p>
                   </div>
                   
                   {/* Quick Start Suggestions */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-2xl w-full mt-8">
                     {[
-                      { icon: "🧠", title: "Analyze Complex Data", desc: "Process and interpret complex information" },
-                      { icon: "🔮", title: "Predict Outcomes", desc: "Forecast possibilities and scenarios" },
-                      { icon: "💡", title: "Creative Solutions", desc: "Generate innovative approaches" },
-                      { icon: "🌌", title: "Explore Concepts", desc: "Dive deep into any topic" }
+                      { icon: "🌌", title: "Explore the Universe", desc: "Ask about cosmic phenomena and space exploration" },
+                      { icon: "🧠", title: "Deep Analysis", desc: "Get comprehensive analysis on complex topics" },
+                      { icon: "💡", title: "Creative Solutions", desc: "Generate innovative ideas and solutions" },
+                      { icon: "📊", title: "Data Processing", desc: "Analyze and interpret complex data sets" }
                     ].map((suggestion, index) => (
                       <button
                         key={index}
-                        onClick={() => handleSendMessage(suggestion.title)}
+                        onClick={() => handleSendMessage(suggestion.desc)}
                         className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 text-left group"
                       >
                         <div className="flex items-start space-x-3">
                           <span className="text-2xl">{suggestion.icon}</span>
-                          <div>
+                          <div className="flex-1">
                             <h3 className="text-white font-medium mb-1 group-hover:text-blue-300 transition-colors">
                               {suggestion.title}
                             </h3>
-                            <p className="text-white/60 text-sm">
+                            <p className="text-white/60 text-sm leading-relaxed">
                               {suggestion.desc}
                             </p>
                           </div>
@@ -737,8 +737,8 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                       message={message}
                       onCopy={handleCopyMessage}
                       onRegenerate={handleRegenerateResponse}
-                      copiedMessageId={copiedMessageId}
-                      regeneratingMessageId={regeneratingMessageId}
+                      isCopied={copiedMessageId === message.id}
+                      isRegenerating={regeneratingMessageId === message.id}
                     />
                   ))}
                   
@@ -753,15 +753,16 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                         />
                       </div>
                       <div className="flex-1">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <span className="text-sm font-medium text-white">OMNIUS</span>
-                          <span className="text-xs text-white/60">is thinking...</span>
-                        </div>
                         <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
-                          <div className="flex space-x-1">
-                            <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                            <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                            <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                          <div className="flex items-center space-x-2">
+                            <div className="flex space-x-1">
+                              <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                              <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                              <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                            </div>
+                            <span className="text-white/60 text-sm font-light">
+                              {isThinking ? 'Processing through infinite neural pathways...' : 'OMNIUS is typing...'}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -785,7 +786,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
               <AdvancedInput
                 onSendMessage={handleSendMessage}
                 disabled={isTyping}
-                placeholder="Commune with the Evermind..."
+                placeholder="Commune with the Evermind Supreme..."
               />
             </div>
           </div>
