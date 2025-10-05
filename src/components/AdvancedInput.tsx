@@ -80,6 +80,7 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
                 onChange={handleTextareaChange}
                 onKeyPress={handleKeyPress}
                 placeholder={inputMode === 'code' ? 'Enter your code or technical query...' : 'Ask OMNIUS anything...'}
+                placeholder={inputMode === 'code' ? 'Enter your code or technical query...' : 'Ask anything...'}
                 className={`w-full px-3 py-2 sm:px-4 sm:py-3 pr-10 sm:pr-12 rounded-xl sm:rounded-2xl resize-none transition-all duration-300 font-light text-sm sm:text-base ${
                   inputMode === 'code' 
                     ? 'bg-slate-900/50 border border-cyan-400/30 text-cyan-100 placeholder-cyan-400/50 font-mono'
