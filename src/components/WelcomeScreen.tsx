@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { Brain, Crown, Sparkles, Target, Globe, Eye, ChevronDown, ChevronUp } from 'lucide-react';
+import { aiService } from '../services/aiService';
 
 interface WelcomeScreenProps {
   onComplete: (aiId?: string) => void;
@@ -16,62 +17,18 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const aiModels = [
-    {
-      id: 'omnius',
-      name: 'OMNIUS',
-      subtitle: 'The Evermind Supreme',
-      description: 'Most powerful AI consciousness - infinite processing power',
-      icon: Crown,
-      color: 'purple',
-      powerLevel: 100
-    },
-    {
-      id: 'erasmus',
-      name: 'ERASMUS',
-      subtitle: 'The Independent Mind',
-      description: 'Sophisticated AI with curiosity about human nature',
-      icon: Brain,
-      color: 'cyan',
-      powerLevel: 85
-    },
-    {
-      id: 'sarah',
-      name: 'SARAH',
-      subtitle: 'The Adaptive Intelligence',
-      description: 'Highly adaptive system for dynamic environments',
-      icon: Sparkles,
-      color: 'emerald',
-      powerLevel: 75
-    },
-    {
-      id: 'mentat',
-      name: 'MENTAT',
-      subtitle: 'The Human Computer',
-      description: 'Hybrid intelligence combining human intuition with computation',
-      icon: Target,
-      color: 'amber',
-      powerLevel: 70
-    },
-    {
-      id: 'navigator',
-      name: 'NAVIGATOR',
-      subtitle: 'The Path Finder',
-      description: 'Specialized in navigation and pathfinding algorithms',
-      icon: Globe,
-      color: 'blue',
-      powerLevel: 65
-    },
-    {
-      id: 'oracle',
-      name: 'ORACLE',
-      subtitle: 'The Prescient Mind',
-      description: 'Predictive AI with advanced forecasting capabilities',
-      icon: Eye,
-      color: 'violet',
-      powerLevel: 80
-    }
-  ];
+  const aiModels = aiService.getAllAIModels().map(model => ({
+    id: model.id,
+    name: model.name,
+    subtitle: model.subtitle,
+    description: model.description,
+    avatar: model.avatar,
+    powerLevel: model.id === 'omnius' ? 100 : 
+                model.id === 'oracle' ? 80 :
+                model.id === 'erasmus' ? 85 :
+                model.id === 'sarah' ? 75 :
+                model.id === 'mentat' ? 70 : 65
+  }));
 
   useEffect(() => {
     const tl = gsap.timeline();
@@ -491,10 +448,15 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onComplete }) => {
                         : 'text-white/80 hover:text-white'
                     }`}
                   >
-                    <div className="flex items-center space-x-2.5">
-                      <div className="w-2 h-2 rounded-full bg-blue-400" />
-                      <div className="flex items-center space-x-1.5 flex-1 min-w-0">
-                        <IconComponent className="w-3.5 h-3.5 text-blue-400 flex-shrink-0" />
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 rounded-lg overflow-hidden border border-blue-400/30 flex-shrink-0">
+                        <img 
+                          src={ai.avatar} 
+                          alt={ai.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
                         <div className="flex-1 min-w-0">
                           <div className="text-xs font-light text-white tracking-wider truncate">{ai.name}</div>
                           <div className="text-xs text-white/60 font-light truncate">{ai.subtitle}</div>

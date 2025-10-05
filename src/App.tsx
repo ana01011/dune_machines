@@ -9,6 +9,10 @@ import { MedicalChart } from './components/MedicalChart';
 import { OmniusChat } from './components/OmniusChat';
 import { LoadingScreen } from './components/LoadingScreen';
 import { Documentation } from './components/Documentation';
+import { ErasmusChat } from './components/ErasmusChat';
+import { SarahChat } from './components/SarahChat';
+import { MentatChat } from './components/MentatChat';
+import { NavigatorChat } from './components/NavigatorChat';
 import { HelpSection } from './components/HelpSection';
 import { PricingSection } from './components/PricingSection';
 import { FAQSection } from './components/FAQSection';
@@ -138,9 +142,53 @@ function App() {
           setShowWelcome(false);
         }} 
       />;
+    } else if (selectedAI === 'erasmus') {
+      return <ErasmusChat 
+        onBack={handleBack} 
+        onNavigateToWorkflows={() => {
+          setSelectedAI(null);
+          setShowWorkflowSelection(true);
+          setShowWelcome(false);
+        }} 
+      />;
+    } else if (selectedAI === 'sarah') {
+      return <SarahChat 
+        onBack={handleBack} 
+        onNavigateToWorkflows={() => {
+          setSelectedAI(null);
+          setShowWorkflowSelection(true);
+          setShowWelcome(false);
+        }} 
+      />;
+    } else if (selectedAI === 'mentat') {
+      return <MentatChat 
+        onBack={handleBack} 
+        onNavigateToWorkflows={() => {
+          setSelectedAI(null);
+          setShowWorkflowSelection(true);
+          setShowWelcome(false);
+        }} 
+      />;
+    } else if (selectedAI === 'navigator') {
+      return <NavigatorChat 
+        onBack={handleBack} 
+        onNavigateToWorkflows={() => {
+          setSelectedAI(null);
+          setShowWorkflowSelection(true);
+          setShowWelcome(false);
+        }} 
+      />;
     }
-    // Add other AI interfaces here later
-    return <div>AI Interface for {selectedAI} coming soon...</div>;
+    
+    // Fallback for Oracle or other AIs
+    return <OmniusChat 
+      onBack={handleBack} 
+      onNavigateToWorkflows={() => {
+        setSelectedAI(null);
+        setShowWorkflowSelection(true);
+        setShowWelcome(false);
+      }} 
+    />;
   }
   if (showWelcome) {
     return <WelcomeScreen onComplete={(aiId?: string) => {

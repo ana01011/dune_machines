@@ -6,6 +6,7 @@ import { ChatMessage } from './ChatMessage';
 import { AdvancedInput } from './AdvancedInput';
 import { getTheme, getAvailableThemes } from '../themes/chatThemes';
 import { ThemeBackground } from './ThemeBackground';
+import { aiService, AIResponse } from '../services/aiService';
 
 interface Message {
   id: string;
@@ -65,14 +66,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
   const inputRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const aiModels = [
-    { id: 'omnius', name: 'OMNIUS', subtitle: 'The Evermind Supreme' },
-    { id: 'erasmus', name: 'ERASMUS', subtitle: 'The Independent Mind' },
-    { id: 'sarah', name: 'SARAH', subtitle: 'The Adaptive Intelligence' },
-    { id: 'mentat', name: 'MENTAT', subtitle: 'The Human Computer' },
-    { id: 'navigator', name: 'NAVIGATOR', subtitle: 'The Path Finder' },
-    { id: 'oracle', name: 'ORACLE', subtitle: 'The Prescient Mind' }
-  ];
+  const aiModels = aiService.getAllAIModels();
 
   // Auto scroll to latest message
   useEffect(() => {
@@ -222,30 +216,36 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
     setIsTyping(true);
     setIsThinking(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      const aiResponse: Message = {
-        id: (Date.now() + 1).toString(),
-        content: 'I process your query through infinite neural pathways. Let me analyze and provide you with the most comprehensive response...',
-        sender: 'omnius',
-        timestamp: new Date(),
-        type: 'text',
-        mood: 'analytical'
-      };
-      
-      setChatHistory(prev => prev.map(chat => 
-        chat.id === currentChatId 
-          ? { 
-              ...chat, 
-              messages: [...chat.messages, aiResponse],
-              lastMessage: aiResponse.content,
-              timestamp: new Date()
-            }
-          : chat
-      ));
-      setIsTyping(false);
-      setIsThinking(false);
-    }, 2000);
+    // Use AI service for response
+    aiService.sendMessage(content, selectedVersion.toLowerCase(), type)
+      .then((response: AIResponse) => {
+        const aiResponse: Message = {
+          id: (Date.now() + 1).toString(),
+          content: response.content,
+          sender: 'omnius',
+          timestamp: new Date(),
+          type: response.type,
+          mood: response.mood
+        };
+        
+        setChatHistory(prev => prev.map(chat => 
+          chat.id === currentChatId 
+            ? { 
+                ...chat, 
+                messages: [...chat.messages, aiResponse],
+                lastMessage: aiResponse.content,
+                timestamp: new Date()
+              }
+            : chat
+        ));
+        setIsTyping(false);
+        setIsThinking(false);
+      })
+      .catch((error) => {
+        console.error('AI Service Error:', error);
+        setIsTyping(false);
+        setIsThinking(false);
+      });
   };
 
 
@@ -728,15 +728,17 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 <div className="flex items-center space-x-1.5 sm:space-x-3 md:space-x-4">
                   <div className="relative">
                     <img 
-                      src="/duneicon.webp" 
-                      alt="OMNIUS" 
-                     className="w-10 h-10 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain animate-opacity-fluctuate"
+                      src={aiService.getAIModel(selectedVersion.toLowerCase())?.avatar || "/duneicon.webp"} 
+                      alt={selectedVersion} 
+                      className="w-10 h-10 sm:w-10 sm:h-10 md:w-12 md:h-12 object-cover rounded-lg animate-opacity-fluctuate"
                     />
                   </div>
                   
                   <div>
-                    <h1 className="text-xs sm:text-base md:text-lg font-light text-white tracking-wider">OMNIUS</h1>
-                    <p className="text-xs text-white/70 font-light hidden md:block">The Evermind Supreme</p>
+                    <h1 className="text-xs sm:text-base md:text-lg font-light text-white tracking-wider">{selectedVersion}</h1>
+                    <p className="text-xs text-white/70 font-light hidden md:block">
+                      {aiService.getAIModel(selectedVersion.toLowerCase())?.subtitle || 'AI Assistant'}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -779,7 +781,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                     </div>
                     <span className="text-xs md:hidden font-light leading-none">AI</span>
                     <span className="hidden md:inline text-sm font-medium text-white">
-                      {aiModels.find(model => model.name === selectedVersion)?.name || selectedVersion}
+                      {selectedVersion}
                     </span>
                   </button>
                 </div>
@@ -796,8 +798,8 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 <div className="flex flex-col items-center justify-center h-full text-center py-4 sm:py-8">
                   <div className="relative mb-8">
                     <img 
-                      src="/duneicon.webp" 
-                      alt="OMNIUS" 
+                      src={aiService.getAIModel(selectedVersion.toLowerCase())?.avatar || "/duneicon.webp"} 
+                      alt={selectedVersion} 
                       className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain opacity-30 animate-pulse-slow"
                       style={{
                         filter: 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)) drop-shadow(0 0 40px rgba(139, 92, 246, 0.4))'
@@ -805,10 +807,10 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                     />
                   </div>
                   <h2 className="text-base sm:text-lg md:text-xl font-light text-white/60 mb-1 tracking-wider -mt-4 sm:-mt-6">
-                    ASK OMNIUS ANYTHING
+                    ASK {selectedVersion} ANYTHING
                   </h2>
                   <p className="text-xs sm:text-sm text-white/50 font-light tracking-wide max-w-xs sm:max-w-md px-4">
-                    The Evermind Supreme awaits your queries with infinite processing power
+                    {aiService.getAIModel(selectedVersion.toLowerCase())?.subtitle || 'AI Assistant'} awaits your queries
                   </p>
                 </div>
               )}
@@ -830,9 +832,9 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
               {isThinking && (
                 <div className="flex items-start space-x-3 mb-6">
                   <img 
-                    src="/duneicon.webp" 
-                    alt="OMNIUS" 
-                    className="w-12 h-12 object-contain animate-opacity-fluctuate"
+                    src={aiService.getAIModel(selectedVersion.toLowerCase())?.avatar || "/duneicon.webp"} 
+                    alt={selectedVersion} 
+                    className="w-12 h-12 object-cover rounded-lg animate-opacity-fluctuate"
                   />
                   <div className="space-y-2">
                     <div className="text-sm text-white/80 font-light animate-pulse">
@@ -916,10 +918,16 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                   : 'text-white/80 hover:text-white'
               }`}
             >
-              <div className="flex items-center space-x-2 sm:space-x-3">
-                <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-400" />
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 rounded-lg overflow-hidden border border-blue-400/30 flex-shrink-0">
+                  <img 
+                    src={model.avatar} 
+                    alt={model.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
                 <div>
-                  <div className="text-xs font-light text-white tracking-wider">{model.name}</div>
+                  <div className="text-sm font-light text-white tracking-wider">{model.name}</div>
                   <div className="text-xs text-white/60 font-light">{model.subtitle}</div>
                 </div>
               </div>

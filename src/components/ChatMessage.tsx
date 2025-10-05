@@ -14,6 +14,7 @@ interface Message {
 interface ChatMessageProps {
   message: Message;
   theme?: 'light' | 'dark';
+  aiAvatar?: string;
   onCopy?: (content: string, messageId: string) => void;
   onRegenerate?: (messageId: string) => void;
   copiedMessageId?: string | null;
@@ -23,6 +24,7 @@ interface ChatMessageProps {
 export const ChatMessage: React.FC<ChatMessageProps> = ({ 
   message, 
   theme = 'light',
+  aiAvatar = "/duneicon.webp",
   onCopy,
   onRegenerate,
   copiedMessageId,
@@ -82,7 +84,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
         <div className="flex-shrink-0">
           {isOmnius ? (
             <img 
-              src="/duneicon.webp" 
+              src={aiAvatar} 
               alt="OMNIUS" 
               className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain animate-opacity-fluctuate"
             />
