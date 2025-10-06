@@ -1,8 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { gsap } from 'gsap';
 import { Send, Mic, Paperclip, Settings, Crown, ArrowLeft, ChevronDown, Trash2, CreditCard as Edit2, Plus, MessageSquare, Menu, X, Copy, Check, Sun, Moon, Palette, Users, RotateCcw, User } from 'lucide-react';
-import { ChatMessage } from './ChatMessage';
+import { MessageList } from './MessageList';
+import { StreamingMessage } from './StreamingMessage';
 import { AdvancedInput } from './AdvancedInput';
 import { getTheme, getAvailableThemes } from '../themes/chatThemes';
 import { ThemeBackground } from './ThemeBackground';
@@ -54,10 +55,16 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
   const [themeButtonRef, setThemeButtonRef] = useState<HTMLButtonElement | null>(null);
   const [versionButtonRef, setVersionButtonRef] = useState<HTMLButtonElement | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  
+
+  const [streamingContent, setStreamingContent] = useState('');
+  const [isStreaming, setIsStreaming] = useState(false);
+  const streamingContentRef = useRef('');
+  const rafIdRef = useRef<number | null>(null);
+  const pendingUpdateRef = useRef(false);
+
   const getCurrentChat = () => chatHistory.find(chat => chat.id === currentChatId);
   const messages = getCurrentChat()?.messages || [];
-  
+
   const [isTyping, setIsTyping] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -71,7 +78,13 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
   // Auto scroll to latest message
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping]);
+  }, [messages.length, isTyping, isStreaming]);
+
+  useEffect(() => {
+    if (isStreaming) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'auto' });
+    }
+  }, [streamingContent]);
 
   // Check if mobile
   useEffect(() => {
@@ -191,7 +204,17 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
     setEditingTitle(currentTitle);
   };
 
-  const handleSendMessage = (content: string, type: 'text' | 'code' | 'voice' = 'text') => {
+  const scheduleStreamUpdate = useCallback(() => {
+    if (pendingUpdateRef.current) return;
+
+    pendingUpdateRef.current = true;
+    rafIdRef.current = requestAnimationFrame(() => {
+      setStreamingContent(streamingContentRef.current);
+      pendingUpdateRef.current = false;
+    });
+  }, []);
+
+  const handleSendMessage = useCallback((content: string, type: 'text' | 'code' | 'voice' = 'text') => {
     const newMessage: Message = {
       id: Date.now().toString(),
       content,
@@ -200,7 +223,6 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
       type
     };
 
-    // Update current chat with new message
     setChatHistory(prev => prev.map(chat =>
       chat.id === currentChatId
         ? {
@@ -213,77 +235,69 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
         : chat
     ));
 
-    setIsTyping(true);
     setIsThinking(true);
+    setIsTyping(false);
 
-    const aiMessageId = (Date.now() + 1).toString();
-    let streamedContent = '';
+    setTimeout(() => {
+      setIsThinking(false);
+      setIsStreaming(true);
+      setStreamingContent('');
+      streamingContentRef.current = '';
 
-    const aiResponse: Message = {
-      id: aiMessageId,
-      content: '',
-      sender: 'omnius',
-      timestamp: new Date(),
-      type: type === 'voice' ? 'voice' : 'text',
-      mood: 'curious'
-    };
-
-    setChatHistory(prev => prev.map(chat =>
-      chat.id === currentChatId
-        ? {
-            ...chat,
-            messages: [...chat.messages, aiResponse]
+      aiService.streamMessage(
+        content,
+        selectedVersion.toLowerCase(),
+        (token: string) => {
+          streamingContentRef.current += token;
+          scheduleStreamUpdate();
+        },
+        type
+      )
+        .then((response: AIResponse) => {
+          if (rafIdRef.current) {
+            cancelAnimationFrame(rafIdRef.current);
+            rafIdRef.current = null;
           }
-        : chat
-    ));
 
-    setIsThinking(false);
-    setIsTyping(true);
+          const aiMessage: Message = {
+            id: Date.now().toString(),
+            content: streamingContentRef.current,
+            sender: 'omnius',
+            timestamp: new Date(),
+            type: type === 'voice' ? 'voice' : 'text',
+            mood: response.mood
+          };
 
-    aiService.streamMessage(
-      content,
-      selectedVersion.toLowerCase(),
-      (token: string) => {
-        streamedContent += token;
-        setChatHistory(prev => prev.map(chat =>
-          chat.id === currentChatId
-            ? {
-                ...chat,
-                messages: chat.messages.map(msg =>
-                  msg.id === aiMessageId
-                    ? { ...msg, content: streamedContent }
-                    : msg
-                )
-              }
-            : chat
-        ));
-      },
-      type
-    )
-      .then((response: AIResponse) => {
-        setChatHistory(prev => prev.map(chat =>
-          chat.id === currentChatId
-            ? {
-                ...chat,
-                messages: chat.messages.map(msg =>
-                  msg.id === aiMessageId
-                    ? { ...msg, mood: response.mood }
-                    : msg
-                ),
-                lastMessage: streamedContent,
-                timestamp: new Date()
-              }
-            : chat
-        ));
-        setIsTyping(false);
-        setIsThinking(false);
-      })
-      .catch((error) => {
-        console.error('AI Service Error:', error);
-        setIsTyping(false);
-        setIsThinking(false);
-      });
-  };
+          setChatHistory(prev => prev.map(chat =>
+            chat.id === currentChatId
+              ? {
+                  ...chat,
+                  messages: [...chat.messages, aiMessage],
+                  lastMessage: aiMessage.content,
+                  timestamp: new Date()
+                }
+              : chat
+          ));
+
+          setIsStreaming(false);
+          setStreamingContent('');
+          streamingContentRef.current = '';
+          setIsTyping(false);
+        })
+        .catch((error) => {
+          console.error('AI Service Error:', error);
+          if (rafIdRef.current) {
+            cancelAnimationFrame(rafIdRef.current);
+            rafIdRef.current = null;
+          }
+          setIsStreaming(false);
+          setStreamingContent('');
+          streamingContentRef.current = '';
+          setIsTyping(false);
+          setIsThinking(false);
+        });
+    }, 800);
+  }, [currentChatId, selectedVersion, scheduleStreamUpdate]);
 
 
   const activeTheme = getTheme(currentTheme);
@@ -852,25 +866,21 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 </div>
               )}
               
-              {messages.map((message) => (
-                <div key={message.id} className="mb-6">
-                  <ChatMessage 
-                    message={message} 
-                    theme={currentTheme}
-                    onCopy={handleCopyMessage}
-                    onRegenerate={handleRegenerateResponse}
-                    copiedMessageId={copiedMessageId}
-                    regeneratingMessageId={regeneratingMessageId}
-                  />
-                </div>
-              ))}
-              
+              <MessageList
+                messages={messages}
+                theme={currentTheme}
+                onCopy={handleCopyMessage}
+                onRegenerate={handleRegenerateResponse}
+                copiedMessageId={copiedMessageId}
+                regeneratingMessageId={regeneratingMessageId}
+              />
+
               {/* Thinking Indicator */}
               {isThinking && (
                 <div className="flex items-start space-x-3 mb-6">
-                  <img 
-                    src={aiService.getAIModel(selectedVersion.toLowerCase())?.avatar || "/duneicon.webp"} 
-                    alt={selectedVersion} 
+                  <img
+                    src={aiService.getAIModel(selectedVersion.toLowerCase())?.avatar || "/duneicon.webp"}
+                    alt={selectedVersion}
                     className="w-12 h-12 object-cover rounded-lg animate-opacity-fluctuate"
                   />
                   <div className="space-y-2">
@@ -879,6 +889,14 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                     </div>
                   </div>
                 </div>
+              )}
+
+              {/* Streaming Message */}
+              {isStreaming && (
+                <StreamingMessage
+                  content={streamingContent}
+                  aiAvatar={aiService.getAIModel(selectedVersion.toLowerCase())?.avatar || "/duneicon.webp"}
+                />
               )}
               
               {/* Auto scroll target */}
