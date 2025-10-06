@@ -728,7 +728,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 <div className="flex items-center space-x-1.5 sm:space-x-3 md:space-x-4">
                   <div className="relative">
                     <img 
-                      src={aiService.getAIModel(selectedVersion.toLowerCase())?.avatar || "/duneicon.webp"} 
+                      src={aiService.getAIModel(selectedVersion.toLowerCase())?.avatar || "/duneicon copy.webp"} 
                       alt={selectedVersion} 
                       className="w-10 h-10 sm:w-10 sm:h-10 md:w-12 md:h-12 object-cover rounded-lg animate-opacity-fluctuate"
                     />
@@ -798,7 +798,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 <div className="flex flex-col items-center justify-center h-full text-center py-4 sm:py-8">
                   <div className="relative mb-8">
                     <img 
-                      src={aiService.getAIModel(selectedVersion.toLowerCase())?.avatar || "/duneicon.webp"} 
+                      src={aiService.getAIModel(selectedVersion.toLowerCase())?.avatar || "/duneicon copy.webp"} 
                       alt={selectedVersion} 
                       className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain opacity-30 animate-pulse-slow"
                       style={{

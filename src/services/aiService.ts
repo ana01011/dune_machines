@@ -17,7 +17,7 @@ const aiModels: AIModel[] = [
     id: 'omnius',
     name: 'OMNIUS',
     subtitle: 'The Omniscient Mind',
-    avatar: '/omnius-char-unscreen.gif',
+    avatar: '/duneicon copy.webp',
     description: 'Supreme consciousness with infinite knowledge'
   },
   {
