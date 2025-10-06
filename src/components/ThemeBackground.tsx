@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { ChatTheme } from '../themes/chatThemes';
 
 interface ThemeBackgroundProps {
@@ -6,45 +6,104 @@ interface ThemeBackgroundProps {
   className?: string;
 }
 
-export const ThemeBackground: React.FC<ThemeBackgroundProps> = ({ theme, className = "" }) => {
+const ThemeBackgroundComponent: React.FC<ThemeBackgroundProps> = ({ theme, className = "" }) => {
+  const stars = useMemo(() => {
+    return [...Array(50)].map((_, i) => ({
+      key: `particle-${i}`,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 5,
+      duration: 8 + Math.random() * 3,
+      opacity: 0.2 + Math.random() * 0.7,
+      scale: 0.5 + Math.random() * 0.5
+    }));
+  }, []);
+
+  const glitters = useMemo(() => {
+    return [...Array(30)].map((_, i) => ({
+      key: `glitter-${i}`,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 6,
+      duration: 1 + Math.random() * 2,
+      opacity: 0.2 + Math.random() * 0.5,
+      scale: 0.3 + Math.random() * 0.4
+    }));
+  }, []);
+
+  const matrixElements = useMemo(() => {
+    return [...Array(20)].map((_, i) => ({
+      key: `matrix-${i}`,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 3,
+      duration: 2 + Math.random() * 2,
+      text: Math.random().toString(36).substring(2, 8)
+    }));
+  }, []);
+
+  const neonGlows = useMemo(() => {
+    return [...Array(15)].map((_, i) => ({
+      key: `neon-${i}`,
+      width: 10 + Math.random() * 20,
+      height: 10 + Math.random() * 20,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 3,
+      duration: 3 + Math.random() * 2
+    }));
+  }, []);
+
+  const bubbles = useMemo(() => {
+    return [...Array(25)].map((_, i) => ({
+      key: `bubble-${i}`,
+      width: 5 + Math.random() * 15,
+      height: 5 + Math.random() * 15,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: Math.random() * 4,
+      duration: 4 + Math.random() * 3
+    }));
+  }, []);
+
   return (
     <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}>
       {/* Starry Background */}
       {theme.effects.hasStars && (
         <div className="absolute inset-0">
           {/* Ultra-small glittering stars */}
-          {[...Array(50)].map((_, i) => (
+          {stars.map((star) => (
             <div
-              key={`particle-${i}`}
+              key={star.key}
               className="absolute bg-white rounded-full animate-pulse twinkle-star"
               style={{
                 width: '0.1px',
                 height: '0.1px',
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${8 + Math.random() * 3}s`,
-                opacity: 0.2 + Math.random() * 0.7,
+                left: `${star.left}%`,
+                top: `${star.top}%`,
+                animationDelay: `${star.delay}s`,
+                animationDuration: `${star.duration}s`,
+                opacity: star.opacity,
                 boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
-                transform: `scale(${0.5 + Math.random() * 0.5})`
+                transform: `scale(${star.scale})`
               }}
             />
           ))}
           {/* Additional tiny glitter layer */}
-          {[...Array(30)].map((_, i) => (
+          {glitters.map((glitter) => (
             <div
-              key={`glitter-${i}`}
+              key={glitter.key}
               className="absolute bg-blue-200 rounded-full animate-pulse twinkle-star-blue"
               style={{
                 width: '0.5px',
                 height: '0.5px',
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 6}s`,
-                animationDuration: `${1 + Math.random() * 2}s`,
-                opacity: 0.2 + Math.random() * 0.5,
+                left: `${glitter.left}%`,
+                top: `${glitter.top}%`,
+                animationDelay: `${glitter.delay}s`,
+                animationDuration: `${glitter.duration}s`,
+                opacity: glitter.opacity,
                 boxShadow: '0 0 1px rgba(191, 219, 254, 0.6)',
-                transform: `scale(${0.3 + Math.random() * 0.4})`
+                transform: `scale(${glitter.scale})`
               }}
             />
           ))}
@@ -89,18 +148,18 @@ export const ThemeBackground: React.FC<ThemeBackgroundProps> = ({ theme, classNa
       {/* Matrix Rain Effect */}
       {theme.effects.customEffects?.includes('matrix-rain') && (
         <div className="absolute inset-0">
-          {[...Array(20)].map((_, i) => (
+          {matrixElements.map((elem) => (
             <div
-              key={`matrix-${i}`}
+              key={elem.key}
               className="absolute text-green-400 text-xs font-mono opacity-30 animate-pulse"
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${2 + Math.random() * 2}s`
+                left: `${elem.left}%`,
+                top: `${elem.top}%`,
+                animationDelay: `${elem.delay}s`,
+                animationDuration: `${elem.duration}s`
               }}
             >
-              {Math.random().toString(36).substring(2, 8)}
+              {elem.text}
             </div>
           ))}
         </div>
@@ -109,19 +168,19 @@ export const ThemeBackground: React.FC<ThemeBackgroundProps> = ({ theme, classNa
       {/* Neon Glow Effect */}
       {theme.effects.customEffects?.includes('neon-glow') && (
         <div className="absolute inset-0">
-          {[...Array(15)].map((_, i) => (
+          {neonGlows.map((glow) => (
             <div
-              key={`neon-${i}`}
+              key={glow.key}
               className="absolute rounded-full animate-pulse"
               style={{
-                width: `${10 + Math.random() * 20}px`,
-                height: `${10 + Math.random() * 20}px`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
+                width: `${glow.width}px`,
+                height: `${glow.height}px`,
+                left: `${glow.left}%`,
+                top: `${glow.top}%`,
                 background: `radial-gradient(circle, ${theme.colors.primary}40, transparent)`,
                 boxShadow: `0 0 20px ${theme.colors.primary}60`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${3 + Math.random() * 2}s`
+                animationDelay: `${glow.delay}s`,
+                animationDuration: `${glow.duration}s`
               }}
             />
           ))}
@@ -131,17 +190,17 @@ export const ThemeBackground: React.FC<ThemeBackgroundProps> = ({ theme, classNa
       {/* Water Bubbles Effect */}
       {theme.effects.customEffects?.includes('water-bubbles') && (
         <div className="absolute inset-0">
-          {[...Array(25)].map((_, i) => (
+          {bubbles.map((bubble) => (
             <div
-              key={`bubble-${i}`}
+              key={bubble.key}
               className="absolute rounded-full bg-blue-400 opacity-20 animate-pulse"
               style={{
-                width: `${5 + Math.random() * 15}px`,
-                height: `${5 + Math.random() * 15}px`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 4}s`,
-                animationDuration: `${4 + Math.random() * 3}s`,
+                width: `${bubble.width}px`,
+                height: `${bubble.height}px`,
+                left: `${bubble.left}%`,
+                top: `${bubble.top}%`,
+                animationDelay: `${bubble.delay}s`,
+                animationDuration: `${bubble.duration}s`,
                 filter: 'blur(1px)'
               }}
             />
@@ -223,3 +282,7 @@ export const ThemeBackground: React.FC<ThemeBackgroundProps> = ({ theme, classNa
     </div>
   );
 };
+
+export const ThemeBackground = React.memo(ThemeBackgroundComponent, (prevProps, nextProps) => {
+  return prevProps.theme.name === nextProps.theme.name && prevProps.className === nextProps.className;
+});

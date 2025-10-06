@@ -21,7 +21,7 @@ interface ChatMessageProps {
   regeneratingMessageId?: string | null;
 }
 
-export const ChatMessage: React.FC<ChatMessageProps> = ({ 
+const ChatMessageComponent: React.FC<ChatMessageProps> = ({ 
   message, 
   theme = 'light',
   aiAvatar = "/duneicon.webp",
@@ -162,3 +162,12 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
     </div>
   );
 };
+
+export const ChatMessage = React.memo(ChatMessageComponent, (prevProps, nextProps) => {
+  return (
+    prevProps.message.id === nextProps.message.id &&
+    prevProps.message.content === nextProps.message.content &&
+    prevProps.copiedMessageId === nextProps.copiedMessageId &&
+    prevProps.regeneratingMessageId === nextProps.regeneratingMessageId
+  );
+});
