@@ -78,7 +78,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
       ref={messageRef}
       className={`flex ${isOmnius ? 'justify-start' : 'justify-end'} mb-4 sm:mb-6`}
     >
-      <div className={`flex items-start space-x-2 sm:space-x-3 max-w-[85%] sm:max-w-[80%] ${isOmnius ? 'flex-row' : 'flex-row-reverse space-x-reverse'}`}>
+      <div className={`flex items-start space-x-3 sm:space-x-4 md:space-x-4 max-w-[85%] sm:max-w-[80%] ${isOmnius ? 'flex-row' : 'flex-row-reverse space-x-reverse'}`}>
         
         {/* Avatar */}
         <div className="flex-shrink-0">

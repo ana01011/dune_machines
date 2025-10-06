@@ -113,5 +113,29 @@ export const aiService = {
         resolve(generateResponse(aiId, message, type));
       }, 1500 + Math.random() * 1000);
     });
+  },
+
+  streamMessage: async (
+    message: string,
+    aiId: string,
+    onToken: (token: string) => void,
+    type: 'text' | 'code' | 'voice' = 'text'
+  ): Promise<AIResponse> => {
+    return new Promise((resolve) => {
+      const response = generateResponse(aiId, message, type);
+      const words = response.content.split(' ');
+      let currentIndex = 0;
+
+      const streamInterval = setInterval(() => {
+        if (currentIndex < words.length) {
+          const token = currentIndex === 0 ? words[currentIndex] : ' ' + words[currentIndex];
+          onToken(token);
+          currentIndex++;
+        } else {
+          clearInterval(streamInterval);
+          resolve(response);
+        }
+      }, 50 + Math.random() * 50);
+    });
   }
 };

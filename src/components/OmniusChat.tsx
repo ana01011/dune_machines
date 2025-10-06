@@ -201,10 +201,10 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
     };
 
     // Update current chat with new message
-    setChatHistory(prev => prev.map(chat => 
-      chat.id === currentChatId 
-        ? { 
-            ...chat, 
+    setChatHistory(prev => prev.map(chat =>
+      chat.id === currentChatId
+        ? {
+            ...chat,
             messages: [...chat.messages, newMessage],
             lastMessage: content,
             timestamp: new Date(),
@@ -212,28 +212,65 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
           }
         : chat
     ));
-    
+
     setIsTyping(true);
     setIsThinking(true);
 
-    // Use AI service for response
-    aiService.sendMessage(content, selectedVersion.toLowerCase(), type)
+    const aiMessageId = (Date.now() + 1).toString();
+    let streamedContent = '';
+
+    const aiResponse: Message = {
+      id: aiMessageId,
+      content: '',
+      sender: 'omnius',
+      timestamp: new Date(),
+      type: type === 'voice' ? 'voice' : 'text',
+      mood: 'curious'
+    };
+
+    setChatHistory(prev => prev.map(chat =>
+      chat.id === currentChatId
+        ? {
+            ...chat,
+            messages: [...chat.messages, aiResponse]
+          }
+        : chat
+    ));
+
+    setIsThinking(false);
+    setIsTyping(true);
+
+    aiService.streamMessage(
+      content,
+      selectedVersion.toLowerCase(),
+      (token: string) => {
+        streamedContent += token;
+        setChatHistory(prev => prev.map(chat =>
+          chat.id === currentChatId
+            ? {
+                ...chat,
+                messages: chat.messages.map(msg =>
+                  msg.id === aiMessageId
+                    ? { ...msg, content: streamedContent }
+                    : msg
+                )
+              }
+            : chat
+        ));
+      },
+      type
+    )
       .then((response: AIResponse) => {
-        const aiResponse: Message = {
-          id: (Date.now() + 1).toString(),
-          content: response.content,
-          sender: 'omnius',
-          timestamp: new Date(),
-          type: response.type,
-          mood: response.mood
-        };
-        
-        setChatHistory(prev => prev.map(chat => 
-          chat.id === currentChatId 
-            ? { 
-                ...chat, 
-                messages: [...chat.messages, aiResponse],
-                lastMessage: aiResponse.content,
+        setChatHistory(prev => prev.map(chat =>
+          chat.id === currentChatId
+            ? {
+                ...chat,
+                messages: chat.messages.map(msg =>
+                  msg.id === aiMessageId
+                    ? { ...msg, mood: response.mood }
+                    : msg
+                ),
+                lastMessage: streamedContent,
                 timestamp: new Date()
               }
             : chat

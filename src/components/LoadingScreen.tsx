@@ -63,12 +63,12 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ selectedAI, onComp
         backgroundColor: '#000000'
       }}
     >
-      {/* Animated Logo - No Effects */}
-      <div ref={animationRef} className="flex justify-center">
-        <div className="w-96 h-96 sm:w-[36rem] sm:h-[36rem] md:w-[40rem] md:h-[40rem] relative">
-          <img 
-            src="/dune animation.gif" 
-            alt="DUNE MACHINES Animation" 
+      {/* Animated Logo - Centered */}
+      <div ref={animationRef} className="flex items-center justify-center w-full h-full">
+        <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 flex items-center justify-center">
+          <img
+            src="/dune animation copy.gif"
+            alt="OMNIUS Animation"
             className="w-full h-full object-contain animate-opacity-flicker"
           />
         </div>
