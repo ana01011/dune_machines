@@ -228,27 +228,27 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
 
   const renderLoginForm = () => (
     <div ref={formRef} className="w-full max-w-md mx-auto">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl md:text-5xl font-light text-white mb-4 tracking-wider">
+      <div className="text-center mb-3 md:mb-6">
+        <h1 className="text-2xl md:text-4xl font-light text-white mb-2 md:mb-3 tracking-wider">
           WELCOME BACK
         </h1>
-        <p className="text-white/60 text-sm md:text-base">
+        <p className="text-white/60 text-xs md:text-sm">
           Sign in to continue to {selectedAI.toUpperCase()}
         </p>
       </div>
 
-      <form onSubmit={handleLogin} className="space-y-6">
+      <form onSubmit={handleLogin} className="space-y-3 md:space-y-4">
         <div>
-          <label className="block text-white/80 text-sm mb-2 font-light tracking-wide">
+          <label className="block text-white/80 text-xs md:text-sm mb-1 md:mb-1.5 font-light tracking-wide">
             EMAIL ADDRESS
           </label>
           <div className="relative">
-            <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/40" />
+            <Mail className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 w-4 md:w-5 h-4 md:h-5 text-white/40" />
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-black/40 border border-white/10 rounded-xl px-12 py-4 text-white placeholder-white/30 focus:outline-none focus:border-blue-400/50 transition-all duration-300"
+              className="w-full bg-black/40 border border-white/10 rounded-xl px-10 md:px-12 py-2.5 md:py-3 text-sm md:text-base text-white placeholder-white/30 focus:outline-none focus:border-blue-400/50 transition-all duration-300"
               placeholder="your@email.com"
               disabled={loading}
             />
@@ -256,25 +256,25 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
         </div>
 
         <div>
-          <label className="block text-white/80 text-sm mb-2 font-light tracking-wide">
+          <label className="block text-white/80 text-xs md:text-sm mb-1 md:mb-1.5 font-light tracking-wide">
             PASSWORD
           </label>
           <div className="relative">
-            <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/40" />
+            <Lock className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 w-4 md:w-5 h-4 md:h-5 text-white/40" />
             <input
               type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-black/40 border border-white/10 rounded-xl px-12 py-4 text-white placeholder-white/30 focus:outline-none focus:border-blue-400/50 transition-all duration-300"
+              className="w-full bg-black/40 border border-white/10 rounded-xl px-10 md:px-12 py-2.5 md:py-3 text-sm md:text-base text-white placeholder-white/30 focus:outline-none focus:border-blue-400/50 transition-all duration-300"
               placeholder="Enter your password"
               disabled={loading}
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/40 hover:text-white/60 transition-colors"
+              className="absolute right-3 md:right-4 top-1/2 transform -translate-y-1/2 text-white/40 hover:text-white/60 transition-colors"
             >
-              {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              {showPassword ? <EyeOff className="w-4 md:w-5 h-4 md:h-5" /> : <Eye className="w-4 md:w-5 h-4 md:h-5" />}
             </button>
           </div>
         </div>
@@ -283,41 +283,41 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
           <button
             type="button"
             onClick={() => setView('forgot-password')}
-            className="text-blue-400 hover:text-blue-300 text-sm font-light transition-colors"
+            className="text-blue-400 hover:text-blue-300 text-xs md:text-sm font-light transition-colors"
           >
             Forgot password?
           </button>
         </div>
 
         {error && (
-          <div className="flex items-center space-x-2 p-4 bg-red-500/10 border border-red-500/30 rounded-xl">
-            <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
-            <p className="text-red-400 text-sm">{error}</p>
+          <div className="flex items-center space-x-2 p-2.5 md:p-3 bg-red-500/10 border border-red-500/30 rounded-xl">
+            <AlertCircle className="w-4 md:w-5 h-4 md:h-5 text-red-400 flex-shrink-0" />
+            <p className="text-red-400 text-xs md:text-sm">{error}</p>
           </div>
         )}
 
         {success && (
-          <div className="flex items-center space-x-2 p-4 bg-green-500/10 border border-green-500/30 rounded-xl">
-            <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
-            <p className="text-green-400 text-sm">{success}</p>
+          <div className="flex items-center space-x-2 p-2.5 md:p-3 bg-green-500/10 border border-green-500/30 rounded-xl">
+            <CheckCircle className="w-4 md:w-5 h-4 md:h-5 text-green-400 flex-shrink-0" />
+            <p className="text-green-400 text-xs md:text-sm">{success}</p>
           </div>
         )}
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white py-4 rounded-xl font-medium tracking-wide transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed group"
+          className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white py-2.5 md:py-3 rounded-xl text-sm md:text-base font-medium tracking-wide transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed group"
         >
           <span>{loading ? 'SIGNING IN...' : 'SIGN IN'}</span>
-          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          <ArrowRight className="w-4 md:w-5 h-4 md:h-5 group-hover:translate-x-1 transition-transform" />
         </button>
 
-        <div className="relative my-8">
+        <div className="relative my-3 md:my-5">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-white/10"></div>
           </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-4 bg-black/40 text-white/60">OR CONTINUE WITH</span>
+          <div className="relative flex justify-center text-xs md:text-sm">
+            <span className="px-3 md:px-4 bg-black/40 text-white/60">OR CONTINUE WITH</span>
           </div>
         </div>
 
@@ -325,13 +325,13 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
           type="button"
           onClick={handleGoogleAuth}
           disabled={loading}
-          className="w-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white py-4 rounded-xl font-medium tracking-wide transition-all duration-300 flex items-center justify-center space-x-3 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white py-2.5 md:py-3 rounded-xl text-sm md:text-base font-medium tracking-wide transition-all duration-300 flex items-center justify-center space-x-2 md:space-x-3 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <Chrome className="w-5 h-5" />
+          <Chrome className="w-4 md:w-5 h-4 md:h-5" />
           <span>Google</span>
         </button>
 
-        <p className="text-center text-white/60 text-sm">
+        <p className="text-center text-white/60 text-xs md:text-sm">
           Don't have an account?{' '}
           <button
             type="button"
@@ -347,27 +347,27 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
 
   const renderSignupForm = () => (
     <div ref={formRef} className="w-full max-w-md mx-auto">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl md:text-5xl font-light text-white mb-4 tracking-wider">
+      <div className="text-center mb-3 md:mb-6">
+        <h1 className="text-2xl md:text-4xl font-light text-white mb-2 md:mb-3 tracking-wider">
           CREATE ACCOUNT
         </h1>
-        <p className="text-white/60 text-sm md:text-base">
+        <p className="text-white/60 text-xs md:text-sm">
           Join {selectedAI.toUpperCase()} to get started
         </p>
       </div>
 
-      <form onSubmit={handleSignup} className="space-y-6">
+      <form onSubmit={handleSignup} className="space-y-2.5 md:space-y-4">
         <div>
-          <label className="block text-white/80 text-sm mb-2 font-light tracking-wide">
+          <label className="block text-white/80 text-xs md:text-sm mb-1 md:mb-1.5 font-light tracking-wide">
             FULL NAME
           </label>
           <div className="relative">
-            <User className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/40" />
+            <User className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 w-4 md:w-5 h-4 md:h-5 text-white/40" />
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full bg-black/40 border border-white/10 rounded-xl px-12 py-4 text-white placeholder-white/30 focus:outline-none focus:border-blue-400/50 transition-all duration-300"
+              className="w-full bg-black/40 border border-white/10 rounded-xl px-10 md:px-12 py-2.5 md:py-3 text-sm md:text-base text-white placeholder-white/30 focus:outline-none focus:border-blue-400/50 transition-all duration-300"
               placeholder="John Doe"
               disabled={loading}
             />
@@ -375,16 +375,16 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
         </div>
 
         <div>
-          <label className="block text-white/80 text-sm mb-2 font-light tracking-wide">
+          <label className="block text-white/80 text-xs md:text-sm mb-1 md:mb-1.5 font-light tracking-wide">
             EMAIL ADDRESS
           </label>
           <div className="relative">
-            <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/40" />
+            <Mail className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 w-4 md:w-5 h-4 md:h-5 text-white/40" />
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-black/40 border border-white/10 rounded-xl px-12 py-4 text-white placeholder-white/30 focus:outline-none focus:border-blue-400/50 transition-all duration-300"
+              className="w-full bg-black/40 border border-white/10 rounded-xl px-10 md:px-12 py-2.5 md:py-3 text-sm md:text-base text-white placeholder-white/30 focus:outline-none focus:border-blue-400/50 transition-all duration-300"
               placeholder="your@email.com"
               disabled={loading}
             />
@@ -392,82 +392,82 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
         </div>
 
         <div>
-          <label className="block text-white/80 text-sm mb-2 font-light tracking-wide">
+          <label className="block text-white/80 text-xs md:text-sm mb-1 md:mb-1.5 font-light tracking-wide">
             PASSWORD
           </label>
           <div className="relative">
-            <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/40" />
+            <Lock className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 w-4 md:w-5 h-4 md:h-5 text-white/40" />
             <input
               type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-black/40 border border-white/10 rounded-xl px-12 py-4 text-white placeholder-white/30 focus:outline-none focus:border-blue-400/50 transition-all duration-300"
+              className="w-full bg-black/40 border border-white/10 rounded-xl px-10 md:px-12 py-2.5 md:py-3 text-sm md:text-base text-white placeholder-white/30 focus:outline-none focus:border-blue-400/50 transition-all duration-300"
               placeholder="At least 8 characters"
               disabled={loading}
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/40 hover:text-white/60 transition-colors"
+              className="absolute right-3 md:right-4 top-1/2 transform -translate-y-1/2 text-white/40 hover:text-white/60 transition-colors"
             >
-              {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              {showPassword ? <EyeOff className="w-4 md:w-5 h-4 md:h-5" /> : <Eye className="w-4 md:w-5 h-4 md:h-5" />}
             </button>
           </div>
         </div>
 
         <div>
-          <label className="block text-white/80 text-sm mb-2 font-light tracking-wide">
+          <label className="block text-white/80 text-xs md:text-sm mb-1 md:mb-1.5 font-light tracking-wide">
             CONFIRM PASSWORD
           </label>
           <div className="relative">
-            <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/40" />
+            <Lock className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 w-4 md:w-5 h-4 md:h-5 text-white/40" />
             <input
               type={showConfirmPassword ? 'text' : 'password'}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full bg-black/40 border border-white/10 rounded-xl px-12 py-4 text-white placeholder-white/30 focus:outline-none focus:border-blue-400/50 transition-all duration-300"
+              className="w-full bg-black/40 border border-white/10 rounded-xl px-10 md:px-12 py-2.5 md:py-3 text-sm md:text-base text-white placeholder-white/30 focus:outline-none focus:border-blue-400/50 transition-all duration-300"
               placeholder="Confirm your password"
               disabled={loading}
             />
             <button
               type="button"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/40 hover:text-white/60 transition-colors"
+              className="absolute right-3 md:right-4 top-1/2 transform -translate-y-1/2 text-white/40 hover:text-white/60 transition-colors"
             >
-              {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              {showConfirmPassword ? <EyeOff className="w-4 md:w-5 h-4 md:h-5" /> : <Eye className="w-4 md:w-5 h-4 md:h-5" />}
             </button>
           </div>
         </div>
 
         {error && (
-          <div className="flex items-center space-x-2 p-4 bg-red-500/10 border border-red-500/30 rounded-xl">
-            <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
-            <p className="text-red-400 text-sm">{error}</p>
+          <div className="flex items-center space-x-2 p-2.5 md:p-3 bg-red-500/10 border border-red-500/30 rounded-xl">
+            <AlertCircle className="w-4 md:w-5 h-4 md:h-5 text-red-400 flex-shrink-0" />
+            <p className="text-red-400 text-xs md:text-sm">{error}</p>
           </div>
         )}
 
         {success && (
-          <div className="flex items-center space-x-2 p-4 bg-green-500/10 border border-green-500/30 rounded-xl">
-            <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
-            <p className="text-green-400 text-sm">{success}</p>
+          <div className="flex items-center space-x-2 p-2.5 md:p-3 bg-green-500/10 border border-green-500/30 rounded-xl">
+            <CheckCircle className="w-4 md:w-5 h-4 md:h-5 text-green-400 flex-shrink-0" />
+            <p className="text-green-400 text-xs md:text-sm">{success}</p>
           </div>
         )}
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white py-4 rounded-xl font-medium tracking-wide transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed group"
+          className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white py-2.5 md:py-3 rounded-xl text-sm md:text-base font-medium tracking-wide transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed group"
         >
           <span>{loading ? 'CREATING ACCOUNT...' : 'CREATE ACCOUNT'}</span>
-          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          <ArrowRight className="w-4 md:w-5 h-4 md:h-5 group-hover:translate-x-1 transition-transform" />
         </button>
 
-        <div className="relative my-8">
+        <div className="relative my-3 md:my-5">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-white/10"></div>
           </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-4 bg-black/40 text-white/60">OR CONTINUE WITH</span>
+          <div className="relative flex justify-center text-xs md:text-sm">
+            <span className="px-3 md:px-4 bg-black/40 text-white/60">OR CONTINUE WITH</span>
           </div>
         </div>
 
@@ -475,13 +475,13 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
           type="button"
           onClick={handleGoogleAuth}
           disabled={loading}
-          className="w-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white py-4 rounded-xl font-medium tracking-wide transition-all duration-300 flex items-center justify-center space-x-3 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white py-2.5 md:py-3 rounded-xl text-sm md:text-base font-medium tracking-wide transition-all duration-300 flex items-center justify-center space-x-2 md:space-x-3 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <Chrome className="w-5 h-5" />
+          <Chrome className="w-4 md:w-5 h-4 md:h-5" />
           <span>Google</span>
         </button>
 
-        <p className="text-center text-white/60 text-sm">
+        <p className="text-center text-white/60 text-xs md:text-sm">
           Already have an account?{' '}
           <button
             type="button"
@@ -529,16 +529,16 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
         </div>
 
         {error && (
-          <div className="flex items-center space-x-2 p-4 bg-red-500/10 border border-red-500/30 rounded-xl">
-            <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
-            <p className="text-red-400 text-sm">{error}</p>
+          <div className="flex items-center space-x-2 p-2.5 md:p-3 bg-red-500/10 border border-red-500/30 rounded-xl">
+            <AlertCircle className="w-4 md:w-5 h-4 md:h-5 text-red-400 flex-shrink-0" />
+            <p className="text-red-400 text-xs md:text-sm">{error}</p>
           </div>
         )}
 
         {success && (
-          <div className="flex items-center space-x-2 p-4 bg-green-500/10 border border-green-500/30 rounded-xl">
-            <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
-            <p className="text-green-400 text-sm">{success}</p>
+          <div className="flex items-center space-x-2 p-2.5 md:p-3 bg-green-500/10 border border-green-500/30 rounded-xl">
+            <CheckCircle className="w-4 md:w-5 h-4 md:h-5 text-green-400 flex-shrink-0" />
+            <p className="text-green-400 text-xs md:text-sm">{success}</p>
           </div>
         )}
 
@@ -551,7 +551,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
           <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
         </button>
 
-        <p className="text-center text-white/60 text-sm">
+        <p className="text-center text-white/60 text-xs md:text-sm">
           Didn't receive the code?{' '}
           <button
             type="button"
@@ -584,16 +584,16 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
 
       <form onSubmit={handleForgotPassword} className="space-y-6">
         <div>
-          <label className="block text-white/80 text-sm mb-2 font-light tracking-wide">
+          <label className="block text-white/80 text-xs md:text-sm mb-1 md:mb-1.5 font-light tracking-wide">
             EMAIL ADDRESS
           </label>
           <div className="relative">
-            <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/40" />
+            <Mail className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 w-4 md:w-5 h-4 md:h-5 text-white/40" />
             <input
               type="email"
               value={resetEmail}
               onChange={(e) => setResetEmail(e.target.value)}
-              className="w-full bg-black/40 border border-white/10 rounded-xl px-12 py-4 text-white placeholder-white/30 focus:outline-none focus:border-blue-400/50 transition-all duration-300"
+              className="w-full bg-black/40 border border-white/10 rounded-xl px-10 md:px-12 py-2.5 md:py-3 text-sm md:text-base text-white placeholder-white/30 focus:outline-none focus:border-blue-400/50 transition-all duration-300"
               placeholder="your@email.com"
               disabled={loading}
             />
@@ -601,16 +601,16 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
         </div>
 
         {error && (
-          <div className="flex items-center space-x-2 p-4 bg-red-500/10 border border-red-500/30 rounded-xl">
-            <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
-            <p className="text-red-400 text-sm">{error}</p>
+          <div className="flex items-center space-x-2 p-2.5 md:p-3 bg-red-500/10 border border-red-500/30 rounded-xl">
+            <AlertCircle className="w-4 md:w-5 h-4 md:h-5 text-red-400 flex-shrink-0" />
+            <p className="text-red-400 text-xs md:text-sm">{error}</p>
           </div>
         )}
 
         {success && (
-          <div className="flex items-center space-x-2 p-4 bg-green-500/10 border border-green-500/30 rounded-xl">
-            <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
-            <p className="text-green-400 text-sm">{success}</p>
+          <div className="flex items-center space-x-2 p-2.5 md:p-3 bg-green-500/10 border border-green-500/30 rounded-xl">
+            <CheckCircle className="w-4 md:w-5 h-4 md:h-5 text-green-400 flex-shrink-0" />
+            <p className="text-green-400 text-xs md:text-sm">{success}</p>
           </div>
         )}
 
@@ -623,7 +623,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
           <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
         </button>
 
-        <p className="text-center text-white/60 text-sm">
+        <p className="text-center text-white/60 text-xs md:text-sm">
           Remember your password?{' '}
           <button
             type="button"
@@ -718,7 +718,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
           </button>
         </div>
 
-        <div className="flex-1 flex items-center justify-center px-4 py-20">
+        <div className="flex-1 flex items-center justify-center px-4 py-12 md:py-20">
           {view === 'login' && renderLoginForm()}
           {view === 'signup' && renderSignupForm()}
           {view === 'otp' && renderOtpForm()}
