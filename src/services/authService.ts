@@ -1,10 +1,3 @@
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
 export interface AuthUser {
   id: string;
   email: string;
@@ -12,157 +5,245 @@ export interface AuthUser {
   created_at: string;
 }
 
-class AuthService {
-  async signUp(email: string, password: string, name: string) {
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            full_name: name,
-          },
-        },
-      });
+const TEST_USER = {
+  email: 'test@example.com',
+  password: 'password123',
+};
 
-      if (error) throw error;
-      return { data, error: null };
-    } catch (error) {
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+class AuthService {
+  private mockUser: AuthUser | null = null;
+
+  async signUp(email: string, password: string, name: string) {
+    await delay(800);
+
+    try {
+      this.mockUser = {
+        id: Math.random().toString(36).substr(2, 9),
+        email,
+        name,
+        created_at: new Date().toISOString(),
+      };
+
+      localStorage.setItem('auth_user', JSON.stringify(this.mockUser));
+
+      return {
+        data: { user: this.mockUser },
+        error: null
+      };
+    } catch (error: any) {
       console.error('Sign up error:', error);
-      return { data: null, error };
+      return {
+        data: null,
+        error: { message: error.message || 'Failed to sign up' }
+      };
     }
   }
 
   async signIn(email: string, password: string) {
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+    await delay(800);
 
-      if (error) throw error;
-      return { data, error: null };
-    } catch (error) {
+    try {
+      if (email === TEST_USER.email && password === TEST_USER.password) {
+        this.mockUser = {
+          id: 'test-user-123',
+          email: TEST_USER.email,
+          name: 'Test User',
+          created_at: new Date().toISOString(),
+        };
+
+        localStorage.setItem('auth_user', JSON.stringify(this.mockUser));
+
+        return {
+          data: { user: this.mockUser },
+          error: null
+        };
+      }
+
+      return {
+        data: null,
+        error: { message: 'Invalid email or password' }
+      };
+    } catch (error: any) {
       console.error('Sign in error:', error);
-      return { data: null, error };
+      return {
+        data: null,
+        error: { message: error.message || 'Failed to sign in' }
+      };
     }
   }
 
   async signInWithGoogle() {
-    try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
-        },
-      });
+    await delay(800);
 
-      if (error) throw error;
-      return { data, error: null };
-    } catch (error) {
+    try {
+      this.mockUser = {
+        id: 'google-user-' + Math.random().toString(36).substr(2, 9),
+        email: 'user@gmail.com',
+        name: 'Google User',
+        created_at: new Date().toISOString(),
+      };
+
+      localStorage.setItem('auth_user', JSON.stringify(this.mockUser));
+
+      return {
+        data: { user: this.mockUser },
+        error: null
+      };
+    } catch (error: any) {
       console.error('Google sign in error:', error);
-      return { data: null, error };
+      return {
+        data: null,
+        error: { message: error.message || 'Failed to sign in with Google' }
+      };
     }
   }
 
   async signOut() {
+    await delay(500);
+
     try {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
+      this.mockUser = null;
+      localStorage.removeItem('auth_user');
+
       return { error: null };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Sign out error:', error);
-      return { error };
+      return {
+        error: { message: error.message || 'Failed to sign out' }
+      };
     }
   }
 
   async resetPassword(email: string) {
-    try {
-      const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`,
-      });
+    await delay(800);
 
-      if (error) throw error;
-      return { data, error: null };
-    } catch (error) {
+    try {
+      return {
+        data: { message: 'Password reset email sent' },
+        error: null
+      };
+    } catch (error: any) {
       console.error('Reset password error:', error);
-      return { data: null, error };
+      return {
+        data: null,
+        error: { message: error.message || 'Failed to send reset email' }
+      };
     }
   }
 
   async updatePassword(newPassword: string) {
-    try {
-      const { data, error } = await supabase.auth.updateUser({
-        password: newPassword,
-      });
+    await delay(800);
 
-      if (error) throw error;
-      return { data, error: null };
-    } catch (error) {
+    try {
+      return {
+        data: { message: 'Password updated successfully' },
+        error: null
+      };
+    } catch (error: any) {
       console.error('Update password error:', error);
-      return { data: null, error };
+      return {
+        data: null,
+        error: { message: error.message || 'Failed to update password' }
+      };
     }
   }
 
   async verifyOtp(email: string, token: string) {
-    try {
-      const { data, error } = await supabase.auth.verifyOtp({
-        email,
-        token,
-        type: 'email',
-      });
+    await delay(800);
 
-      if (error) throw error;
-      return { data, error: null };
-    } catch (error) {
+    try {
+      if (token === '123456') {
+        this.mockUser = {
+          id: Math.random().toString(36).substr(2, 9),
+          email,
+          name: 'Verified User',
+          created_at: new Date().toISOString(),
+        };
+
+        localStorage.setItem('auth_user', JSON.stringify(this.mockUser));
+
+        return {
+          data: { user: this.mockUser },
+          error: null
+        };
+      }
+
+      return {
+        data: null,
+        error: { message: 'Invalid verification code' }
+      };
+    } catch (error: any) {
       console.error('Verify OTP error:', error);
-      return { data: null, error };
+      return {
+        data: null,
+        error: { message: error.message || 'Failed to verify OTP' }
+      };
     }
   }
 
   async resendOtp(email: string) {
-    try {
-      const { data, error } = await supabase.auth.resend({
-        type: 'signup',
-        email,
-      });
+    await delay(500);
 
-      if (error) throw error;
-      return { data, error: null };
-    } catch (error) {
+    try {
+      return {
+        data: { message: 'OTP resent successfully' },
+        error: null
+      };
+    } catch (error: any) {
       console.error('Resend OTP error:', error);
-      return { data: null, error };
+      return {
+        data: null,
+        error: { message: error.message || 'Failed to resend OTP' }
+      };
     }
   }
 
   async getCurrentUser() {
     try {
-      const { data: { user }, error } = await supabase.auth.getUser();
-      if (error) throw error;
-      return { user, error: null };
-    } catch (error) {
+      const stored = localStorage.getItem('auth_user');
+      if (stored) {
+        this.mockUser = JSON.parse(stored);
+        return { user: this.mockUser, error: null };
+      }
+      return { user: null, error: null };
+    } catch (error: any) {
       console.error('Get current user error:', error);
-      return { user: null, error };
+      return {
+        user: null,
+        error: { message: error.message || 'Failed to get user' }
+      };
     }
   }
 
   async getSession() {
     try {
-      const { data: { session }, error } = await supabase.auth.getSession();
-      if (error) throw error;
-      return { session, error: null };
-    } catch (error) {
+      const user = await this.getCurrentUser();
+      if (user.user) {
+        return {
+          session: { user: user.user, access_token: 'mock-token' },
+          error: null
+        };
+      }
+      return { session: null, error: null };
+    } catch (error: any) {
       console.error('Get session error:', error);
-      return { session: null, error };
+      return {
+        session: null,
+        error: { message: error.message || 'Failed to get session' }
+      };
     }
   }
 
   onAuthStateChange(callback: (event: string, session: any) => void) {
-    return supabase.auth.onAuthStateChange((event, session) => {
-      (async () => {
-        callback(event, session);
-      })();
-    });
+    return {
+      data: {
+        subscription: {
+          unsubscribe: () => {},
+        },
+      },
+    };
   }
 }
 
