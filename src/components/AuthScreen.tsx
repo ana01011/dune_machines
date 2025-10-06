@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
-import { Mail, Lock, Eye, EyeOff, ArrowRight, ArrowLeft, CheckCircle, AlertCircle, User, Chrome } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowRight, ArrowLeft, CircleCheck as CheckCircle, CircleAlert as AlertCircle, User, Chromium as Chrome } from 'lucide-react';
 import { authService } from '../services/authService';
 
 interface AuthScreenProps {
