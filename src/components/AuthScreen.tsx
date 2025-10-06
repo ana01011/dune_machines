@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
-import { Mail, Lock, Eye, EyeOff, ArrowRight, ArrowLeft, CircleCheck as CheckCircle, CircleAlert as AlertCircle, User, Chromium as Chrome } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowRight, ArrowLeft, CheckCircle, AlertCircle, User, Chrome } from 'lucide-react';
 import { ThemeBackground } from './ThemeBackground';
 import { getTheme } from '../themes/chatThemes';
 import { authService } from '../services/authService';
@@ -151,9 +151,9 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
     }
 
     setLoading(false);
-    setSuccess('Account created! Check your email for verification.');
+    setSuccess('Account created successfully!');
     setTimeout(() => {
-      setView('otp');
+      onAuthComplete();
     }, 1500);
   };
 
@@ -221,6 +221,12 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
       setError(authError.message || 'Failed to sign in with Google.');
       return;
     }
+
+    setLoading(false);
+    setSuccess('Signed in with Google!');
+    setTimeout(() => {
+      onAuthComplete();
+    }, 1000);
   };
 
   const renderLoginForm = () => (
