@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Header } from './components/Header';
 import { WelcomeScreen } from './components/WelcomeScreen';
+import { AuthScreen } from './components/AuthScreen';
 import { AIModelSelection } from './components/AIModelSelection';
 import { WorkflowSelection } from './components/WorkflowSelection';
 import { OrganizationChart } from './components/OrganizationChart';
@@ -18,10 +19,12 @@ import { FAQSection } from './components/FAQSection';
 
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
+  const [showAuth, setShowAuth] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const [loadingAI, setLoadingAI] = useState<string | null>(null);
   const [showWorkflowSelection, setShowWorkflowSelection] = useState(false);
   const [selectedAI, setSelectedAI] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentSection, setCurrentSection] = useState('workflow');
   const [selectedWorkflow, setSelectedWorkflow] = useState<string | null>(null);
   const [navigationHistory, setNavigationHistory] = useState<string[]>([]);
@@ -33,11 +36,16 @@ function App() {
 
   // Handle back navigation
   const handleBack = () => {
-    if (selectedAI) {
+    if (showAuth) {
+      setShowAuth(false);
+      setShowWelcome(true);
+      setLoadingAI(null);
+    } else if (selectedAI) {
       // If in AI chat, go back to welcome
       setSelectedAI(null);
       setShowWelcome(true);
       setCurrentSection('workflow');
+      setIsAuthenticated(false);
     } else if (selectedWorkflow) {
       // If in a specific workflow, go back to workflow selection
       setSelectedWorkflow(null);
@@ -119,15 +127,28 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
+  // Show Auth Screen
+  if (showAuth && loadingAI) {
+    return <AuthScreen
+      selectedAI={loadingAI}
+      onAuthComplete={() => {
+        setShowAuth(false);
+        setIsAuthenticated(true);
+        setShowLoading(true);
+      }}
+      onBack={handleBack}
+    />;
+  }
+
   // Show Loading Screen
   if (showLoading && loadingAI) {
-    return <LoadingScreen 
-      selectedAI={loadingAI} 
+    return <LoadingScreen
+      selectedAI={loadingAI}
       onComplete={() => {
         setShowLoading(false);
         setSelectedAI(loadingAI);
         setLoadingAI(null);
-      }} 
+      }}
     />;
   }
   // Show AI Chat Interface
@@ -184,7 +205,7 @@ function App() {
     return <WelcomeScreen onComplete={(aiId?: string) => {
       if (aiId) {
         setLoadingAI(aiId);
-        setShowLoading(true);
+        setShowAuth(true);
         setShowWelcome(false);
       } else {
         setShowWelcome(false);
