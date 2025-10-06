@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { gsap } from 'gsap';
-import { Mail, Lock, Eye, EyeOff, ArrowRight, ArrowLeft, CircleCheck as CheckCircle, CircleAlert as AlertCircle, User, Chromium as Chrome } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowRight, ArrowLeft, CheckCircle, AlertCircle, User, Chrome } from 'lucide-react';
 import { authService } from '../services/authService';
 
 interface AuthScreenProps {
@@ -24,10 +24,33 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [resetEmail, setResetEmail] = useState('');
+  const [otpSource, setOtpSource] = useState<'signup' | 'forgot-password'>('signup');
 
   const containerRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const stars = useMemo(() => {
+    return [...Array(50)].map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      animationDelay: `${Math.random() * 5}s`,
+      animationDuration: `${8 + Math.random() * 3}s`,
+      opacity: 0.2 + Math.random() * 0.7,
+      scale: 0.5 + Math.random() * 0.5
+    }));
+  }, []);
+
+  const glitters = useMemo(() => {
+    return [...Array(30)].map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      animationDelay: `${Math.random() * 6}s`,
+      animationDuration: `${1 + Math.random() * 2}s`,
+      opacity: 0.2 + Math.random() * 0.5,
+      scale: 0.3 + Math.random() * 0.4
+    }));
+  }, []);
 
 
   useEffect(() => {
@@ -148,9 +171,10 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
     }
 
     setLoading(false);
-    setSuccess('Account created successfully!');
+    setSuccess('Account created! Please verify your email with the OTP sent.');
+    setOtpSource('signup');
     setTimeout(() => {
-      onAuthComplete();
+      setView('otp');
     }, 1500);
   };
 
@@ -176,10 +200,18 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
     }
 
     setLoading(false);
-    setSuccess('Email verified successfully!');
-    setTimeout(() => {
-      onAuthComplete();
-    }, 1000);
+
+    if (otpSource === 'signup') {
+      setSuccess('Email verified successfully!');
+      setTimeout(() => {
+        onAuthComplete();
+      }, 1000);
+    } else {
+      setSuccess('OTP verified! Please set a new password.');
+      setTimeout(() => {
+        setView('reset-password');
+      }, 1000);
+    }
   };
 
   const handleForgotPassword = async (e: React.FormEvent) => {
@@ -198,15 +230,17 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
 
     if (authError) {
       setLoading(false);
-      setError(authError.message || 'Failed to send reset link. Please try again.');
+      setError(authError.message || 'Failed to send OTP. Please try again.');
       return;
     }
 
+    setEmail(resetEmail);
     setLoading(false);
-    setSuccess('Password reset link sent to your email!');
+    setSuccess('OTP sent to your email!');
+    setOtpSource('forgot-password');
     setTimeout(() => {
-      setView('login');
-    }, 2000);
+      setView('otp');
+    }, 1500);
   };
 
   const handleGoogleAuth = async () => {
@@ -497,21 +531,21 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
 
   const renderOtpForm = () => (
     <div ref={formRef} className="w-full max-w-md mx-auto">
-      <div className="text-center mb-8">
-        <div className="w-20 h-20 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-          <Mail className="w-10 h-10 text-blue-400" />
+      <div className="text-center mb-6 md:mb-8">
+        <div className="w-16 h-16 md:w-20 md:h-20 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+          <Mail className="w-8 h-8 md:w-10 md:h-10 text-blue-400" />
         </div>
-        <h1 className="text-4xl md:text-5xl font-light text-white mb-4 tracking-wider">
-          VERIFY EMAIL
+        <h1 className="text-2xl md:text-4xl font-light text-white mb-3 md:mb-4 tracking-wider">
+          {otpSource === 'signup' ? 'VERIFY EMAIL' : 'VERIFY OTP'}
         </h1>
-        <p className="text-white/60 text-sm md:text-base">
+        <p className="text-white/60 text-xs md:text-sm px-4">
           We've sent a 6-digit code to<br />
           <span className="text-white">{email}</span>
         </p>
       </div>
 
-      <form onSubmit={handleOtpVerify} className="space-y-6">
-        <div className="flex justify-center space-x-3">
+      <form onSubmit={handleOtpVerify} className="space-y-4 md:space-y-6">
+        <div className="flex justify-center space-x-2 md:space-x-3">
           {otp.map((digit, index) => (
             <input
               key={index}
@@ -522,7 +556,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
               value={digit}
               onChange={(e) => handleOtpChange(index, e.target.value)}
               onKeyDown={(e) => handleOtpKeyDown(index, e)}
-              className="w-14 h-14 bg-black/40 border border-white/10 rounded-xl text-center text-2xl text-white focus:outline-none focus:border-blue-400/50 transition-all duration-300"
+              className="w-12 h-12 md:w-14 md:h-14 bg-black/40 border border-white/10 rounded-xl text-center text-xl md:text-2xl text-white focus:outline-none focus:border-blue-400/50 transition-all duration-300"
               disabled={loading}
             />
           ))}
@@ -545,44 +579,50 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white py-4 rounded-xl font-medium tracking-wide transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed group"
+          className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white py-2.5 md:py-3 rounded-xl text-sm md:text-base font-medium tracking-wide transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed group"
         >
           <span>{loading ? 'VERIFYING...' : 'VERIFY CODE'}</span>
-          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          <ArrowRight className="w-4 md:w-5 h-4 md:h-5 group-hover:translate-x-1 transition-transform" />
         </button>
 
-        <p className="text-center text-white/60 text-xs md:text-sm">
-          Didn't receive the code?{' '}
+        <div className="flex items-center justify-between">
+          <button
+            type="button"
+            onClick={() => setView(otpSource === 'signup' ? 'signup' : 'forgot-password')}
+            className="text-blue-400 hover:text-blue-300 text-xs md:text-sm font-medium transition-colors"
+          >
+            Back
+          </button>
           <button
             type="button"
             onClick={() => {
               setSuccess('New code sent!');
               setTimeout(() => setSuccess(''), 3000);
             }}
-            className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
+            className="text-blue-400 hover:text-blue-300 text-xs md:text-sm font-medium transition-colors"
           >
             Resend
           </button>
-        </p>
+        </div>
       </form>
     </div>
   );
 
   const renderForgotPasswordForm = () => (
     <div ref={formRef} className="w-full max-w-md mx-auto">
-      <div className="text-center mb-8">
-        <div className="w-20 h-20 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-          <Lock className="w-10 h-10 text-blue-400" />
+      <div className="text-center mb-6 md:mb-8">
+        <div className="w-16 h-16 md:w-20 md:h-20 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+          <Lock className="w-8 h-8 md:w-10 md:h-10 text-blue-400" />
         </div>
-        <h1 className="text-4xl md:text-5xl font-light text-white mb-4 tracking-wider">
+        <h1 className="text-2xl md:text-4xl font-light text-white mb-3 md:mb-4 tracking-wider">
           FORGOT PASSWORD
         </h1>
-        <p className="text-white/60 text-sm md:text-base">
-          Enter your email to receive a password reset link
+        <p className="text-white/60 text-xs md:text-sm px-4">
+          Enter your email to receive an OTP
         </p>
       </div>
 
-      <form onSubmit={handleForgotPassword} className="space-y-6">
+      <form onSubmit={handleForgotPassword} className="space-y-4 md:space-y-6">
         <div>
           <label className="block text-white/80 text-xs md:text-sm mb-1 md:mb-1.5 font-light tracking-wide">
             EMAIL ADDRESS
@@ -617,10 +657,10 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white py-4 rounded-xl font-medium tracking-wide transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed group"
+          className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white py-2.5 md:py-3 rounded-xl text-sm md:text-base font-medium tracking-wide transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed group"
         >
-          <span>{loading ? 'SENDING...' : 'SEND RESET LINK'}</span>
-          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          <span>{loading ? 'SENDING...' : 'SEND OTP'}</span>
+          <ArrowRight className="w-4 md:w-5 h-4 md:h-5 group-hover:translate-x-1 transition-transform" />
         </button>
 
         <p className="text-center text-white/60 text-xs md:text-sm">
@@ -669,38 +709,38 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
 
         {/* Ultra-small glittering stars */}
         <div className="absolute inset-0">
-          {[...Array(50)].map((_, i) => (
+          {stars.map((star, i) => (
             <div
               key={`particle-${i}`}
               className="absolute bg-white rounded-full animate-pulse twinkle-star"
               style={{
                 width: '0.1px',
                 height: '0.1px',
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${8 + Math.random() * 3}s`,
-                opacity: 0.2 + Math.random() * 0.7,
+                left: star.left,
+                top: star.top,
+                animationDelay: star.animationDelay,
+                animationDuration: star.animationDuration,
+                opacity: star.opacity,
                 boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
-                transform: `scale(${0.5 + Math.random() * 0.5})`
+                transform: `scale(${star.scale})`
               }}
             />
           ))}
           {/* Additional tiny glitter layer */}
-          {[...Array(30)].map((_, i) => (
+          {glitters.map((glitter, i) => (
             <div
               key={`glitter-${i}`}
               className="absolute bg-blue-200 rounded-full animate-pulse twinkle-star-blue"
               style={{
                 width: '0.5px',
                 height: '0.5px',
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 6}s`,
-                animationDuration: `${1 + Math.random() * 2}s`,
-                opacity: 0.2 + Math.random() * 0.5,
+                left: glitter.left,
+                top: glitter.top,
+                animationDelay: glitter.animationDelay,
+                animationDuration: glitter.animationDuration,
+                opacity: glitter.opacity,
                 boxShadow: '0 0 1px rgba(191, 219, 254, 0.6)',
-                transform: `scale(${0.3 + Math.random() * 0.4})`
+                transform: `scale(${glitter.scale})`
               }}
             />
           ))}
