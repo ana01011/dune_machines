@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { gsap } from 'gsap';
 import { Send, Mic, Paperclip, Settings, Crown, ArrowLeft, ChevronDown, Trash2, CreditCard as Edit2, Plus, MessageSquare, Menu, X, Copy, Check, Sun, Moon, Palette, Users, RotateCcw, User } from 'lucide-react';
@@ -74,6 +74,28 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const aiModels = aiService.getAllAIModels();
+
+  const stars = useMemo(() => {
+    return [...Array(50)].map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      animationDelay: `${Math.random() * 5}s`,
+      animationDuration: `${8 + Math.random() * 3}s`,
+      opacity: 0.2 + Math.random() * 0.7,
+      scale: 0.5 + Math.random() * 0.5
+    }));
+  }, []);
+
+  const glitters = useMemo(() => {
+    return [...Array(30)].map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      animationDelay: `${Math.random() * 6}s`,
+      animationDuration: `${1 + Math.random() * 2}s`,
+      opacity: 0.2 + Math.random() * 0.5,
+      scale: 0.3 + Math.random() * 0.4
+    }));
+  }, []);
 
   // Auto scroll to latest message
   useEffect(() => {
@@ -364,45 +386,41 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
 
               {/* Ultra-small glittering stars */}
               <div className="absolute inset-0">
-                {[...Array(50)].map((_, i) => {
-                  return (
+                {stars.map((star, i) => (
                   <div
                     key={`particle-${i}`}
                     className="absolute bg-white rounded-full animate-pulse twinkle-star"
                     style={{
                       width: '0.1px',
                       height: '0.1px',
-                      left: `${Math.random() * 100}%`,
-                      top: `${Math.random() * 100}%`,
-                      animationDelay: `${Math.random() * 5}s`,
-                      animationDuration: `${8 + Math.random() * 3}s`,
-                      opacity: 0.2 + Math.random() * 0.7,
+                      left: star.left,
+                      top: star.top,
+                      animationDelay: star.animationDelay,
+                      animationDuration: star.animationDuration,
+                      opacity: star.opacity,
                       boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
-                      transform: `scale(${0.5 + Math.random() * 0.5})`
+                      transform: `scale(${star.scale})`
                     }}
                   />
-                  );
-                })}
+                ))}
                 {/* Additional tiny glitter layer */}
-                {[...Array(30)].map((_, i) => {
-                  return (
+                {glitters.map((glitter, i) => (
                   <div
                     key={`glitter-${i}`}
                     className="absolute bg-blue-200 rounded-full animate-pulse twinkle-star-blue"
                     style={{
                       width: '0.5px',
                       height: '0.5px',
-                      left: `${Math.random() * 100}%`,
-                      top: `${Math.random() * 100}%`,
-                      animationDelay: `${Math.random() * 6}s`,
-                      animationDuration: `${1 + Math.random() * 2}s`,
-                      opacity: 0.2 + Math.random() * 0.5,
+                      left: glitter.left,
+                      top: glitter.top,
+                      animationDelay: glitter.animationDelay,
+                      animationDuration: glitter.animationDuration,
+                      opacity: glitter.opacity,
                       boxShadow: '0 0 1px rgba(191, 219, 254, 0.6)',
-                      transform: `scale(${0.3 + Math.random() * 0.4})`
+                      transform: `scale(${glitter.scale})`
                     }}
                   />
-                  );
-                })}
+                ))}
               </div>
             </div>
           </div>
