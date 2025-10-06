@@ -9,7 +9,6 @@ import { MedicalChart } from './components/MedicalChart';
 import { OmniusChat } from './components/OmniusChat';
 import { LoadingScreen } from './components/LoadingScreen';
 import { Documentation } from './components/Documentation';
-import { ErasmusChat } from './components/ErasmusChat';
 import { SarahChat } from './components/SarahChat';
 import { MentatChat } from './components/MentatChat';
 import { NavigatorChat } from './components/NavigatorChat';
@@ -135,15 +134,6 @@ function App() {
   if (selectedAI) {
     if (selectedAI === 'omnius') {
       return <OmniusChat 
-        onBack={handleBack} 
-        onNavigateToWorkflows={() => {
-          setSelectedAI(null);
-          setShowWorkflowSelection(true);
-          setShowWelcome(false);
-        }} 
-      />;
-    } else if (selectedAI === 'erasmus') {
-      return <ErasmusChat 
         onBack={handleBack} 
         onNavigateToWorkflows={() => {
           setSelectedAI(null);
