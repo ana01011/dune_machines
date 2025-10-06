@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
-import { Mail, Lock, Eye, EyeOff, ArrowRight, ArrowLeft, CircleCheck as CheckCircle, CircleAlert as AlertCircle, User, Chromium as Chrome } from 'lucide-react';
-import { ThemeBackground } from './ThemeBackground';
-import { getTheme } from '../themes/chatThemes';
+import { Mail, Lock, Eye, EyeOff, ArrowRight, ArrowLeft, CheckCircle, AlertCircle, User, Chrome } from 'lucide-react';
 import { authService } from '../services/authService';
 
 interface AuthScreenProps {
@@ -31,7 +29,6 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
   const formRef = useRef<HTMLDivElement>(null);
   const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-  const theme = getTheme('dark');
 
   useEffect(() => {
     if (containerRef.current) {
@@ -641,8 +638,74 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
   );
 
   return (
-    <div ref={containerRef} className="min-h-screen relative overflow-hidden">
-      <ThemeBackground theme={theme} />
+    <div
+      ref={containerRef}
+      className="min-h-screen relative overflow-hidden"
+      style={{
+        background: 'linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(1,4,9,0.95) 10%, rgba(2,6,23,0.9) 20%, rgba(10,15,28,0.85) 35%, rgba(15,23,42,0.8) 50%, rgba(2,6,23,0.9) 65%, rgba(1,4,9,0.95) 80%, rgba(0,0,0,1) 100%)'
+      }}
+    >
+      {/* Enhanced Animated Background */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Blurred Exoplanet/Blackhole at top */}
+        <div className="absolute -top-64 left-1/2 transform -translate-x-1/2">
+          <div
+            className="w-96 h-96 sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] rounded-full opacity-20 animate-planet-rotate-smooth"
+            style={{
+              background: 'radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.8) 0%, rgba(29, 78, 216, 0.6) 25%, rgba(30, 64, 175, 0.4) 50%, rgba(15, 23, 42, 0.2) 75%, transparent 100%)',
+              filter: 'blur(40px)',
+              boxShadow: '0 0 200px rgba(59, 130, 246, 0.3), inset 0 0 100px rgba(29, 78, 216, 0.2)'
+            }}
+          />
+          {/* Planet atmosphere glow */}
+          <div
+            className="absolute inset-0 w-96 h-96 sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] rounded-full opacity-10 animate-planet-rotate-reverse-smooth"
+            style={{
+              background: 'radial-gradient(circle at 70% 70%, rgba(6, 182, 212, 0.6) 0%, rgba(59, 130, 246, 0.4) 40%, transparent 70%)',
+              filter: 'blur(60px)'
+            }}
+          />
+        </div>
+
+        {/* Ultra-small glittering stars */}
+        <div className="absolute inset-0">
+          {[...Array(50)].map((_, i) => (
+            <div
+              key={`particle-${i}`}
+              className="absolute bg-white rounded-full animate-pulse twinkle-star"
+              style={{
+                width: '0.1px',
+                height: '0.1px',
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${8 + Math.random() * 3}s`,
+                opacity: 0.2 + Math.random() * 0.7,
+                boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
+                transform: `scale(${0.5 + Math.random() * 0.5})`
+              }}
+            />
+          ))}
+          {/* Additional tiny glitter layer */}
+          {[...Array(30)].map((_, i) => (
+            <div
+              key={`glitter-${i}`}
+              className="absolute bg-blue-200 rounded-full animate-pulse twinkle-star-blue"
+              style={{
+                width: '0.5px',
+                height: '0.5px',
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 6}s`,
+                animationDuration: `${1 + Math.random() * 2}s`,
+                opacity: 0.2 + Math.random() * 0.5,
+                boxShadow: '0 0 1px rgba(191, 219, 254, 0.6)',
+                transform: `scale(${0.3 + Math.random() * 0.4})`
+              }}
+            />
+          ))}
+        </div>
+      </div>
 
       <div className="relative z-10 min-h-screen flex flex-col">
         <div className="absolute top-8 left-8">
@@ -662,6 +725,66 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ selectedAI, onAuthComple
           {view === 'forgot-password' && renderForgotPasswordForm()}
         </div>
       </div>
+
+      {/* Custom Styles */}
+      <style jsx>{`
+        @keyframes planetRotate {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        @keyframes planetRotateReverse {
+          from { transform: rotate(360deg); }
+          to { transform: rotate(0deg); }
+        }
+
+        .animate-planet-rotate-smooth {
+          animation: planetRotate 120s linear infinite;
+        }
+
+        .animate-planet-rotate-reverse-smooth {
+          animation: planetRotateReverse 80s linear infinite;
+        }
+
+        @keyframes twinkle {
+          0%, 100% {
+            opacity: 0.2;
+            transform: scale(0.5);
+            filter: brightness(0.8);
+          }
+          50% {
+            opacity: 1;
+            transform: scale(1.2);
+            filter: brightness(1.5);
+          }
+        }
+
+        @keyframes twinkleBlue {
+          0%, 100% {
+            opacity: 0.2;
+            transform: scale(0.3);
+            filter: brightness(0.7) hue-rotate(0deg);
+          }
+          33% {
+            opacity: 0.8;
+            transform: scale(1);
+            filter: brightness(1.4) hue-rotate(10deg);
+          }
+          66% {
+            opacity: 0.5;
+            transform: scale(0.6);
+            filter: brightness(1.1) hue-rotate(-5deg);
+          }
+        }
+
+        .twinkle-star {
+          animation: twinkle 3s ease-in-out infinite;
+        }
+
+        .twinkle-star-blue {
+          animation: twinkleBlue 2s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
 };
