@@ -10,6 +10,7 @@ import { ThemeBackground } from './ThemeBackground';
 import { aiService, AIResponse } from '../services/aiService';
 import { predefinedMoods, Mood } from './MoodIndicator';
 import { TokenDisplay } from './TokenDisplay';
+import { TokenDisplayMobile } from './TokenDisplayMobile';
 import { StreamingMoodBox } from './StreamingMoodBox';
 
 interface Message {
@@ -787,28 +788,28 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
           <div className="flex-1 flex flex-col">
           
             {/* Header */}
-            <div 
+            <div
               ref={headerRef}
-              className="flex items-center justify-between px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-4 border-b border-white/5 backdrop-blur-xl" 
+              className="flex items-center justify-between px-1.5 py-2 sm:px-4 sm:py-3 md:px-6 md:py-4 border-b border-white/5 backdrop-blur-xl overflow-x-hidden" 
               style={{
                 background: currentTheme === 'light' 
                   ? 'linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(1,4,9,0.85) 15%, rgba(2,6,23,0.85) 30%, rgba(10,15,28,0.85) 45%, rgba(15,23,42,0.85) 60%, rgba(2,6,23,0.85) 75%, rgba(1,4,9,0.85) 85%, rgba(0,0,0,0.85) 100%)'
                   : 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(1,4,9,0.95) 15%, rgba(2,6,23,0.95) 30%, rgba(10,15,28,0.95) 45%, rgba(15,23,42,0.95) 60%, rgba(2,6,23,0.95) 75%, rgba(1,4,9,0.95) 85%, rgba(0,0,0,0.95) 100%)'
               }}
             >
-              <div className="flex items-center space-x-1 sm:space-x-3 md:space-x-4">
+              <div className="flex items-center space-x-0.5 sm:space-x-3 md:space-x-4 min-w-0 flex-shrink">
                 {/* Sidebar Toggle - Always Visible on Mobile */}
                 <button
                   onClick={() => setSidebarOpen(!sidebarOpen)}
-                  className="p-1.5 sm:p-2.5 md:p-3 rounded-md sm:rounded-lg text-white/70 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
+                  className="p-1 sm:p-2.5 md:p-3 rounded-md sm:rounded-lg text-white/70 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
                 >
                   <Menu className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                 </button>
-                
+
                 {/* Back Button - Smaller on Mobile */}
                 <button
                   onClick={onBack}
-                  className="p-1.5 sm:p-2.5 md:p-3 rounded-md sm:rounded-lg text-white/70 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
+                  className="p-1 sm:p-2.5 md:p-3 rounded-md sm:rounded-lg text-white/70 hover:text-white/90 hover:bg-white/10 transition-all duration-300"
                 >
                   <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                 </button>
@@ -833,11 +834,21 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
               </div>
 
               <div className="flex items-center space-x-0.5 sm:space-x-2 md:space-x-3">
-                <TokenDisplay
-                  tokensRemaining={tokensRemaining}
-                  dailyLimit={dailyLimit}
-                  showDetails={true}
-                />
+                {/* Token Display - Mobile vs Desktop */}
+                <div className="md:hidden">
+                  <TokenDisplayMobile
+                    tokensRemaining={tokensRemaining}
+                    dailyLimit={dailyLimit}
+                  />
+                </div>
+                <div className="hidden md:block">
+                  <TokenDisplay
+                    tokensRemaining={tokensRemaining}
+                    dailyLimit={dailyLimit}
+                    showDetails={true}
+                  />
+                </div>
+
                 {/* Theme Selector - Compact on Mobile */}
                 <div className="relative">
                   <button

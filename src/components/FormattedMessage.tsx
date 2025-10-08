@@ -92,7 +92,7 @@ export const FormattedMessage: React.FC<FormattedMessageProps> = ({
   const parts = parseContent(content);
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       {parts.map((part, index) => {
         if (part.type === 'text') {
           return (
@@ -122,7 +122,7 @@ export const FormattedMessage: React.FC<FormattedMessageProps> = ({
           return (
             <div
               key={index}
-              className="relative rounded-xl overflow-hidden my-3"
+              className="relative rounded-xl overflow-hidden my-2"
               style={{
                 background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%)',
                 border: '1px solid rgba(59, 130, 246, 0.3)',
@@ -180,7 +180,7 @@ export const FormattedMessage: React.FC<FormattedMessageProps> = ({
           return (
             <div
               key={index}
-              className="relative rounded-xl overflow-hidden my-3 p-6 text-center"
+              className="relative rounded-xl overflow-hidden my-2 p-6 text-center"
               style={{
                 background: 'linear-gradient(135deg, rgba(88, 28, 135, 0.3) 0%, rgba(109, 40, 217, 0.2) 100%)',
                 border: '1px solid rgba(168, 85, 247, 0.3)',

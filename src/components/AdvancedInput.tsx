@@ -98,22 +98,22 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
             </div>
 
             {/* Action Buttons */}
-            <div className="flex items-center space-x-1 sm:space-x-2">
-              
+            <div className="flex items-center space-x-1">
+
               {/* Attachment Button */}
-              <button 
+              <button
                 onClick={() => console.log('Attachment clicked')}
-                className="p-2 sm:p-3 rounded-lg sm:rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-all duration-300"
+                className="p-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-all duration-300"
               >
                 <Paperclip className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
 
               {/* Voice Button */}
-              <button 
+              <button
                 onClick={() => setIsRecording(!isRecording)}
-                className={`p-2 sm:p-3 rounded-lg sm:rounded-xl transition-all duration-300 ${
-                  isRecording 
-                    ? 'bg-red-500/20 text-red-400 border border-red-400/30 animate-pulse' 
+                className={`p-2 rounded-lg transition-all duration-300 ${
+                  isRecording
+                    ? 'bg-red-500/20 text-red-400 border border-red-400/30 animate-pulse'
                     : 'text-white/70 hover:text-white hover:bg-white/10'
                 }`}
               >
@@ -124,7 +124,7 @@ export const AdvancedInput: React.FC<AdvancedInputProps> = ({ onSendMessage }) =
               <button
                 onClick={handleSend}
                 disabled={!message.trim()}
-                className={`p-2 sm:p-3 rounded-lg sm:rounded-xl transition-all duration-300 ${
+                className={`p-2 rounded-lg transition-all duration-300 ${
                   message.trim()
                     ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:shadow-lg hover:shadow-blue-500/25 hover:scale-105'
                     : 'bg-white/10 text-white/50 cursor-not-allowed'
