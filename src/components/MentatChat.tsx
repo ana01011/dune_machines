@@ -83,6 +83,17 @@ export const MentatChat: React.FC<MentatChatProps> = ({ onBack, onNavigateToWork
       scale: 0.3 + Math.random() * 0.4
     }));
   }, []);
+
+  const darkStars = useMemo(() => {
+    return [...Array(40)].map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      animationDelay: `${Math.random() * 8}s`,
+      animationDuration: `${6 + Math.random() * 4}s`,
+      opacity: 0.2 + Math.random() * 0.5,
+      scale: 0.2 + Math.random() * 0.2
+    }));
+  }, []);
   const headerRef = useRef<HTMLDivElement>(null);
   const chatRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLDivElement>(null);
@@ -388,20 +399,20 @@ export const MentatChat: React.FC<MentatChatProps> = ({ onBack, onNavigateToWork
           {/* Minimal stars for deep space */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             {/* Minimal twinkling stars for deep space */}
-            {[...Array(40)].map((_, i) => (
+            {darkStars.map((star, i) => (
               <div
                 key={`dark-particle-${i}`}
                 className="absolute bg-white rounded-full animate-pulse twinkle-star"
                 style={{
                   width: '0.3px',
                   height: '0.3px',
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 8}s`,
-                  animationDuration: `${6 + Math.random() * 4}s`,
-                  opacity: 0.2 + Math.random() * 0.5,
+                  left: star.left,
+                  top: star.top,
+                  animationDelay: star.animationDelay,
+                  animationDuration: star.animationDuration,
+                  opacity: star.opacity,
                   boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
-                  transform: `scale(${0.2 + Math.random() * 0.2})`
+                  transform: `scale(${star.scale})`
                 }}
               />
             ))}

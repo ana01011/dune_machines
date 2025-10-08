@@ -8,6 +8,8 @@ import { AdvancedInput } from './AdvancedInput';
 import { getTheme, getAvailableThemes } from '../themes/chatThemes';
 import { ThemeBackground } from './ThemeBackground';
 import { aiService, AIResponse } from '../services/aiService';
+import { MoodIndicator, predefinedMoods, Mood } from './MoodIndicator';
+import { TokenDisplay } from './TokenDisplay';
 
 interface Message {
   id: string;
@@ -62,6 +64,10 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
   const rafIdRef = useRef<number | null>(null);
   const pendingUpdateRef = useRef(false);
 
+  const [currentMood, setCurrentMood] = useState<Mood>(predefinedMoods.curious);
+  const [tokensRemaining, setTokensRemaining] = useState(8734);
+  const dailyLimit = 10000;
+
   const getCurrentChat = () => chatHistory.find(chat => chat.id === currentChatId);
   const messages = getCurrentChat()?.messages || [];
 
@@ -94,6 +100,17 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
       animationDuration: `${1 + Math.random() * 2}s`,
       opacity: 0.2 + Math.random() * 0.5,
       scale: 0.3 + Math.random() * 0.4
+    }));
+  }, []);
+
+  const darkStars = useMemo(() => {
+    return [...Array(40)].map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      animationDelay: `${Math.random() * 8}s`,
+      animationDuration: `${6 + Math.random() * 4}s`,
+      opacity: 0.2 + Math.random() * 0.5,
+      scale: 0.2 + Math.random() * 0.2
     }));
   }, []);
 
@@ -260,6 +277,9 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
     setIsThinking(true);
     setIsTyping(false);
 
+    const moods = Object.values(predefinedMoods);
+    setCurrentMood(moods[Math.floor(Math.random() * moods.length)]);
+
     setTimeout(() => {
       setIsThinking(false);
       setIsStreaming(true);
@@ -272,6 +292,7 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
         (token: string) => {
           streamingContentRef.current += token;
           scheduleStreamUpdate();
+          setTokensRemaining(prev => Math.max(0, prev - 1));
         },
         type
       )
@@ -440,25 +461,23 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
           {/* Minimal stars for deep space */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             {/* Minimal twinkling stars for deep space */}
-            {[...Array(40)].map((_, i) => {
-              return (
+            {darkStars.map((star, i) => (
               <div
                 key={`dark-particle-${i}`}
                 className="absolute bg-white rounded-full animate-pulse twinkle-star"
                 style={{
                   width: '0.3px',
                   height: '0.3px',
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 8}s`,
-                  animationDuration: `${6 + Math.random() * 4}s`,
-                  opacity: 0.2 + Math.random() * 0.5,
+                  left: star.left,
+                  top: star.top,
+                  animationDelay: star.animationDelay,
+                  animationDuration: star.animationDuration,
+                  opacity: star.opacity,
                   boxShadow: '0 0 2px rgba(255, 255, 255, 0.8)',
-                  transform: `scale(${0.2 + Math.random() * 0.2})`
+                  transform: `scale(${star.scale})`
                 }}
               />
-              );
-            })}
+            ))}
           </div>
         </>
       )}
@@ -810,9 +829,22 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                     </p>
                   </div>
                 </div>
+
+                <div className="hidden lg:block w-px h-8 bg-white/10 mx-2" />
+
+                <div className="hidden lg:block">
+                  <MoodIndicator mood={currentMood} />
+                </div>
               </div>
 
               <div className="flex items-center space-x-0.5 sm:space-x-2 md:space-x-3">
+                <div className="hidden sm:block">
+                  <TokenDisplay
+                    tokensRemaining={tokensRemaining}
+                    dailyLimit={dailyLimit}
+                    showDetails={false}
+                  />
+                </div>
                 {/* Theme Selector - Compact on Mobile */}
                 <div className="relative">
                   <button

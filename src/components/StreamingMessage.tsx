@@ -1,5 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
+import { FormattedMessage } from './FormattedMessage';
 
 interface StreamingMessageProps {
   content: string;
@@ -19,6 +20,13 @@ export const StreamingMessage: React.FC<StreamingMessageProps> = React.memo(({
   const messageRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
   const cursorRef = useRef<HTMLSpanElement>(null);
+  const [copiedCode, setCopiedCode] = useState<string | null>(null);
+
+  const handleCodeCopy = (code: string) => {
+    navigator.clipboard.writeText(code);
+    setCopiedCode(code);
+    setTimeout(() => setCopiedCode(null), 2000);
+  };
 
   useEffect(() => {
     if (messageRef.current && !hasAnimated.current) {
@@ -72,15 +80,11 @@ export const StreamingMessage: React.FC<StreamingMessageProps> = React.memo(({
         <div className="relative mr-2 sm:mr-4">
           <div className="space-y-2">
             <div className="text-sm sm:text-base font-light leading-relaxed text-white px-1">
-              {chunks.length > 0 ? (
-                <>
-                  {chunks.map((chunk, i) => (
-                    <span key={i}>{chunk}</span>
-                  ))}
-                </>
-              ) : (
-                <span>{content}</span>
-              )}
+              <FormattedMessage
+                content={displayContent}
+                onCopy={handleCodeCopy}
+                copiedText={copiedCode}
+              />
               {!isComplete && showCursor && (
                 <span
                   ref={cursorRef}

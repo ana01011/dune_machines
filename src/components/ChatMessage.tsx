@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { Crown, User, Brain, Sparkles, Target, Eye, Copy, RotateCcw, Check } from 'lucide-react';
+import { FormattedMessage } from './FormattedMessage';
 
 interface Message {
   id: string;
@@ -21,8 +22,8 @@ interface ChatMessageProps {
   regeneratingMessageId?: string | null;
 }
 
-const ChatMessageComponent: React.FC<ChatMessageProps> = ({ 
-  message, 
+const ChatMessageComponent: React.FC<ChatMessageProps> = ({
+  message,
   theme = 'light',
   aiAvatar = "/duneicon.webp",
   onCopy,
@@ -31,6 +32,13 @@ const ChatMessageComponent: React.FC<ChatMessageProps> = ({
   regeneratingMessageId
 }) => {
   const messageRef = useRef<HTMLDivElement>(null);
+  const [copiedCode, setCopiedCode] = useState<string | null>(null);
+
+  const handleCodeCopy = (code: string) => {
+    navigator.clipboard.writeText(code);
+    setCopiedCode(code);
+    setTimeout(() => setCopiedCode(null), 2000);
+  };
 
   useEffect(() => {
     if (messageRef.current) {
@@ -102,7 +110,11 @@ const ChatMessageComponent: React.FC<ChatMessageProps> = ({
             <div className="space-y-2">
               {/* Message Text */}
               <div className="text-sm sm:text-base font-light leading-relaxed text-white px-1">
-                {message.content}
+                <FormattedMessage
+                  content={message.content}
+                  onCopy={handleCodeCopy}
+                  copiedText={copiedCode}
+                />
               </div>
 
               {/* Timestamp and Actions */}
