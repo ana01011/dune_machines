@@ -51,6 +51,24 @@ const aiModels: AIModel[] = [
 ];
 
 const generateResponse = (aiId: string, message: string, type: 'text' | 'code' | 'voice'): AIResponse => {
+  const lowerMessage = message.toLowerCase();
+
+  if (lowerMessage.includes('code') || lowerMessage.includes('function') || lowerMessage.includes('example')) {
+    return {
+      content: `Here's an example implementation:\n\n\`\`\`javascript\nfunction greet(name) {\n  const greeting = \`Hello, \${name}!\`;\n  console.log(greeting);\n  return greeting;\n}\n\ngreet('World');\n\`\`\`\n\nThis function demonstrates basic string interpolation and console output. You can also use inline code like \`const x = 42;\` in your text.`,
+      mood: 'analytical' as const,
+      timestamp: new Date()
+    };
+  }
+
+  if (lowerMessage.includes('math') || lowerMessage.includes('formula') || lowerMessage.includes('equation')) {
+    return {
+      content: `The famous equation is $E = mc^2$ which relates energy to mass. For more complex mathematics, we can write block equations:\n\n$$\\int_0^\\infty e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}$$\n\nThis is the Gaussian integral, fundamental in probability theory.`,
+      mood: 'analytical' as const,
+      timestamp: new Date()
+    };
+  }
+
   const responses: Record<string, string[]> = {
     omnius: [
       'I perceive all timelines and possibilities. Your query reveals interesting patterns in the multiverse...',

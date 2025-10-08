@@ -8,8 +8,9 @@ import { AdvancedInput } from './AdvancedInput';
 import { getTheme, getAvailableThemes } from '../themes/chatThemes';
 import { ThemeBackground } from './ThemeBackground';
 import { aiService, AIResponse } from '../services/aiService';
-import { MoodIndicator, predefinedMoods, Mood } from './MoodIndicator';
+import { predefinedMoods, Mood } from './MoodIndicator';
 import { TokenDisplay } from './TokenDisplay';
+import { StreamingMoodBox } from './StreamingMoodBox';
 
 interface Message {
   id: string;
@@ -829,22 +830,14 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                     </p>
                   </div>
                 </div>
-
-                <div className="hidden lg:block w-px h-8 bg-white/10 mx-2" />
-
-                <div className="hidden lg:block">
-                  <MoodIndicator mood={currentMood} />
-                </div>
               </div>
 
               <div className="flex items-center space-x-0.5 sm:space-x-2 md:space-x-3">
-                <div className="hidden sm:block">
-                  <TokenDisplay
-                    tokensRemaining={tokensRemaining}
-                    dailyLimit={dailyLimit}
-                    showDetails={false}
-                  />
-                </div>
+                <TokenDisplay
+                  tokensRemaining={tokensRemaining}
+                  dailyLimit={dailyLimit}
+                  showDetails={true}
+                />
                 {/* Theme Selector - Compact on Mobile */}
                 <div className="relative">
                   <button
@@ -925,28 +918,40 @@ export const OmniusChat: React.FC<OmniusChatProps> = ({ onBack, onNavigateToWork
                 regeneratingMessageId={regeneratingMessageId}
               />
 
-              {/* Thinking Indicator */}
-              {isThinking && (
-                <div className="flex items-start space-x-3 mb-6">
-                  <img
-                    src={aiService.getAIModel(selectedVersion.toLowerCase())?.avatar || "/duneicon.webp"}
-                    alt={selectedVersion}
-                    className="w-12 h-12 object-cover rounded-lg animate-opacity-fluctuate"
-                  />
-                  <div className="space-y-2">
-                    <div className="text-sm text-white/80 font-light animate-pulse">
-                      thinking...
+              {/* Thinking/Streaming Mood Box */}
+              {(isThinking || isStreaming) && (
+                <StreamingMoodBox
+                  mood={currentMood}
+                  message={isThinking ? 'Thinking...' : 'Generating response...'}
+                />
+              )}
+
+              {/* Streaming Message Content */}
+              {isStreaming && streamingContent && (
+                <div className="flex justify-start mb-4 sm:mb-6">
+                  <div className="flex items-start space-x-3 sm:space-x-4 max-w-[85%] sm:max-w-[80%]">
+                    <div className="flex-shrink-0">
+                      <img
+                        src={aiService.getAIModel(selectedVersion.toLowerCase())?.avatar || "/duneicon.webp"}
+                        alt={selectedVersion}
+                        className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain animate-opacity-fluctuate"
+                      />
+                    </div>
+                    <div className="relative mr-2 sm:mr-4">
+                      <div className="space-y-2">
+                        <div className="text-sm sm:text-base font-light leading-relaxed text-white px-1">
+                          {streamingContent}
+                          <span
+                            className="inline-block w-0.5 h-4 ml-0.5 bg-blue-400 align-middle animate-pulse"
+                            style={{ boxShadow: '0 0 4px rgba(96, 165, 250, 0.8)' }}
+                          >
+                            ▊
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              )}
-
-              {/* Streaming Message */}
-              {isStreaming && (
-                <StreamingMessage
-                  content={streamingContent}
-                  aiAvatar={aiService.getAIModel(selectedVersion.toLowerCase())?.avatar || "/duneicon.webp"}
-                />
               )}
               
               {/* Auto scroll target */}

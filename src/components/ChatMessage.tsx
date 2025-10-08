@@ -42,20 +42,11 @@ const ChatMessageComponent: React.FC<ChatMessageProps> = ({
 
   useEffect(() => {
     if (messageRef.current) {
-      gsap.fromTo(messageRef.current,
-        { 
-          opacity: 0, 
-          y: 30,
-          scale: 0.95
-        },
-        { 
-          opacity: 1, 
-          y: 0,
-          scale: 1,
-          duration: 0.6,
-          ease: "power2.out"
-        }
-      );
+      gsap.set(messageRef.current, {
+        opacity: 1,
+        y: 0,
+        scale: 1
+      });
     }
   }, []);
 

@@ -32,7 +32,7 @@ export const TokenDisplay: React.FC<TokenDisplayProps> = ({
   const statusGlow = getStatusGlow();
 
   return (
-    <div className={`flex items-center space-x-2 md:space-x-3 ${className}`}>
+    <div className={`flex items-center space-x-2 md:space-x-3 ${className}`} style={{ minWidth: showDetails ? '180px' : '120px' }}>
       <div className="relative flex items-center space-x-2 flex-1">
         <div className="flex-shrink-0">
           <div className="relative">
