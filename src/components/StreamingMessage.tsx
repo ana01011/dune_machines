@@ -3,15 +3,22 @@ import { gsap } from 'gsap';
 
 interface StreamingMessageProps {
   content: string;
+  chunks?: string[];
+  isComplete?: boolean;
   aiAvatar?: string;
+  showCursor?: boolean;
 }
 
 export const StreamingMessage: React.FC<StreamingMessageProps> = React.memo(({
   content,
-  aiAvatar = "/duneicon.webp"
+  chunks = [],
+  isComplete = false,
+  aiAvatar = "/duneicon.webp",
+  showCursor = true
 }) => {
   const messageRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
+  const cursorRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (messageRef.current && !hasAnimated.current) {
@@ -33,6 +40,20 @@ export const StreamingMessage: React.FC<StreamingMessageProps> = React.memo(({
     }
   }, []);
 
+  useEffect(() => {
+    if (cursorRef.current && !isComplete) {
+      gsap.to(cursorRef.current, {
+        opacity: 0,
+        duration: 0.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "power1.inOut"
+      });
+    }
+  }, [isComplete]);
+
+  const displayContent = chunks.length > 0 ? chunks.join('') : content;
+
   return (
     <div
       ref={messageRef}
@@ -43,7 +64,7 @@ export const StreamingMessage: React.FC<StreamingMessageProps> = React.memo(({
         <div className="flex-shrink-0">
           <img
             src={aiAvatar}
-            alt="OMNIUS"
+            alt="AI"
             className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain animate-opacity-fluctuate"
           />
         </div>
@@ -51,8 +72,26 @@ export const StreamingMessage: React.FC<StreamingMessageProps> = React.memo(({
         <div className="relative mr-2 sm:mr-4">
           <div className="space-y-2">
             <div className="text-sm sm:text-base font-light leading-relaxed text-white px-1">
-              {content}
-              <span className="inline-block w-2 h-4 ml-1 bg-blue-400 animate-pulse"></span>
+              {chunks.length > 0 ? (
+                <>
+                  {chunks.map((chunk, i) => (
+                    <span key={i}>{chunk}</span>
+                  ))}
+                </>
+              ) : (
+                <span>{content}</span>
+              )}
+              {!isComplete && showCursor && (
+                <span
+                  ref={cursorRef}
+                  className="inline-block w-0.5 h-4 ml-0.5 bg-blue-400 align-middle"
+                  style={{
+                    boxShadow: '0 0 4px rgba(96, 165, 250, 0.8)'
+                  }}
+                >
+                  ▊
+                </span>
+              )}
             </div>
           </div>
         </div>
